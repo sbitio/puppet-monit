@@ -8,8 +8,13 @@ class monit::config {
     content => template('monit/conf_file.pp'),
   }
   file { $monit::conf_dir:
-    ensure => directory,
-    purge  => $monit::conf_purge,
+    ensure  => directory,
+    recurse => true,
+    purge   => $monit::conf_purge,
+  }
+  file { "$monit::conf_dir/00_monit_config":
+    ensure  => present,
+    content => template('monit/conf_file_overrides.pp'),
   }
 }
 
