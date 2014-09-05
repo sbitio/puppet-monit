@@ -5,7 +5,7 @@ class monit::config {
 
   file { $monit::conf_file:
     ensure  => present,
-    content => template('monit/conf_file.pp'),
+    content => template('monit/conf_file.erb'),
   }
   file { $monit::conf_dir:
     ensure  => directory,
@@ -14,7 +14,7 @@ class monit::config {
   }
   file { "$monit::conf_dir/00_monit_config":
     ensure  => present,
-    content => template('monit/conf_file_overrides.pp'),
+    content => template('monit/conf_file_overrides.erb'),
   }
 }
 
