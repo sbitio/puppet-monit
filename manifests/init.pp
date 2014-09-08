@@ -28,6 +28,7 @@ class monit(
   $httpserver_ssl          = false,
   $httpserver_pemfile      = undef,
   $httpserver_allow        = [],
+  $checks                  = {},
 ) inherits monit::params {
   validate_absolute_path($conf_file)
   validate_absolute_path($conf_dir)
@@ -48,10 +49,13 @@ class monit(
     validate_absolute_path($httpserver_pemfile)
   }
   validate_array($httpserver_allow)
+  validate_hash($checks)
 
   class{'monit::install': } ->
   class{'monit::config': } ~>
   class{'monit::service': } ->
   Class["monit"]
+
+  create_resources('monit::check', $checks)
 }
 

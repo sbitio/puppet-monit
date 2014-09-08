@@ -1,0 +1,15 @@
+  GROUP <%= @group %>
+
+<% unless @alert.empty? -%>
+  ALERT <%= @alert %>
+<% end -%>
+
+<% @tests.each do |test| -%>
+  IF <%= test['condition'] %>
+  <%- if test.key? 'tolerance' -%>
+    FOR <%= test['tolerance'] %>
+  <%- end -%>
+  THEN <%= test['action'] %>
+
+<% end -%>
+
