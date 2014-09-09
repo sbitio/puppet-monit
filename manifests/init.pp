@@ -16,7 +16,7 @@ class monit(
   $eventqueue_slots        = 100,
   $mmonit_url              = undef,
   $mailserver              = undef,
-  $mailformat_from         = "monit@${::hostname}",
+  $mailformat_from         = "monit@${::fqdn}",
   # NOTE: reply-to available since monit 5.2
   $mailformat_replyto      = undef,
   $mailformat_subject      = undef,
