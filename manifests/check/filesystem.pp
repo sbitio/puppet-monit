@@ -1,5 +1,6 @@
 define monit::check::filesystem(
   $ensure,
+  $check_name,
   $group,
   $priority,
   $alert,
@@ -9,7 +10,7 @@ define monit::check::filesystem(
   validate_absolute_path($path)
 
   $filename = "${monit::conf_dir}/${priority}_${group}"
-  $content = template('monit/check_filesystem.erb')
+  $content = template('monit/check/filesystem.erb')
 
   monit::check::instance { "${name}_instance":
     ensure  => $ensure,

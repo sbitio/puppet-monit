@@ -13,11 +13,12 @@ define monit::check(
   $tests_real = monit_validate_tests($type, $tests)
 
   $defaults = {
-    'ensure'   => $ensure,
-    'priority' => $priority,
-    'group'    => $group,
-    'alert'    => $alert,
-    'tests'    => $tests_real,
+    'ensure'     => $ensure,
+    'priority'   => $priority,
+    'check_name' => $name,
+    'group'      => $group,
+    'alert'      => $alert,
+    'tests'      => $tests_real,
   }
   $params = merge($config, $defaults)
   ensure_resource("monit::check::${type}", "${type}_${name}", $params)
