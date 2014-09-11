@@ -1,18 +1,26 @@
 define monit::check::system(
-  $ensure,
-  $check_name,
-  $group,
-  $priority,
-  $alert,
-  $tests
+  # Common parameters.
+  $ensure     = present,
+  $check_name = $name,
+  $group      = $name,
+  $alerts     = [],
+  $tests      = [],
+  $priority   = '',
+  $bundle     = $name,
+  $order      = 0,
+
+  # Check type specific.
+  $template   = "monit/check/system.erb",
 ) {
 
-  $filename = "${monit::conf_dir}/${priority}_${group}"
-  $content = template('monit/check/system.erb')
-
   monit::check::instance { "${name}_instance":
-    ensure  => $ensure,
-    file    => $filename,
-    content => $content,
+    ensure   => $ensure,
+    type     => 'system',
+    priority => $priority,
+    bundle   => $bundle,
+    order    => $order,
+    template => $template,
+    tests    => $tests,
   }
 }
+

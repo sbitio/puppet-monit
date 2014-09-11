@@ -1,21 +1,28 @@
 define monit::check::filesystem(
-  $ensure,
-  $check_name,
-  $group,
-  $priority,
-  $alert,
-  $tests,
+  # Common parameters.
+  $ensure     = present,
+  $check_name = $name,
+  $group      = $name,
+  $alerts     = [],
+  $tests      = [],
+  $priority   = '',
+  $bundle     = $name,
+  $order      = 0,
+
+  # Check type specific.
+  $template   = "monit/check/filesystem.erb",
   $path
 ) {
   validate_absolute_path($path)
 
-  $filename = "${monit::conf_dir}/${priority}_${group}"
-  $content = template('monit/check/filesystem.erb')
-
   monit::check::instance { "${name}_instance":
-    ensure  => $ensure,
-    file    => $filename,
-    content => $content,
+    ensure   => $ensure,
+    type     => 'filesystem',
+    priority => $priority,
+    bundle   => $bundle,
+    order    => $order,
+    template => $template,
+    tests    => $tests,
   }
 }
 

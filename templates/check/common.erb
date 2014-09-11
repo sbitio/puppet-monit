@@ -4,7 +4,7 @@
   ALERT <%= @alert %>
 <% end -%>
 
-<% @tests.each do |test| -%>
+<% @tests_real.each do |test| -%>
   IF <%= test['condition'] %>
   <%- if test.key? 'tolerance' -%>
     FOR <%= test['tolerance'] %>

@@ -1,24 +1,30 @@
 define monit::check::instance(
   $ensure,
-  $file,
-  $content,
-  $order = 1,
+  $type,
+  $priority,
+  $bundle,
+  $order,
+  $template,
+  $tests,
 ) {
+
+  # TODO: Check empty
+  $priority_real = "${priority}_"
+  $file = "${monit::conf_dir}/${priority}${bundle}"
   if !defined(Concat[$file]) {
     concat{ $file:
-      ensure => $ensure,
-    }
-    concat::fragment { "${file}-header":
-      ensure  => $ensure,
-      target  => $file,
-      content => "#MANAGED BY PUPPET!\n\n",
-      order   => 0,
+      ensure         => $ensure,
+      warn           => "# MANAGED BY PUPPET!\n\n",
+      ensure_newline => true,
     }
   }
-  concat::fragment { "${file}-${name}":
+
+  #$tests_real = monit_parse_tests($type, $tests)
+  $tests_real = monit_validate_tests($type, $tests)
+  concat::fragment { "${file}_${name}":
     ensure  => $ensure,
     target  => $file,
-    content => $content,
+    content => template($template, 'monit/check/common.erb'),
     order   => $order,
   }
 }
