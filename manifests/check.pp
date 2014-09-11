@@ -7,8 +7,6 @@
 # type: type of check to perform. It supports the eight check types
 # supported by monit: directory, fifo, file, filesystem, host, process,
 # program, and system.
-# Additionally we provide `service` wrapper check. This wrapper compounds a
-# set of primitive checks to fully monitor a service.
 #
 # config: hash of parameters for `monit::check::${type}`. Empty parameters
 # will be given the default values.
