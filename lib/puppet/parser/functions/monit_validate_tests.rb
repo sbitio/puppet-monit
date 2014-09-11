@@ -94,7 +94,6 @@ module Puppet::Parser::Functions
           raise Puppet::ParseError, exception_prefix + "'value' is mandatory"
         end
         test['operator'] = test['operator'].upcase
-        Puppet.warning exception_prefix + " CONDITION: #{test['type']} #{test['operator']} #{test['value']}"
         test['condition'] = "#{test['type']} #{test['operator']} #{test['value']}"
 
       # FILESYSTEM FLAGS TESTING
