@@ -100,5 +100,17 @@ monit::checks :
       - type      : 'children'
         operator  : '>'
         value     : 150
+
+  httpd:
+    type: service
+    config:
+      pidfile : "/var/run/httpd/httpd.pid"
+      binary  : "/usr/sbin/httpd"
+      initd   : "/etc/init.d/httpd"
+    tests:
+      - type: connection
+        host: 127.0.0.1
+        port: 80
+        protocol: http
 ```
 
