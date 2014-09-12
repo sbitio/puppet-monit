@@ -6,6 +6,7 @@ define monit::check::host(
   $alerts     = [],
   $noalerts   = [],
   $tests      = [],
+  $depends    = [],
   $priority   = '',
   $bundle     = $name,
   $order      = 0,

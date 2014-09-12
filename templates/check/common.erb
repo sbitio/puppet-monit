@@ -1,5 +1,7 @@
   GROUP <%= @group %>
-
+<% unless @depends.empty? -%>
+  DEPENDS <%= @depends.join(', ') %>
+<% end -%>
 <% unless @alerts.empty? -%>
 <% @alerts.each do |alert| -%>
   ALERT <%= alert %>
