@@ -7,10 +7,11 @@ define monit::check::instance(
   $template,
   $tests,
 ) {
-
-  # TODO: Check empty
-  $priority_real = "${priority}_"
-  $file = "${monit::conf_dir}/${priority}${bundle}"
+  $priority_real = $priority ? {
+    undef   => '',
+    default => "${priority}_",
+  }
+  $file = "${monit::conf_dir}/${priority_real}${bundle}"
   if !defined(Concat[$file]) {
     concat{ $file:
       ensure         => $ensure,
