@@ -10,15 +10,24 @@ define monit::check::service(
   $priority      = '',
   $bundle        = $name,
   $order         = 0,
-  $template      = undef,
 
   # Check type specific.
-  $service       = $check_name,
-  $pidfile       = "/var/run/${service}",
-  $binary        = "/usr/sbin/${service}",
-  $initd         = "/etc/init.d/${service}",
-  $start_program = "${initd} start",
-  $stop_program  = "${initd} stop"
+  $template        = undef,
+  $service         = $check_name,
+  $pidfile,
+  $binary          = "/usr/sbin/${service}",
+  $initd           = "/etc/init.d/${service}",
+
+  # Params for process type.
+  $uid             = undef,
+  $gid             = undef,
+  $program_start   = "${initd} start",
+  $program_stop    = "${initd} stop",
+  $program_restart = "${initd} restart",
+  $timeout         = undef,
+  $timeout_start   = $timeout,
+  $timeout_stop    = $timeout,
+  $timeout_restart = $timeout,
 ) {
   validate_absolute_path($pidfile)
   validate_absolute_path($binary)
@@ -40,14 +49,21 @@ define monit::check::service(
   # Check service process.
   $depends_all = union($depends, [$check_name_initd, $check_name_binary])
   $params_process = {
-    'check_name'    => $check_name,
-    'depends'       => $depends_all,
-    'tests'         => $tests,
-    'pidfile'       => $pidfile,
-    'start_program' => $start_program,
-    'stop_program'  => $stop_program,
-    'bundle'        => $bundle,
-    'order'         => $order,
+    'check_name'      => $check_name,
+    'depends'         => $depends_all,
+    'tests'           => $tests,
+    'pidfile'         => $pidfile,
+    'uid'             => $uid,
+    'gid'             => $gid,
+    'program_start'   => $program_start,
+    'program_stop'    => $program_stop,
+    'program_restart' => $program_restart,
+    'bundle'          => $bundle,
+    'order'           => $order,
+    'timeout'         => $timeout,
+    'timeout_start'   => $timeout_start,
+    'timeout_stop'    => $timeout_stop,
+    'timeout_restart' => $timeout_restart,
   }
   ensure_resource("monit::check::process", "${check_name}_process", merge($defaults, $params_process))
 

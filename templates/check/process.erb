@@ -1,4 +1,34 @@
 CHECK PROCESS <%= @check_name %> WITH PIDFILE <%= @pidfile %>
-  START PROGRAM = "<%= @start_program %>"
-  STOP PROGRAM  = "<%= @stop_program %>"
+  START PROGRAM = "<%= @program_start %>"
+  <%- if @uid -%>
+    AS UID <%= @uid %>
+  <%- end -%>
+  <%- if @gid -%>
+    AS GID <%= @gid %>
+  <%- end -%>
+  <%- if @timeout_start -%>
+    WITH TIMEOUT <%= @timeout_start %> SECONDS
+  <%- end -%>
+  STOP PROGRAM = "<%= @program_stop %>"
+  <%- if @uid -%>
+    AS UID <%= @uid %>
+  <%- end -%>
+  <%- if @gid -%>
+    AS GID <%= @gid %>
+  <%- end -%>
+  <%- if @timeout_stop -%>
+    WITH TIMEOUT <%= @timeout_stop %> SECONDS
+  <%- end -%>
+<% if @program_restart -%>
+  RESTART PROGRAM = "<%= @program_restart %>"
+  <%- if @uid -%>
+    AS UID <%= @uid %>
+  <%- end -%>
+  <%- if @gid -%>
+    AS GID <%= @gid %>
+  <%- end -%>
+  <%- if @timeout_restart -%>
+    WITH TIMEOUT <%= @timeout_restart %> SECONDS
+  <%- end -%>
+<% end -%>
 

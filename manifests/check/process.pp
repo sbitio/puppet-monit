@@ -12,10 +12,17 @@ define monit::check::process(
   $order      = 0,
 
   # Check type specific.
-  $template   = "monit/check/process.erb",
+  $template        = "monit/check/process.erb",
   $pidfile,
-  $start_program,
-  $stop_program
+  $uid             = undef,
+  $gid             = undef,
+  $program_start,
+  $program_stop,
+  $program_restart = undef,
+  $timeout         = undef,
+  $timeout_start   = $timeout,
+  $timeout_stop    = $timeout,
+  $timeout_restart = $timeout,
 ) {
   validate_absolute_path($pidfile)
 
