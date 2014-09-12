@@ -4,6 +4,7 @@ define monit::check::service(
   $check_name    = $name,
   $group         = $name,
   $alerts        = [],
+  $noalerts      = [],
   $tests         = [],
   $priority      = '',
   $bundle        = $name,
@@ -27,6 +28,7 @@ define monit::check::service(
     'check_name' => $check_name,
     'group'      => $group,
     'alerts'     => $alerts,
+    'noalerts'   => $noalerts,
     'priority'   => $priority,
     'bundle'     => $bundle,
   }

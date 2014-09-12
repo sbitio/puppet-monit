@@ -2,6 +2,17 @@
 #
 # This class is the entrance point to install and configure monit service.
 #
+# === Parameters
+#
+# [*alerts*]
+#   Array of emails with optional event filters.
+#   e.g:
+#   - "foo@bar"
+#   - "foo@bar only on { timeout, nonexist }"
+#   - "foo@bar but not on { instance }"
+#
+#   Monit doc reference: http://mmonit.com/monit/documentation/monit.html#setting_an_alert_recipient
+#
 class monit(
   $conf_file               = $monit::params::conf_file,
   $conf_dir                = $monit::params::conf_dir,
@@ -21,7 +32,7 @@ class monit(
   $mailformat_replyto      = undef,
   $mailformat_subject      = undef,
   $mailformat_message      = undef,
-  $alert                   = [],
+  $alerts                  = [],
   $httpserver              = false,
   $httpserver_port         = 2812,
   $httpserver_bind_address = 'localhost',
@@ -42,7 +53,7 @@ class monit(
     validate_absolute_path($statefile)
   }
   validate_bool($eventqueue)
-  validate_array($alert)
+  validate_array($alerts)
   validate_bool($httpserver)
   validate_bool($httpserver_ssl)
   if $httpserver_ssl {

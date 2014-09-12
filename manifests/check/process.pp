@@ -4,6 +4,7 @@ define monit::check::process(
   $check_name = $name,
   $group      = $name,
   $alerts     = [],
+  $noalerts   = [],
   $tests      = [],
   $priority   = '',
   $bundle     = $name,

@@ -1,15 +1,20 @@
   GROUP <%= @group %>
 
-<% unless @alert.empty? -%>
-  ALERT <%= @alert %>
+<% unless @alerts.empty? -%>
+<% @alerts.each do |alert| -%>
+  ALERT <%= alert %>
 <% end -%>
-
+<% end %>
+<% unless @noalerts.empty? -%>
+<% @noalerts.each do |noalert| -%>
+  NOALERT <%= noalert %>
+<% end -%>
+<% end %>
 <% @tests_real.each do |test| -%>
   IF <%= test['condition'] %>
   <%- if test.key? 'tolerance' -%>
     FOR <%= test['tolerance'] %>
   <%- end -%>
   THEN <%= test['action'] %>
-
 <% end -%>
 

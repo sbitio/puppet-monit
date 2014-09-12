@@ -28,13 +28,12 @@ set mail-format {
     message: <%= @mailformat_message %>
 <% end -%>
 }
+<% if @alerts -%>
 
-<% if @alert -%>
-  <%- @alert.each do |item| -%>
-set alert <%= item %>
+  <%- @alerts.each do |alert| -%>
+set alert <%= alert %>
   <%- end -%>
-<% end -%>
-
+<% end %>
 <% if @httpserver -%>
 set httpd
     port <%= @httpserver_port %>

@@ -4,6 +4,7 @@ define monit::check::file(
   $check_name = $name,
   $group      = $name,
   $alerts     = [],
+  $noalerts   = [],
   $tests      = [],
   $priority   = '',
   $bundle     = $name,
