@@ -39,7 +39,22 @@ class monit(
   $httpserver_ssl          = false,
   $httpserver_pemfile      = undef,
   $httpserver_allow        = [],
+  # System resources check.
+  $system_check_ensure     = present,
+  $system_loadavg_1min     = 3 * $processorcount,
+  $system_loadavg_5min     = 1.5 * $processorcount,
+  $system_loadavg_15min    = 1.5 * $processorcount,
+  $system_cpu_user         = '75%',
+  $system_cpu_system       = '30%',
+  $system_cpu_wait         = '30%',
+  $system_memory           = '75%',
+  $system_swap             = '5%',
+  $system_fs               = ['/',],
+  $system_fs_space_usage   = '80%',
+  $system_fs_inode_usage   = '80%',
+  # Additional checks.
   $checks                  = {},
+
 ) inherits monit::params {
   validate_absolute_path($conf_file)
   validate_absolute_path($conf_dir)
@@ -60,13 +75,53 @@ class monit(
     validate_absolute_path($httpserver_pemfile)
   }
   validate_array($httpserver_allow)
-  validate_hash($checks)
 
   class{'monit::install': } ->
   class{'monit::config': } ~>
   class{'monit::service': } ->
   Class["monit"]
 
+  # System resources check.
+  $ensure_options = [ present, absent ]
+  if ! ($system_check_ensure in $ensure_options) {
+    fail("Invalid ensure parameter. Valid values: ${ensure_options}")
+  }
+  # Validate number?
+  #  $system_loadavg_1min,
+  #  $system_loadavg_5min,
+  #  $system_loadavg_15min,
+  validate_string(
+    $system_memory,
+    $system_swap,
+    $system_cpu_user,
+    $system_cpu_system,
+    $system_cpu_wait,
+    $system_swap,
+    $system_fs_space_usage,
+    $system_fs_inode_usage,
+  )
+  validate_array($system_fs)
+
+  monit::check::system {"${::fqdn}":
+    priority => '10',
+    group    => 'system',
+    bundle   => 'system',
+    order    => 0,
+    tests    => parseyaml(template('monit/system_test_resources.erb')),
+  }
+
+  $system_test_fs_defaults = {
+    priority => '10',
+    group    => 'system',
+    bundle   => 'system',
+    order    => 1,
+    tests    => $tests,
+  }
+  $system_test_fs = parseyaml(template('monit/system_test_filesystems.erb'))
+  create_resources("monit::check::filesystem", $system_test_fs, $system_test_fs_defaults)
+
+  # Additional checks.
+  validate_hash($checks)
   create_resources('monit::check', $checks)
 }
 
