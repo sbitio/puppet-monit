@@ -112,32 +112,32 @@ module Puppet::Parser::Functions
         unless test.key? 'port' or test.key? 'unixsocket'
           raise Puppet::ParseError, exception_prefix + "'port' or 'unixsocket' is mandatory"
         end
-        condition = 'FAILED '
+        condition = 'FAILED'
         if test.key? 'unixsocket'
-          condition += "UNIXSOCKET #{test['unixsocket']} "
+          condition += "UNIXSOCKET #{test['unixsocket']}"
         else
           if test.key? 'host'
-            condition += "HOST #{test['host']} PORT #{test['port']} "
+            condition += " HOST #{test['host']} PORT #{test['port']}"
           else
-            condition += "PORT #{test['port']} "
+            condition += " PORT #{test['port']}"
           end
           if test.key? 'socket_type'
             test['socket_type'] = test['socket_type'].upcase
-            condition += "TYPE #{test['socket_type']} "
+            condition += " TYPE #{test['socket_type']}"
             if test['socket_type'] == 'TCPSSL'
               if test.key? 'socket_type_cypher'
                 test['socket_type_cypher'] = test['socket_type_cypher'].upcase
-                condition += "#{test['socket_type_cypher']} "
+                condition += " #{test['socket_type_cypher']}"
               end
               if test.key? 'socket_type_checksum'
-                condition += "CERTMD5 #{test['socket_type_checksum']} "
+                condition += " CERTMD5 #{test['socket_type_checksum']}"
               end
             end
           end
           if test.key? 'protocol'
             test['protocol'] = test['protocol'].upcase
-            condition += "PROTOCOL #{test['protocol']} "
-            # protocol specific tests.
+            condition += "\n    PROTOCOL #{test['protocol']} "
+            # Protocol test.
             if test.key? 'protocol_test'
               unless PROTOCOL_TESTS.key? test['protocol']
                   Puppet.warning exception_prefix + "tests for #{test['protocol']} protocol not implemented"
@@ -161,16 +161,15 @@ module Puppet::Parser::Functions
             end
           end
           if test.key? 'timeout'
-            condition += "WITH TIMEOUT #{test['timeout']} SECONDS "
+            condition += "\n    WITH TIMEOUT #{test['timeout']} SECONDS"
           end
           if test.key? 'retry'
-            condition += "RETRY #{test['retry']} "
+            condition += " RETRY #{test['retry']}"
           end
           if test.key? 'action'
             test['action'] = test['action'].upcase
           else
             test['action'] = 'ALERT'
-
         end
 
         test['condition'] = condition
