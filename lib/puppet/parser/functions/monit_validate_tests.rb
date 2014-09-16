@@ -22,6 +22,7 @@ module Puppet::Parser::Functions
 
     PROTOCOL_TESTS = {
       #TODO: GENERIC, SIP, RADIUS, WEBSOCKET
+      'GENERIC'       => ['SEND', 'EXPECT'],
       'HTTP'          => ['REQUEST', 'STATUS', 'CHECKSUM', 'HOSTHEADER', 'CONTENT'],
       'APACHE-STATUS' => ['LOGLIMIT', 'CLOSELIMIT', 'DNSLIMIT', 'KEEPALIVELIMIT', 'REPLYLIMIT', 'REQUESTLIMIT', 'STARTLIMIT', 'WAITLIMIT', 'GRACEFULLIMIT', 'CLEANUPLIMIT']
     }
@@ -139,23 +140,43 @@ module Puppet::Parser::Functions
             condition += "\n    PROTOCOL #{test['protocol']} "
             # Protocol test.
             if test.key? 'protocol_test'
-              unless PROTOCOL_TESTS.key? test['protocol']
-                  Puppet.warning exception_prefix + "tests for #{test['protocol']} protocol not implemented"
+              # If we don't know about specific tests for this protocol,
+              # fallback to generic test.
+              if PROTOCOL_TESTS.key? test['protocol']
+                  pt_type = test['protocol']
+              else
+                pt_type = 'GENERIC'
               end
-              invalid_opts = PROTOCOL_TESTS[test['protocol']] & test['protocol_test'].keys
-              unless invalid_opts.empty?
-                raise Puppet::ParseError, exception_prefix + "invalid options in #{test['protocol']} ckeck: #{invalid_opts.join(', ')}"
-              end
-              case test['protocol']
+              case pt_type
                 when 'HTTP', 'APACHE-STATUS'
-                  ptest = test['protocol_test']
-                  PROTOCOL_TESTS[test['protocol']].each do |key|
-                    if ptest.key? key
-                      condition += "#{key.upcase} #{ptest[key]} "
+                  pt_options = PROTOCOL_TESTS[pt_type]
+                  # Validate test options.
+                  unless test['protocol_test'].class == Hash
+                    raise Puppet::ParseError, exception_prefix + "protocol_test must be a hash with any of this keys: #{pt_options.join(', ')}."
+                  end
+                  options = test['protocol_test']
+                  invalid_opts = options.keys.map{|key| key.upcase} - pt_options
+                  unless invalid_opts.empty?
+                    raise Puppet::ParseError, exception_prefix + "invalid options in #{test['protocol']} ckeck: #{invalid_opts.join(', ')}"
+                  end
+                  options.each do |key, value|
+                    condition += "\n    #{key.upcase} #{value}"
+                  end
+                when 'GENERIC'
+                  # Validate test options.
+                  unless test['protocol_test'].class == Array
+                    raise Puppet::ParseError, exception_prefix + "protocol_test must be an array of hashes with send/expect pairs."
+                  end
+                  pt_options = PROTOCOL_TESTS[pt_type]
+                  test['protocol_test'].each do |pair|
+                    # Fail if any option is missing.
+                    unless pt_options & pair.keys.map{|key| key.upcase} == pt_options
+                      raise Puppet::ParseError, exception_prefix + "missing options in #{test['protocol']} ckeck: #{pt_options.join(', ')} are mandatory."
+                    end
+                    pair.each do |key, value|
+                      condition += "\n    #{key.upcase} #{value}"
                     end
                   end
-                else
-                  Puppet.warning exception_prefix + " #{test['protocol']} protocol tests not implemented"
                 end
               end
             end
