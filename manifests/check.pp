@@ -31,7 +31,7 @@ define monit::check(
   $config   = {},
   $group    = $name,
   $tests    = [],
-  $priority = undef,
+  $priority = '20',
   $template = "monit/check/${type}.erb",
   $bundle   = $name,
   $order    = 0,

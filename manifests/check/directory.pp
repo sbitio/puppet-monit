@@ -6,7 +6,7 @@ define monit::check::directory(
   $noalerts   = [],
   $tests      = [],
   $depends    = [],
-  $priority   = '',
+  $priority   = '20',
   $bundle     = $name,
   $order      = 0,
 

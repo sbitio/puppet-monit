@@ -6,7 +6,7 @@ define monit::check::program(
   $noalerts   = [],
   $tests      = [],
   $depends    = [],
-  $priority   = '',
+  $priority   = '20',
   $bundle     = $name,
   $order      = 0,
 
