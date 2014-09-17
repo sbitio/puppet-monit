@@ -1,7 +1,6 @@
 define monit::check::directory(
   # Common parameters.
   $ensure     = present,
-  $check_name = $name,
   $group      = $name,
   $alerts     = [],
   $noalerts   = [],
@@ -18,6 +17,7 @@ define monit::check::directory(
   validate_absolute_path($path)
 
   monit::check::instance { "${name}_instance":
+    name     => $name,
     ensure   => $ensure,
     type     => 'directory',
     priority => $priority,

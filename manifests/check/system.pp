@@ -1,7 +1,6 @@
 define monit::check::system(
   # Common parameters.
   $ensure     = present,
-  $check_name = $name,
   $group      = $name,
   $alerts     = [],
   $noalerts   = [],
@@ -16,6 +15,7 @@ define monit::check::system(
 ) {
 
   monit::check::instance { "${name}_instance":
+    name     => $name,
     ensure   => $ensure,
     type     => 'system',
     priority => $priority,

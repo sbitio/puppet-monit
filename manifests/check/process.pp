@@ -1,7 +1,6 @@
 define monit::check::process(
   # Common parameters.
   $ensure     = present,
-  $check_name = $name,
   $group      = $name,
   $alerts     = [],
   $noalerts   = [],
@@ -27,6 +26,7 @@ define monit::check::process(
   validate_absolute_path($pidfile)
 
   monit::check::instance { "${name}_instance":
+    name     => $name,
     ensure   => $ensure,
     type     => 'process',
     priority => $priority,

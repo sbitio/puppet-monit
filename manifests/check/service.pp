@@ -1,7 +1,6 @@
 define monit::check::service(
   # Common parameters.
   $ensure        = present,
-  $check_name    = $name,
   $group         = $name,
   $alerts        = [],
   $noalerts      = [],
@@ -13,17 +12,17 @@ define monit::check::service(
 
   # Check type specific.
   $template        = undef,
-  $service         = $check_name,
+  $service         = $name,
   $pidfile,
-  $binary          = "/usr/sbin/${service}",
-  $initd           = "/etc/init.d/${service}",
+  $binary          = "/usr/sbin/${name}",
+  $initd           = "/etc/init.d/${name}",
 
   # Params for process type.
   $uid             = undef,
   $gid             = undef,
-  $program_start   = "${initd} start",
-  $program_stop    = "${initd} stop",
-  $program_restart = "${initd} restart",
+  $program_start   = "/etc/init.d/${name} start",
+  $program_stop    = "/etc/init.d/${name} stop",
+  $program_restart = "/etc/init.d/${name} restart",
   $timeout         = undef,
   $timeout_start   = $timeout,
   $timeout_stop    = $timeout,
@@ -43,13 +42,10 @@ define monit::check::service(
     'bundle'     => $bundle,
   }
 
-  $check_name_initd = "${check_name}_initd"
-  $check_name_binary = "${check_name}_binary"
-
   # Check service process.
-  $depends_all = union($depends, [$check_name_initd, $check_name_binary])
+  $depends_all = union($depends, ["${name}_initd", "${name}_binary"])
   $params_process = {
-    'check_name'      => $check_name,
+    'name'            => $name,
     'depends'         => $depends_all,
     'tests'           => $tests,
     'pidfile'         => $pidfile,
@@ -65,24 +61,22 @@ define monit::check::service(
     'timeout_stop'    => $timeout_stop,
     'timeout_restart' => $timeout_restart,
   }
-  ensure_resource("monit::check::process", "${check_name}_process", merge($defaults, $params_process))
+  ensure_resource("monit::check::process", "${name}_process", merge($defaults, $params_process))
 
   # Check service initd.
   $params_initd = {
-    'check_name' => $check_name_initd,
     'path'       => $initd,
     'bundle'     => $bundle,
     'order'      => inline_template("<%= @order.to_i + 1 %>"),
   }
-  ensure_resource("monit::check::file", "$check_name_initd", merge($defaults, $params_initd))
+  ensure_resource("monit::check::file", "${name}_initd", merge($defaults, $params_initd))
 
   # Check service binary.
   $params_binary = {
-    'check_name' => $check_name_binary,
     'path'       => $binary,
     'bundle'     => $bundle,
     'order'      => inline_template("<%= @order.to_i + 2 %>"),
   }
-  ensure_resource("monit::check::file", $check_name_binary, merge($defaults, $params_binary))
+  ensure_resource("monit::check::file", "${name}_binary", merge($defaults, $params_binary))
 }
 

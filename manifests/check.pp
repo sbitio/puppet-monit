@@ -44,8 +44,8 @@ define monit::check(
   validate_hash($config)
 
   $defaults = {
+    'name'       => $name,
     'ensure'     => $ensure,
-    'check_name' => $name,
     'group'      => $group,
     'tests'      => $tests,
     'priority'   => $priority,
