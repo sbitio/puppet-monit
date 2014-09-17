@@ -1,4 +1,4 @@
-CHECK PROCESS <%= @check_name %> WITH PIDFILE <%= @pidfile %>
+CHECK PROCESS <%= @name %> WITH PIDFILE <%= @pidfile %>
   START PROGRAM = "<%= @program_start %>"
   <%- if @uid -%>
     AS UID <%= @uid %>
