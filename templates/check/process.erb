@@ -6,8 +6,8 @@ CHECK PROCESS <%= @name %> WITH PIDFILE <%= @pidfile %>
   <%- if @gid -%>
     AS GID <%= @gid %>
   <%- end -%>
-  <%- if @timeout_start -%>
-    WITH TIMEOUT <%= @timeout_start %> SECONDS
+  <%- if @real_timeout_start -%>
+    WITH timeout <%= @real_timeout_start %> SECONDS
   <%- end -%>
   STOP PROGRAM = "<%= @program_stop %>"
   <%- if @uid -%>
@@ -16,8 +16,8 @@ CHECK PROCESS <%= @name %> WITH PIDFILE <%= @pidfile %>
   <%- if @gid -%>
     AS GID <%= @gid %>
   <%- end -%>
-  <%- if @timeout_stop -%>
-    WITH TIMEOUT <%= @timeout_stop %> SECONDS
+  <%- if @real_timeout_stop -%>
+    WITH timeout <%= @real_timeout_stop %> SECONDS
   <%- end -%>
 <% if @program_restart -%>
   RESTART PROGRAM = "<%= @program_restart %>"
@@ -27,8 +27,8 @@ CHECK PROCESS <%= @name %> WITH PIDFILE <%= @pidfile %>
   <%- if @gid -%>
     AS GID <%= @gid %>
   <%- end -%>
-  <%- if @timeout_restart -%>
-    WITH TIMEOUT <%= @timeout_restart %> SECONDS
+  <%- if @real_timeout_restart -%>
+    WITH timeout <%= @real_timeout_restart %> SECONDS
   <%- end -%>
 <% end -%>
 
