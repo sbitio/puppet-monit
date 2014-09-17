@@ -12,7 +12,6 @@ define monit::check::service(
 
   # Check type specific.
   $template        = undef,
-  $service         = $name,
   $pidfile,
   $binary          = "/usr/sbin/${name}",
   $initd           = "/etc/init.d/${name}",
