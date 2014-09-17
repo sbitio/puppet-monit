@@ -19,16 +19,4 @@ CHECK PROCESS <%= @name %> WITH PIDFILE <%= @pidfile %>
   <%- if @real_timeout_stop -%>
     WITH timeout <%= @real_timeout_stop %> SECONDS
   <%- end -%>
-<% if @program_restart -%>
-  RESTART PROGRAM = "<%= @program_restart %>"
-  <%- if @uid -%>
-    AS UID <%= @uid %>
-  <%- end -%>
-  <%- if @gid -%>
-    AS GID <%= @gid %>
-  <%- end -%>
-  <%- if @real_timeout_restart -%>
-    WITH timeout <%= @real_timeout_restart %> SECONDS
-  <%- end -%>
-<% end -%>
 

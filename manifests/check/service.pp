@@ -21,11 +21,9 @@ define monit::check::service(
   $gid             = undef,
   $program_start   = "/etc/init.d/${name} start",
   $program_stop    = "/etc/init.d/${name} stop",
-  $program_restart = "/etc/init.d/${name} restart",
   $timeout         = undef,
   $timeout_start   = undef,
   $timeout_stop    = undef,
-  $timeout_restart = undef,
 ) {
   validate_absolute_path($pidfile)
   validate_absolute_path($binary)
@@ -52,13 +50,11 @@ define monit::check::service(
     'gid'             => $gid,
     'program_start'   => $program_start,
     'program_stop'    => $program_stop,
-    'program_restart' => $program_restart,
     'bundle'          => $bundle,
     'order'           => $order,
     'timeout'         => $timeout,
     'timeout_start'   => $timeout_start,
     'timeout_stop'    => $timeout_stop,
-    'timeout_restart' => $timeout_restart,
   }
   ensure_resource("monit::check::process", "${name}_process", merge($defaults, $params_process))
 
