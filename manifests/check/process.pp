@@ -25,9 +25,11 @@ define monit::check::process(
 ) {
   validate_absolute_path($pidfile)
 
-  $real_timeout_start   = pick($timeout_start, $timeout)
-  $real_timeout_stop    = pick($timeout_stop, $timeout)
-  $real_timeout_restart = pick($timeout_restart, $timeout)
+  if $timeout {
+    $real_timeout_start   = pick($timeout_start, $timeout)
+    $real_timeout_stop    = pick($timeout_stop, $timeout)
+    $real_timeout_restart = pick($timeout_restart, $timeout)
+  }
 
   monit::check::instance { "${name}_instance":
     name     => $name,
