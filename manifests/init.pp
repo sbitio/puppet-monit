@@ -39,27 +39,23 @@ class monit(
   $httpserver_ssl          = false,
   $httpserver_pemfile      = undef,
   $httpserver_allow        = [],
+  # System resources check.
+  $system_check_ensure     = present,
+  $system_loadavg_1min     = 3 * $processorcount,
+  $system_loadavg_5min     = 1.5 * $processorcount,
+  $system_loadavg_15min    = 1.5 * $processorcount,
+  $system_cpu_user         = '75%',
+  $system_cpu_system       = '30%',
+  $system_cpu_wait         = '30%',
+  $system_memory           = '75%',
+  # NOTE: swap available since monit 5.2
+  $system_swap             = undef,
+  $system_fs               = ['/',],
+  $system_fs_space_usage   = '80%',
+  $system_fs_inode_usage   = '80%',
+  # Additional checks.
+  $checks                  = {},
 ) inherits monit::params {
-
-  validate_absolute_path($conf_file)
-  validate_absolute_path($conf_dir)
-  #$logfile may be some as "syslog facility log_daemon"
-  # so validating abs path is inacurate.
-  # validate_absolute_path($logfile)
-  if $idfile {
-    validate_absolute_path($idfile)
-  }
-  if $statefile {
-    validate_absolute_path($statefile)
-  }
-  validate_bool($eventqueue)
-  validate_array($alerts)
-  validate_bool($httpserver)
-  validate_bool($httpserver_ssl)
-  if $httpserver_ssl {
-    validate_absolute_path($httpserver_pemfile)
-  }
-  validate_array($httpserver_allow)
 
   class{'monit::install': } ->
   class{'monit::config': } ~>
