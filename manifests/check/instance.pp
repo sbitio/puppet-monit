@@ -27,6 +27,7 @@ define monit::check::instance(
     target  => $file,
     content => template($template, 'monit/check/common.erb'),
     order   => $order,
+    notify   => Service[$monit::service],
   }
 }
 
