@@ -33,7 +33,7 @@ class monit(
   $mailformat_subject      = undef,
   $mailformat_message      = undef,
   $alerts                  = [],
-  $httpserver              = false,
+  $httpserver              = true,
   $httpserver_port         = 2812,
   $httpserver_bind_address = 'localhost',
   $httpserver_ssl          = false,
