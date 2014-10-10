@@ -38,7 +38,7 @@ class monit(
   $httpserver_bind_address = 'localhost',
   $httpserver_ssl          = false,
   $httpserver_pemfile      = undef,
-  $httpserver_allow        = [],
+  $httpserver_allow        = [ 'localhost' ],
   # System resources check.
   $system_check_ensure     = present,
   $system_loadavg_1min     = 3 * $processorcount,
