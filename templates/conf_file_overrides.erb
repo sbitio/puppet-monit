@@ -46,7 +46,7 @@ set httpd
     pemfile <%= @httpserver_pemfile %>
   <%- end -%>
   <%- if @httpserver_allow -%>
-    <%- @httpserver_allow.each do |allow| %>
+    <%- @httpserver_allow.each do |allow| -%>
     allow <%= allow %>
     <%- end -%>
   <%- end -%>
