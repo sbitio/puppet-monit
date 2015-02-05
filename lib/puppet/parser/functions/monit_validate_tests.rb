@@ -137,7 +137,9 @@ module Puppet::Parser::Functions
           end
           if test.key? 'protocol'
             test['protocol'] = test['protocol'].upcase
-            condition += "\n    PROTOCOL #{test['protocol']} "
+            unless test['protocol'] == 'GENERIC'
+              condition += "\n    PROTOCOL #{test['protocol']} "
+            end
             # Protocol test.
             if test.key? 'protocol_test'
               # If we don't know about specific tests for this protocol,
