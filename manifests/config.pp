@@ -45,7 +45,7 @@ class monit::config {
   if ! ($monit::system_check_ensure in $ensure_options) {
     fail("Invalid ensure parameter. Valid values: ${ensure_options}")
   }
-  if $system_check_ensure == present {
+  if $monit::system_check_ensure == present {
     # Validate number?
     #  $monit::system_loadavg_1min,
     #  $monit::system_loadavg_5min,
