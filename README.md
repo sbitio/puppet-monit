@@ -65,6 +65,25 @@ monit::checks :
         protocol : ssh
         action   : restart
 
+  php5-fpm :
+    type    : process
+    config  :
+      pidfile       : "/var/run/php5-fpm.pid"
+      binary        : "/usr/sbin/php5-fpm"
+      start_program : "/etc/init.d/php5-fpm start"
+      stop_program  : "/etc/init.d/php5-fpm stop"
+    tests  :
+      - type          : 'connection'
+        host          : '127.0.0.1'
+        port          : 9000
+        socket_type   : 'TCP'
+        protocol      : 'GENERIC'
+        protocol_test :
+          - send   : '"\0x01\0x09\0x00\0x00\0x00\0x00\0x08\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00"'
+            expect : '"\0x01\0x0A"'
+        action   : restart
+
+
   ntp:
     type: process
     config:
