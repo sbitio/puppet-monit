@@ -161,8 +161,14 @@ module Puppet::Parser::Functions
                   unless invalid_opts.empty?
                     raise Puppet::ParseError, exception_prefix + "invalid options in #{test['protocol']} ckeck: #{invalid_opts.join(', ')}"
                   end
+                  # Enforce REQUEST key to be the first one. Applies only to HTTP test.
+                  if options.key? 'request'
+                    condition += "\n    REQUEST #{options['request']}"
+                  end
                   options.each do |key, value|
-                    condition += "\n    #{key.upcase} #{value}"
+                    unless key == 'request'
+                      condition += "\n    #{key.upcase} #{value}"
+                    end
                   end
                 when 'GENERIC'
                   # Validate test options.
