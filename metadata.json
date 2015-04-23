@@ -1,11 +1,17 @@
 {
-  "name": "sbitmedia-monit",
+  "name": "sbitio-monit",
   "version": "0.1.0",
-  "author": "sbitmedia",
+  "author": "SB IT Media, S.L.",
   "summary": "Performs installation and configuration of Monit service",
   "license": "MIT License",
-  "source": "http://github.com/sbitmedia/puppet-monit",
-  "project_page": "https://github.com/sbitmedia/puppet-monit",
-  "issues_url": "https://github.com/sbitmedia/puppet-monit/issues",
-  "dependencies": []
+  "source": "http://github.com/sbitio/puppet-monit",
+  "project_page": "https://github.com/sbitio/puppet-monit",
+  "issues_url": "https://github.com/sbitio/puppet-monit/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 1.0.0"
+    }
+  ]
 }
+
