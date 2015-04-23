@@ -1,12 +1,11 @@
 #
-# This define is a facility that used as entry point for tests defined in Hiera.
+# This define is a facility used as entry point for tests defined in Hiera.
 # See main class for reference.
 
 # Params:
 #
-# type: type of check to perform. It supports the eight check types
-# supported by monit: directory, fifo, file, filesystem, host, process,
-# program, and system.
+# type: type of check to perform. It supports all the primitive check types
+# supported by Monit and the 'service' compound check type.
 #
 # config: hash of parameters for `monit::check::${type}`. Empty parameters
 # will be given the default values.
