@@ -7,6 +7,21 @@
   "source": "http://github.com/sbitio/puppet-monit",
   "project_page": "https://github.com/sbitio/puppet-monit",
   "issues_url": "https://github.com/sbitio/puppet-monit/issues",
+  "tags": ["monitoring", "monit"],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [ "6", "7" ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [ "6", "7", "8" ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "12.04", "14.04" ]
+    }
+  ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
