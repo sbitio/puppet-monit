@@ -97,8 +97,8 @@ monit::checks :
     type    : 'process'
     config  :
       pidfile       : '/var/run/sshd.pid'
-      start_program : '/etc/init.d/sshd start'
-      stop_program  : '/etc/init.d/sshd stop'
+      program_start : '/etc/init.d/sshd start'
+      program_stop  : '/etc/init.d/sshd stop'
     tests  :
       - type     : 'connection'
         host     : '127.0.0.1'
@@ -111,8 +111,8 @@ monit::checks :
     config  :
       pidfile       : '/var/run/php5-fpm.pid'
       binary        : '/usr/sbin/php5-fpm'
-      start_program : '/etc/init.d/php5-fpm start'
-      stop_program  : '/etc/init.d/php5-fpm stop'
+      program_start : '/etc/init.d/php5-fpm start'
+      program_stop  : '/etc/init.d/php5-fpm stop'
     tests  :
       - type          : 'connection'
         host          : '127.0.0.1'
@@ -128,8 +128,8 @@ monit::checks :
     type   : process
     config :
       pidfile       : '/var/run/ntpd.pid'
-      start_program : '/etc/init.d/ntpd start'
-      stop_program  : '/etc/init.d/ntpd stop'
+      program_start : '/etc/init.d/ntpd start'
+      program_stop  : '/etc/init.d/ntpd stop'
     tests  :
       - type        : connection
         host        : 127.0.0.1
@@ -142,8 +142,8 @@ monit::checks :
     type   : 'process'
     config :
       pidfile       : '/var/run/varnish.pid'
-      start_program : '/etc/init.d/varnish start'
-      stop_program  : '/etc/init.d/varnish stop'
+      program_start : '/etc/init.d/varnish start'
+      program_stop  : '/etc/init.d/varnish stop'
     tests  :
       - type: 'connection'
         host: '127.0.0.1'
