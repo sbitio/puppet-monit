@@ -8,26 +8,26 @@ module Puppet::Parser::Functions
     # # RESOURCE TESTING: IF resource operator value THEN action
     # # SPACE TESTING: IF SPACE operator value unit THEN action
     # # INODE TESTING: IF INODE operator value [unit] THEN action
-    RESOURCE_TESTS = [
+    RESOURCE_TESTS ||= [
       'CPU', 'CPU(USER)', 'CPU(SYSTEM)', 'CPU(WAIT)', 'TOTAL CPU', 'CHILDREN',
       'LOADAVG(1MIN)', 'LOADAVG(5MIN)', 'LOADAVG(15MIN)',
       'TOTAL MEMORY', 'MEMORY', 'SWAP'
     ]
     # Valid operators for resource testing.
-    RESOURCE_TESTS_OPERATORS = [
+    RESOURCE_TESTS_OPERATORS ||= [
       '<', '>', '!=', '==',
       'GT', 'LT', 'EQ', 'NE',
       'GREATER', 'LESS', 'EQUAL', 'NOTEQUAL',
     ]
 
-    PROTOCOL_TESTS = {
+    PROTOCOL_TESTS ||= {
       #TODO: GENERIC, SIP, RADIUS, WEBSOCKET
       'GENERIC'       => ['SEND', 'EXPECT'],
       'HTTP'          => ['REQUEST', 'STATUS', 'CHECKSUM', 'HOSTHEADER', 'CONTENT'],
       'APACHE-STATUS' => ['LOGLIMIT', 'CLOSELIMIT', 'DNSLIMIT', 'KEEPALIVELIMIT', 'REPLYLIMIT', 'REQUESTLIMIT', 'STARTLIMIT', 'WAITLIMIT', 'GRACEFULLIMIT', 'CLEANUPLIMIT']
     }
 
-    TEST_TYPES = {
+    TEST_TYPES ||= {
       'DIRECTORY'   => [],
       'FIFO'        => [],
       'FILE'        => [],
@@ -39,7 +39,7 @@ module Puppet::Parser::Functions
       'PROGRAM'     => [],
       'SYSTEM'      => RESOURCE_TESTS,
     }
-    TEST_ACTIONS   = ['ALERT', 'RESTART', 'START', 'STOP', 'EXEC', 'UNMONITOR']
+    TEST_ACTIONS   ||= ['ALERT', 'RESTART', 'START', 'STOP', 'EXEC', 'UNMONITOR']
 
     check_type = args[0].upcase
     tests = args[1]
