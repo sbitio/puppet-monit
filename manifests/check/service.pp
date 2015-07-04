@@ -12,7 +12,8 @@ define monit::check::service(
 
   # Check type specific.
   $template        = undef,
-  $pidfile,
+  $pidfile         = undef,
+  $matching        = undef,
   $binary          = "/usr/sbin/${name}",
   $init_system     = $monit::init_system,
   $initd           = undef,
@@ -29,11 +30,11 @@ define monit::check::service(
   $timeout_start   = undef,
   $timeout_stop    = undef,
 ) {
-  validate_absolute_path($pidfile)
+
   validate_absolute_path($binary)
 
   if $initd {
-    warning("monit::check::service: parameter initd is deprecated in favour of sysv_file")
+    warning("monit::check::service: parameter 'initd' is deprecated in favour of 'sysv_file'")
   }
 
   case $init_system {
@@ -67,19 +68,20 @@ define monit::check::service(
   # Check service process.
   $depends_all = union($depends, ["${name}_service_file", "${name}_binary"])
   $params_process = {
-    'name'            => $name,
-    'depends'         => $depends_all,
-    'tests'           => $tests,
-    'pidfile'         => $pidfile,
-    'uid'             => $uid,
-    'gid'             => $gid,
-    'program_start'   => $program_start,
-    'program_stop'    => $program_stop,
-    'bundle'          => $bundle,
-    'order'           => $order,
-    'timeout'         => $timeout,
-    'timeout_start'   => $timeout_start,
-    'timeout_stop'    => $timeout_stop,
+    'name'          => $name,
+    'depends'       => $depends_all,
+    'tests'         => $tests,
+    'pidfile'       => $pidfile,
+    'matching'      => $matching,
+    'uid'           => $uid,
+    'gid'           => $gid,
+    'program_start' => $program_start,
+    'program_stop'  => $program_stop,
+    'bundle'        => $bundle,
+    'order'         => $order,
+    'timeout'       => $timeout,
+    'timeout_start' => $timeout_start,
+    'timeout_stop'  => $timeout_stop,
   }
   ensure_resource("monit::check::process", "${name}_process", merge($defaults, $params_process))
 

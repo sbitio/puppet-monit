@@ -12,7 +12,8 @@ define monit::check::process(
 
   # Check type specific.
   $template        = "monit/check/process.erb",
-  $pidfile,
+  $pidfile         = undef,
+  $matching        = undef,
   $uid             = undef,
   $gid             = undef,
   $program_start,
@@ -21,7 +22,16 @@ define monit::check::process(
   $timeout_start   = undef,
   $timeout_stop    = undef,
 ) {
-  validate_absolute_path($pidfile)
+
+  if $pidfile {
+    validate_absolute_path($pidfile)
+    if $matching {
+      warning("monit::check::process: both 'pidfile' and 'matching' provided. Ignoring 'matching'.")
+    }
+  }
+  elsif !$matching {
+    fail("monit::check::process: no parameter 'pidfile' nor 'matching' provided. You must provide one of both.")
+  }
 
   if $timeout {
     $real_timeout_start   = pick($timeout_start, $timeout)
