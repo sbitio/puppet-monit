@@ -41,6 +41,9 @@ class monit(
   $httpserver_ssl          = false,
   $httpserver_pemfile      = undef,
   $httpserver_allow        = [ 'localhost' ],
+  # Init system defaults.
+  $init_system             = $monit::params::init_system,
+  $service_program         = $monit::params::service_program,
   # System resources check.
   $system_check_ensure     = present,
   $system_loadavg_1min     = 3 * $processorcount,

@@ -18,6 +18,21 @@ class monit::params {
       $idfile     = '/var/lib/monit/id'
       $statefile  = '/var/lib/monit/state'
       $eventqueue = true
+
+      $service_program = '/usr/sbin/service'
+      case $::operatingsystem {
+        'Debian': {
+          if $::lsbmajdistrelease < 8 {
+            $init_system = 'sysv'
+          }
+          else {
+            $init_system = 'systemd'
+          }
+        }
+        'Ubuntu': {
+          $init_system = 'upstart'
+        }
+      }
     }
     'RedHat': {
       $conf_file  = '/etc/monit.conf'
@@ -26,6 +41,14 @@ class monit::params {
       $idfile     = undef
       $statefile  = undef
       $eventqueue = false
+
+      $service_program = '/sbin/service'
+      if $::lsbmajdistrelease < 7 {
+        $init_system = 'sysv'
+      }
+      else {
+        $init_system = 'systemd'
+      }
     }
     default: {
       fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only support osfamily Debian and RedHat")
