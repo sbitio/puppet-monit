@@ -15,8 +15,8 @@ define monit::check::system(
 ) {
 
   monit::check::instance { "${name}_instance":
-    name     => $name,
     ensure   => $ensure,
+    name     => $name,
     type     => 'system',
     priority => $priority,
     bundle   => $bundle,

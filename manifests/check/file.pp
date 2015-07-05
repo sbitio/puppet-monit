@@ -17,8 +17,8 @@ define monit::check::file(
   validate_absolute_path($path)
 
   monit::check::instance { "${name}_instance":
-    name     => $name,
     ensure   => $ensure,
+    name     => $name,
     type     => 'file',
     priority => $priority,
     bundle   => $bundle,

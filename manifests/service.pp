@@ -4,8 +4,8 @@ class monit::service {
   }
 
   service { $monit::service:
-    enable => $monit::service_enable,
     ensure => $monit::service_ensure,
+    enable => $monit::service_enable,
   }
 }
 

@@ -39,8 +39,8 @@ define monit::check::process(
   }
 
   monit::check::instance { "${name}_instance":
-    name     => $name,
     ensure   => $ensure,
+    name     => $name,
     type     => 'process',
     priority => $priority,
     bundle   => $bundle,

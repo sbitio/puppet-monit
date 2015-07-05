@@ -17,8 +17,8 @@ define monit::check::fifo(
   validate_absolute_path($path)
 
   monit::check::instance { "${name}_instance":
-    name     => $name,
     ensure   => $ensure,
+    name     => $name,
     type     => 'fifo',
     priority => $priority,
     bundle   => $bundle,
