@@ -1,4 +1,8 @@
 define monit::check::filesystem(
+  # Check type specific.
+  $path,
+  $template   = 'monit/check/filesystem.erb',
+
   # Common parameters.
   $ensure     = present,
   $group      = $name,
@@ -9,10 +13,6 @@ define monit::check::filesystem(
   $priority   = '20',
   $bundle     = $name,
   $order      = 0,
-
-  # Check type specific.
-  $template   = 'monit/check/filesystem.erb',
-  $path
 ) {
   validate_absolute_path($path)
 

@@ -1,4 +1,8 @@
 define monit::check::host(
+  # Check type specific.
+  $address,
+  $template   = 'monit/check/host.erb',
+
   # Common parameters.
   $ensure     = present,
   $group      = $name,
@@ -9,10 +13,6 @@ define monit::check::host(
   $priority   = '20',
   $bundle     = $name,
   $order      = 0,
-
-  # Check type specific.
-  $template   = 'monit/check/host.erb',
-  $address
 ) {
   validate_absolute_path($path)
 

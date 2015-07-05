@@ -25,8 +25,8 @@
 # order: order of the check within the bundle filename.
 
 define monit::check(
-  $ensure   = present,
   $type,
+  $ensure   = present,
   $config   = {},
   $group    = $name,
   $tests    = [],

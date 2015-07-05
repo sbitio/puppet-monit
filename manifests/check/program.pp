@@ -1,4 +1,8 @@
 define monit::check::program(
+  # Check type specific.
+  $path,
+  $template   = 'monit/check/program.erb',
+
   # Common parameters.
   $ensure     = present,
   $group      = $name,
@@ -9,10 +13,6 @@ define monit::check::program(
   $priority   = '20',
   $bundle     = $name,
   $order      = 0,
-
-  # Check type specific.
-  $template   = 'monit/check/program.erb',
-  $path
 ) {
   validate_absolute_path($path)
 

@@ -1,4 +1,16 @@
 define monit::check::process(
+  # Check type specific.
+  $program_start,
+  $program_stop,
+  $template        = 'monit/check/process.erb',
+  $pidfile         = undef,
+  $matching        = undef,
+  $uid             = undef,
+  $gid             = undef,
+  $timeout         = undef,
+  $timeout_start   = undef,
+  $timeout_stop    = undef,
+
   # Common parameters.
   $ensure     = present,
   $group      = $name,
@@ -9,18 +21,6 @@ define monit::check::process(
   $priority   = '20',
   $bundle     = $name,
   $order      = 0,
-
-  # Check type specific.
-  $template        = 'monit/check/process.erb',
-  $pidfile         = undef,
-  $matching        = undef,
-  $uid             = undef,
-  $gid             = undef,
-  $program_start,
-  $program_stop,
-  $timeout         = undef,
-  $timeout_start   = undef,
-  $timeout_stop    = undef,
 ) {
 
   if $pidfile {
