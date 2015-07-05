@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "author": "SB IT Media, S.L.",
   "summary": "Performs installation and configuration of Monit service, along with fine grained definition of checks",
-  "license": "MIT License",
+  "license": "MIT",
   "source": "http://github.com/sbitio/puppet-monit",
   "project_page": "https://github.com/sbitio/puppet-monit",
   "issues_url": "https://github.com/sbitio/puppet-monit/issues",
