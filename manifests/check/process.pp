@@ -11,7 +11,7 @@ define monit::check::process(
   $order      = 0,
 
   # Check type specific.
-  $template        = "monit/check/process.erb",
+  $template        = 'monit/check/process.erb',
   $pidfile         = undef,
   $matching        = undef,
   $uid             = undef,

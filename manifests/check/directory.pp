@@ -11,7 +11,7 @@ define monit::check::directory(
   $order      = 0,
 
   # Check type specific.
-  $template   = "monit/check/directory.erb",
+  $template   = 'monit/check/directory.erb',
   $path
 ) {
   validate_absolute_path($path)

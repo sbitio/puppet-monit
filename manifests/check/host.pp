@@ -11,7 +11,7 @@ define monit::check::host(
   $order      = 0,
 
   # Check type specific.
-  $template   = "monit/check/host.erb",
+  $template   = 'monit/check/host.erb',
   $address
 ) {
   validate_absolute_path($path)

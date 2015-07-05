@@ -11,7 +11,7 @@ define monit::check::file(
   $order      = 0,
 
   # Check type specific.
-  $template   = "monit/check/file.erb",
+  $template   = 'monit/check/file.erb',
   $path
 ) {
   validate_absolute_path($path)

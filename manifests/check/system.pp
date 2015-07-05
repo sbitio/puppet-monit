@@ -11,7 +11,7 @@ define monit::check::system(
   $order      = 0,
 
   # Check type specific.
-  $template   = "monit/check/system.erb",
+  $template   = 'monit/check/system.erb',
 ) {
 
   monit::check::instance { "${name}_instance":

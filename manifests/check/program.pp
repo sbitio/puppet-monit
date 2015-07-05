@@ -11,7 +11,7 @@ define monit::check::program(
   $order      = 0,
 
   # Check type specific.
-  $template   = "monit/check/program.erb",
+  $template   = 'monit/check/program.erb',
   $path
 ) {
   validate_absolute_path($path)

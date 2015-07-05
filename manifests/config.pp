@@ -35,7 +35,7 @@ class monit::config {
     validate_absolute_path($monit::httpserver_pemfile)
   }
   validate_array($monit::httpserver_allow)
-  file { "$monit::conf_dir/00_monit_config":
+  file { "${monit::conf_dir}/00_monit_config":
     ensure  => present,
     content => template('monit/conf_file_overrides.erb'),
   }
@@ -62,7 +62,7 @@ class monit::config {
     )
     validate_array($monit::system_fs)
 
-    monit::check::system {"${::fqdn}":
+    monit::check::system {$::fqdn:
       priority => '10',
       group    => 'system',
       order    => 0,
@@ -76,7 +76,7 @@ class monit::config {
       order    => 1,
     }
     $system_test_fs = parseyaml(template('monit/system_test_filesystems.erb'))
-    create_resources("monit::check::filesystem", $system_test_fs, $system_test_fs_defaults)
+    create_resources('monit::check::filesystem', $system_test_fs, $system_test_fs_defaults)
   }
 
   # Additional checks.

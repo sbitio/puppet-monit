@@ -11,7 +11,7 @@ define monit::check::fifo(
   $order      = 0,
 
   # Check type specific.
-  $template   = "monit/check/fifo.erb",
+  $template   = 'monit/check/fifo.erb',
   $path
 ) {
   validate_absolute_path($path)

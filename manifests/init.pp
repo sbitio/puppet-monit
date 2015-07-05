@@ -65,7 +65,7 @@ class monit(
   class{'monit::install': } ->
   class{'monit::config': } ~>
   class{'monit::service': } ->
-  Class["monit"]
+  Class['monit']
 
 }
 
