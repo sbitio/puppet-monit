@@ -14,7 +14,7 @@ define monit::check::host(
   $bundle     = $name,
   $order      = 0,
 ) {
-  validate_absolute_path($path)
+  #TODO# validate address param
 
   monit::check::instance { "${name}_instance":
     name     => $name,
