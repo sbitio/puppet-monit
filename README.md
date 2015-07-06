@@ -41,7 +41,7 @@ for a reference of parameters accepted by each check type.
 
 On the other hand, `monit::check` defined type is a facade for all check types.
 It works as a single entry point to declare any type of check in the same way.
-Common configuration options are parameters of the defiend type, and check
+Common configuration options are parameters of the defined type, and check
 specific options are passed through a hash in the `config` parameter.
 
 See [manifests/check.pp](https://github.com/sbitio/puppet-monit/blob/master/manifests/check.pp)
