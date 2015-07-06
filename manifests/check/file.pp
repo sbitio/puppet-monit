@@ -1,3 +1,7 @@
+# == Defined type: monit::check::file
+#
+# Implement Monit's CHECK FILE
+#
 define monit::check::file(
   # Check type specific.
   $path,

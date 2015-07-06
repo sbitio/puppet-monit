@@ -1,3 +1,7 @@
+# == Defined type: monit::check::directory
+#
+# Implement Monit's CHECK DIRECTORY
+#
 define monit::check::directory(
   # Check type specific.
   $path,

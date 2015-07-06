@@ -1,3 +1,7 @@
+# == Defined type: monit::check::fifo
+#
+# Implement Monit's CHECK FIFO
+#
 define monit::check::fifo(
   # Check type specific.
   $path,

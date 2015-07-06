@@ -1,8 +1,40 @@
+# == Defined type: monit::check::service
+#
+# Implements a compound check type for system services.
+# It is a bundle of PROCESS and FILE checks.
+#
+# === Parameters
+#
+# [*template*]
+#   Not used. This parameter is here for consistency with other check types.
+#   See `monit::check` for details.
+#
+# [*binary*]
+#   Path to the service binary. Used to declare a FILE check.
+#
+# [*init_system*]
+#   Type of init system this script uses. 
+#   Valid values: sysv, upstart, systemd.
+#   Default: Depends on OS. See `monit::params`.
+#
+# [*initd*]
+#   Deprecated in favour of `sysv_file`.
+#
+# [*sysv_file*]
+#   If `init_system` is sysv. This is the path to the init script. Otherwise ignored.
+#   Default: "/etc/init.d/${name}"
+#
+# [*upstart_file*]
+#   If `init_system` is upstart. This is the path to the system job. Otherwise ignored.
+#   Default: "/etc/init/${name}.conf"
+#
+# [*systemd_file*]
+#   If `init_system` is systemd. This is the path to the unit configuration file. Otherwise ignored.
+#   Default: "/usr/lib/systemd/system/${name}.service"
+#
 define monit::check::service(
   # Check type specific.
   $template        = undef,
-  $pidfile         = undef,
-  $matching        = undef,
   $binary          = "/usr/sbin/${name}",
   $init_system     = $monit::init_system,
   $initd           = undef,
@@ -11,6 +43,8 @@ define monit::check::service(
   $systemd_file    = "/usr/lib/systemd/system/${name}.service",
 
   # Params for process type.
+  $pidfile         = undef,
+  $matching        = undef,
   $uid             = undef,
   $gid             = undef,
   $program_start   = "${monit::service_program} ${name} start",

@@ -1,3 +1,7 @@
+# == Defined type: monit::check::host
+#
+# Implement Monit's CHECK HOST
+#
 define monit::check::host(
   # Check type specific.
   $address,

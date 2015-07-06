@@ -1,3 +1,7 @@
+# == Defined type: monit::check::filesystem
+#
+# Implement Monit's CHECK FILESYSTEM
+#
 define monit::check::filesystem(
   # Check type specific.
   $path,

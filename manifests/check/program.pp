@@ -1,3 +1,7 @@
+# == Defined type: monit::check::program
+#
+# Implement Monit's CHECK PROGRAM
+#
 define monit::check::program(
   # Check type specific.
   $path,

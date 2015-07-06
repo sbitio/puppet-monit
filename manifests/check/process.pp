@@ -1,3 +1,7 @@
+# == Defined type: monit::check::process
+#
+# Implement Monit's CHECK PROCESS
+#
 define monit::check::process(
   # Check type specific.
   $program_start,

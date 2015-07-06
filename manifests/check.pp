@@ -1,29 +1,38 @@
+# == Defined type: monit::check
 #
 # This define is a facility used as entry point for tests defined in Hiera.
 # See main class for reference.
-
-# Params:
 #
-# type: type of check to perform. It supports all the primitive check types
-# supported by Monit and the 'service' compound check type.
+# === Parameters
 #
-# config: hash of parameters for `monit::check::${type}`. Empty parameters
-# will be given the default values.
+# [*type*]
+#   Type of check to perform. It supports all the primitive check types
+#   supported by Monit and the 'service' compound check type.
 #
-# group: monit group.
+# [*config*]
+#   Hash of parameters for `monit::check::${type}`. Empty parameters
+#   will be given the default values.
 #
-# alerts: array of monit alerts.
+# [*group*]
+#   Monit group.
 #
-# tests: hash of monit tests.
+# [*alerts*]
+#   Array of Monit alerts.
 #
-# priority: used as a prefix for the filename generated. Load order doesn't
-# matter to monit. This is just a facility to organize your checks by filename.
+# [*tests*]
+#   Hash of Monit tests.
 #
-# bundle: used to group checks by filename. All checks in the same bundle will
-# be added to the same filename.
+# [*priority*]
+#   Used as a prefix for the filename generated. Load order doesn't matter
+#   to Monit. This is just a facility to organize your checks by filename.
 #
-# order: order of the check within the bundle filename.
-
+# [*bundle*]
+#   Used to group checks by filename. All checks in the same bundle will
+#   be added to the same filename.
+#
+# [*order*]
+#   Order of the check within the bundle filename.
+#
 define monit::check(
   $ensure   = present,
   $type     = undef,

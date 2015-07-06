@@ -1,3 +1,8 @@
+# == Defined type: monit::check::instance
+#
+# Common code invoked by all check types.
+# Creates Monit check files by fragments.
+#
 define monit::check::instance(
   $ensure,
   $type,
