@@ -27,7 +27,9 @@ class monit::params {
             $init_system = 'sysv'
           }
           else {
-            $init_system = 'systemd'
+            $init_system    = 'systemd'
+            $systemd_prefix = '/etc/init.d/'
+            $systemd_suffix = ''
           }
         }
         'Ubuntu': {
@@ -51,7 +53,9 @@ class monit::params {
         $init_system = 'sysv'
       }
       else {
-        $init_system = 'systemd'
+        $init_system    = 'systemd'
+        $systemd_prefix = '/usr/lib/systemd/system/'
+        $systemd_suffix = '.service'
       }
     }
     default: {
