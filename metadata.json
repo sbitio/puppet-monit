@@ -1,6 +1,6 @@
 {
   "name": "sbitio-monit",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "SB IT Media, S.L.",
   "summary": "Performs installation and configuration of Monit service, along with fine grained definition of checks",
   "license": "MIT",
