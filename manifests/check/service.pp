@@ -40,7 +40,7 @@ define monit::check::service(
   $initd           = undef,
   $sysv_file       = "/etc/init.d/${name}",
   $upstart_file    = "/etc/init/${name}.conf",
-  $systemd_file    = "/usr/lib/systemd/system/${name}.service",
+  $systemd_file    = "${monit::systemd_prefix}${name}${monit::systemd_suffix}",
 
   # Params for process type.
   $pidfile         = undef,
