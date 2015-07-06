@@ -14,8 +14,9 @@ define monit::check::host(
   $bundle     = $name,
   $order      = 0,
 ) {
-
-  #TODO# validate address param
+  if !is_domain_name($address) or !is_ip_address($address) {
+    fail("Invalid domain name or ip address '${address}'.")
+  }
 
   monit::check::instance { "${name}_instance":
     ensure   => $ensure,
