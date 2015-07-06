@@ -1,15 +1,4 @@
 define monit::check::service(
-  # Common parameters.
-  $ensure        = present,
-  $group         = $name,
-  $alerts        = [],
-  $noalerts      = [],
-  $tests         = [],
-  $depends       = [],
-  $priority      = '20',
-  $bundle        = $name,
-  $order         = 0,
-
   # Check type specific.
   $template        = undef,
   $pidfile         = undef,
@@ -29,6 +18,17 @@ define monit::check::service(
   $timeout         = undef,
   $timeout_start   = undef,
   $timeout_stop    = undef,
+
+  # Common parameters.
+  $ensure        = present,
+  $group         = $name,
+  $alerts        = [],
+  $noalerts      = [],
+  $tests         = [],
+  $depends       = [],
+  $priority      = '20',
+  $bundle        = $name,
+  $order         = 0,
 ) {
 
   validate_absolute_path($binary)

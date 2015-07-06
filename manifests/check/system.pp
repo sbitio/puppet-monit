@@ -1,4 +1,7 @@
 define monit::check::system(
+  # Check type specific.
+  $template   = 'monit/check/system.erb',
+
   # Common parameters.
   $ensure     = present,
   $group      = $name,
@@ -9,9 +12,6 @@ define monit::check::system(
   $priority   = '20',
   $bundle     = $name,
   $order      = 0,
-
-  # Check type specific.
-  $template   = 'monit/check/system.erb',
 ) {
 
   monit::check::instance { "${name}_instance":

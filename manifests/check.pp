@@ -35,6 +35,7 @@ define monit::check(
   $bundle   = $name,
   $order    = 0,
 ) {
+
   validate_re(
     $type,
     '^(directory|fifo|file|filesystem|host|process|program|service|system)$',

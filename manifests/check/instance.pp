@@ -7,6 +7,7 @@ define monit::check::instance(
   $template,
   $tests,
 ) {
+
   $priority_real = $priority ? {
     undef   => '',
     default => "${priority}_",
@@ -20,7 +21,6 @@ define monit::check::instance(
     }
   }
 
-  #$tests_real = monit_parse_tests($type, $tests)
   $tests_real = monit_validate_tests($type, $tests)
   concat::fragment { "${file}_${name}":
     ensure  => $ensure,

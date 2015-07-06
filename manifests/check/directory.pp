@@ -14,6 +14,7 @@ define monit::check::directory(
   $bundle     = $name,
   $order      = 0,
 ) {
+
   validate_absolute_path($path)
 
   monit::check::instance { "${name}_instance":
