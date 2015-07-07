@@ -12,7 +12,7 @@ In adition to primitive types, a compound check type is provided: `service`.
 It is a set of primitives to check a service's init script, binary and process.
 
 `service` check type can work with `sysv`, `systemd` or `upstart`. In 0.3.x
-series it defaults to `sysv` for compatibility reasons. From 0.4.x onwards it
+series it defaults to `sysv` for compatibility reasons. From 1.0.x onwards it
 defaults to the init system that each supported OS configures by default.
 The init typoe to use can be also set per service. See below for details.
 
