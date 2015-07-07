@@ -11,19 +11,27 @@ All check types provided by Monit are supported. Namely: `directory`, `fifo`,
 In adition to primitive types, a compound check type is provided: `service`.
 It is a set of primitives to check a service's init script, binary and process.
 
+`service` check type can work with `sysv`, `systemd` or `upstart`. In 0.3.x
+series it defaults to `sysv` for compatibility reasons. From 0.4.x onwards it
+defaults to the init system that each supported OS configures by default.
+The init typoe to use can be also set per service. See below for details.
 
 ## Classes and Defined Types
 
 ### Class: `monit`
 
-`monit` class is the responsible of installing and configuring the service.
-Almost all configuration options for `monitrc` are exposed as class parameters.
+`monit` class is the responsible of installing and configuring the Monit
+service. Almost all configuration options for `monitrc` are exposed as class
+parameters.
 
-Also accepts a `checks` parameter, to pass in checks definitions, easy provided
-from Hiera.
+In addition to Monit configuration options, this class accepts other parameters:
 
-Lastly, this class also configures a `system` check with sane defaults. It can be
-disabled or tweaked to fit your needs. This check includes loadavg, cpu,
+ * `init_system`, to set globally the default init system for `service` checks.
+
+ * `checks`, useful to pass in Monit checks declared in Hiera.
+
+Lastly, this class also configures a `system` check with sane defaults. It can
+be disabled or tweaked to fit your needs. This check includes loadavg, cpu,
 memory, swap and filesytem tests.
 
 See [manifests/init.pp](https://github.com/sbitio/puppet-monit/blob/master/manifests/init.pp)
