@@ -14,7 +14,7 @@ It is a set of primitives to check a service's init script, binary and process.
 `service` check type can work with `sysv`, `systemd` or `upstart`. In 0.3.x
 series it defaults to `sysv` for compatibility reasons. From 1.0.x onwards it
 defaults to the init system that each supported OS configures by default.
-The init typoe to use can be also set per service. See below for details.
+The init type to use can be also set per service. See below for details.
 
 ## Classes and Defined Types
 
@@ -62,7 +62,7 @@ for a reference of all parameters accepted by `monit::check`.
 #### Puppet code
 
 There's a bunch of examples for configuring real services across Debian and
-RedHat families in [sbitio/ducktape](https://github.com/sbitio/puppet-ducktape)
+RedHat families in [sbitio/ducktape](https://github.com/sbitio/puppet-ducktape).
 Please refer to [manifests/*/external/monit.pp](https://github.com/sbitio/puppet-ducktape/tree/master/manifests)
 files.
 
