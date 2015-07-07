@@ -17,9 +17,6 @@
 #   Valid values: sysv, upstart, systemd.
 #   Default: Depends on OS. See `monit::params`.
 #
-# [*initd*]
-#   Deprecated in favour of `sysv_file`.
-#
 # [*sysv_file*]
 #   If `init_system` is sysv. This is the path to the init script. Otherwise ignored.
 #   Default: "/etc/init.d/${name}"
@@ -37,7 +34,6 @@ define monit::check::service(
   $template        = undef,
   $binary          = "/usr/sbin/${name}",
   $init_system     = $monit::init_system,
-  $initd           = undef,
   $sysv_file       = "/etc/init.d/${name}",
   $upstart_file    = "/etc/init/${name}.conf",
   $systemd_file    = "${monit::params::systemd_unitdir}/${name}.service",
@@ -66,10 +62,6 @@ define monit::check::service(
 ) {
 
   validate_absolute_path($binary)
-
-  if $initd {
-    warning("monit::check::service: parameter 'initd' is deprecated in favour of 'sysv_file'")
-  }
 
   case $init_system {
     'sysv': {
