@@ -13,7 +13,7 @@
 #   Path to the service binary. Used to declare a FILE check.
 #
 # [*init_system*]
-#   Type of init system this script uses. 
+#   Type of init system this script uses.
 #   Valid values: sysv, upstart, systemd.
 #   Default: Depends on OS. See `monit::params`.
 #
@@ -30,7 +30,7 @@
 #
 # [*systemd_file*]
 #   If `init_system` is systemd. This is the path to the unit configuration file. Otherwise ignored.
-#   Default: "/usr/lib/systemd/system/${name}.service"
+#   Default: "${monit::params::systemd_unitdir}/${name}.service"
 #
 define monit::check::service(
   # Check type specific.
@@ -40,7 +40,7 @@ define monit::check::service(
   $initd           = undef,
   $sysv_file       = "/etc/init.d/${name}",
   $upstart_file    = "/etc/init/${name}.conf",
-  $systemd_file    = "/usr/lib/systemd/system/${name}.service",
+  $systemd_file    = "${monit::params::systemd_unitdir}/${name}.service",
 
   # Params for process type.
   $pidfile         = undef,

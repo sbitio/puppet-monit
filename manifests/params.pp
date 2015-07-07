@@ -27,7 +27,8 @@ class monit::params {
             $init_system = 'sysv'
           }
           else {
-            $init_system = 'systemd'
+            $init_system     = 'systemd'
+            $systemd_unitdir = '/lib/systemd/system'
           }
         }
         'Ubuntu': {
@@ -52,6 +53,7 @@ class monit::params {
       }
       else {
         $init_system = 'systemd'
+        $systemd_unitdir = '/usr/lib/systemd/system'
       }
     }
     default: {
