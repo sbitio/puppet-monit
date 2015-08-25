@@ -30,6 +30,10 @@ In addition to Monit configuration options, this class accepts other parameters:
 
  * `checks`, useful to pass in Monit checks declared in Hiera.
 
+If your hiera setup supports a hierarchy structure, you can set
+'monit::hiera_merge_strategy' to 'hiera_hash' in order use the hiera_hash function for
+config merging.
+
 Lastly, this class also configures a `system` check with sane defaults. It can
 be disabled or tweaked to fit your needs. This check includes loadavg, cpu,
 memory, swap and filesytem tests.

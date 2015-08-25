@@ -80,8 +80,13 @@ class monit::config {
   }
 
   # Additional checks.
-  validate_hash($monit::checks)
-  create_resources('monit::check', $monit::checks)
-
+  if ($monit::hiera_merge_strategy == 'hiera_hash') {
+    $mychecks = hiera_hash('monit::checks', {})
+  }
+  else {
+    $mychecks = $monit::checks
+  }
+  validate_hash($mychecks)
+  create_resources('monit::check', $mychecks)
 }
 
