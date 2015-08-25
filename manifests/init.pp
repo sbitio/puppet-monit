@@ -60,7 +60,7 @@ class monit(
   $system_fs_inode_usage   = '80%',
   # Additional checks.
   $checks                  = {},
-  # set to heira_hash in order to merge your hierarchy
+  # set to hiera_hash in order to merge your hierarchy
   $hiera_merge_strategy    = undef,
 ) inherits monit::params {
 
