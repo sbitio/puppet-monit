@@ -36,7 +36,7 @@ module Puppet::Parser::Functions
       ],
       'HOST'        => ['CONNECTION'],
       'PROCESS'     => RESOURCE_TESTS + ['CONNECTION',],
-      'PROGRAM'     => [],
+      'PROGRAM'     => ['STATUS'],
       'SYSTEM'      => RESOURCE_TESTS,
     }
     defined?(TEST_ACTIONS) or TEST_ACTIONS = ['ALERT', 'RESTART', 'START', 'STOP', 'EXEC', 'UNMONITOR']
@@ -107,6 +107,11 @@ module Puppet::Parser::Functions
           raise Puppet::ParseError, exception_prefix + "'value' is mandatory"
         end
         test['condition'] = "FAILED #{test['type']} #{test['value']}"
+
+      # STATUS TESTING
+      elsif test['type'] == 'STATUS'
+        test['operator'] = test['operator'].upcase
+        test['condition'] = "#{test['type']} #{test['operator']} #{test['value']}"
 
       # CONNECTION TESTING
       elsif test['type'] == 'CONNECTION'

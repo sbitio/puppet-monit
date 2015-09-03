@@ -183,6 +183,19 @@ monit::checks :
         host: '127.0.0.1'
         port: '80'
         protocol: 'http'
+
+ custom-script:
+   type   : 'program'
+   config :
+     path   : "/path/to/custom/pingcheck.sh"
+   tests  :
+     - type      : 'status'
+       operator  : '!='
+       value     : '0'
+       tolerance :
+         cycles  : '2'
+       action    : 'exec'
+       exec      : 'sudo /sbin/reboot'
 ```
 
 ## License
