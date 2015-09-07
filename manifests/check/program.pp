@@ -19,6 +19,9 @@ define monit::check::program(
   $order      = 0,
 ) {
 
+  $pathprefix = split($path, ' ')
+  validate_absolute_path($pathprefix[0])
+
   monit::check::instance { "${name}_instance":
     ensure   => $ensure,
     name     => $name,
