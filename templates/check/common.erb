@@ -17,9 +17,6 @@
   <%- if test.key? 'tolerance' -%>
     FOR <%= test['tolerance'] %>
   <%- end -%>
-  THEN <%= test['action'] -%>
-  <%- if test.key? 'exec' -%>
- "<%= test['exec'] %>"
-  <%- end -%>
-<%- end %>
+  THEN <%= test['action'] %>
+<%- end -%>
 

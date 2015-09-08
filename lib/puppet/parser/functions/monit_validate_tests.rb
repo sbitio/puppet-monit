@@ -77,8 +77,12 @@ module Puppet::Parser::Functions
         unless TEST_ACTIONS.include? test['action']
           raise Puppet::ParseError, exception_prefix + "invalid action '#{test['action']}'"
         else
-          if test['action'] == 'EXEC' and not test.key? 'exec'
-            raise Puppet::ParseError, exception_prefix + "missing command for exec action"
+          if test['action'] == 'EXEC'
+            unless test.key? 'exec'
+              raise Puppet::ParseError, exception_prefix + "missing command for exec action"
+            else
+              test['action'] = "EXEC \"#{test['exec']}\""
+            end
           end
         end
       end
