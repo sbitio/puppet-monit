@@ -25,11 +25,15 @@ define monit::check::file(
     ensure   => $ensure,
     name     => $name,
     type     => 'file',
+    header   => template($template),
+    group    => $group,
+    alerts   => $alerts,
+    noalerts => $noalerts,
+    tests    => $tests,
+    depends  => $depends,
     priority => $priority,
     bundle   => $bundle,
     order    => $order,
-    template => $template,
-    tests    => $tests,
   }
 }
 

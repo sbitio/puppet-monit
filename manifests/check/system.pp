@@ -18,11 +18,15 @@ define monit::check::system(
     ensure   => $ensure,
     name     => $name,
     type     => 'system',
+    header   => template($template),
+    group    => $group,
+    alerts   => $alerts,
+    noalerts => $noalerts,
+    tests    => $tests,
+    depends  => $depends,
     priority => $priority,
     bundle   => $bundle,
     order    => $order,
-    template => $template,
-    tests    => $tests,
   }
 }
 

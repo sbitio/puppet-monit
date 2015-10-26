@@ -6,11 +6,15 @@
 define monit::check::instance(
   $ensure,
   $type,
+  $header,
+  $group,
+  $alerts,
+  $noalerts,
+  $tests,
+  $depends,
   $priority,
   $bundle,
   $order,
-  $template,
-  $tests,
 ) {
 
   $priority_real = $priority ? {
@@ -27,10 +31,11 @@ define monit::check::instance(
   }
 
   $tests_real = monit_validate_tests($type, $tests)
+  $content = template('monit/check/common.erb')
   concat::fragment { "${file}_${name}":
     ensure  => $ensure,
     target  => $file,
-    content => template($template, 'monit/check/common.erb'),
+    content => "${header}${content}",
     order   => $order,
     notify  => Service[$monit::service],
   }

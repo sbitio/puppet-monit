@@ -26,11 +26,15 @@ define monit::check::program(
     ensure   => $ensure,
     name     => $name,
     type     => 'program',
+    header   => template($template),
+    group    => $group,
+    alerts   => $alerts,
+    noalerts => $noalerts,
+    tests    => $tests,
+    depends  => $depends,
     priority => $priority,
     bundle   => $bundle,
     order    => $order,
-    template => $template,
-    tests    => $tests,
   }
 }
 

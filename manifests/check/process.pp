@@ -46,11 +46,15 @@ define monit::check::process(
     ensure   => $ensure,
     name     => $name,
     type     => 'process',
+    header   => template($template),
+    group    => $group,
+    alerts   => $alerts,
+    noalerts => $noalerts,
+    tests    => $tests,
+    depends  => $depends,
     priority => $priority,
     bundle   => $bundle,
     order    => $order,
-    template => $template,
-    tests    => $tests,
   }
 }
 

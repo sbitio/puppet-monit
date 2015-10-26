@@ -83,12 +83,12 @@ define monit::check::service(
 
   $defaults = {
     'ensure'     => $ensure,
-    'group'      => $group,
-    'alerts'     => $alerts,
-    'noalerts'   => $noalerts,
-    'depends'    => $depends,
     'priority'   => $priority,
     'bundle'     => $bundle,
+    'group'      => $group,
+    'depends'    => $depends,
+    'alerts'     => $alerts,
+    'noalerts'   => $noalerts,
   }
 
   # Check service process.
