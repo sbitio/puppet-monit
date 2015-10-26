@@ -1,3 +1,7 @@
+# == Defined type: monit::check::directory
+#
+# Implement Monit's CHECK SYSTEM
+#
 define monit::check::system(
   # Check type specific.
   $template   = 'monit/check/system.erb',
