@@ -237,9 +237,9 @@
 ## It is possible to include additional configuration parts from other files or
 ## directories.
 #
-#  include <%= @conf_dir %>/*
+#  include <%= scope['monit::conf_dir'] %>/*
 #
 #
-# Include all files from <%= @conf_dir %>/
-include <%= @conf_dir %>/*
+# Include all files from <%= scope['monit::conf_dir'] %>/
+include <%= scope['monit::conf_dir'] %>/*
 

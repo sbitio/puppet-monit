@@ -1,41 +1,41 @@
 ---
-<% if @system_loadavg_1min %>
+<% if scope['monit::system_loadavg_1min'] %>
  - type      : 'loadavg(1min)'
    operator  : '>'
-   value     : <%= @system_loadavg_1min %>
+   value     : <%= scope['monit::system_loadavg_1min'] %>
 <% end %>
-<% if @system_loadavg_5min %>
+<% if scope['monit::system_loadavg_5min'] %>
  - type      : 'loadavg(5min)'
    operator  : '>'
-   value     : <%= @system_loadavg_5min %>
+   value     : <%= scope['monit::system_loadavg_5min'] %>
 <% end %>
-<% if @system_loadavg_15min %>
+<% if scope['monit::system_loadavg_15min'] %>
  - type      : 'loadavg(15min)'
    operator  : '>'
-   value     : <%= @system_loadavg_15min %>
+   value     : <%= scope['monit::system_loadavg_15min'] %>
 <% end %>
-<% if @system_cpu_user %>
+<% if scope['monit::system_cpu_user'] %>
  - type      : 'cpu(user)'
    operator  : '>'
-   value     : <%= @system_cpu_user %>
+   value     : <%= scope['monit::system_cpu_user'] %>
 <% end %>
-<% if @system_cpu_system %>
+<% if scope['monit::system_cpu_system'] %>
  - type      : 'cpu(system)'
    operator  : '>'
-   value     : <%= @system_cpu_system %>
+   value     : <%= scope['monit::system_cpu_system'] %>
 <% end %>
-<% if @system_cpu_wait %>
+<% if scope['monit::system_cpu_wait'] %>
  - type      : 'cpu(wait)'
    operator  : '>'
-   value     : <%= @system_cpu_wait %>
+   value     : <%= scope['monit::system_cpu_wait'] %>
 <% end %>
-<% if @system_memory %>
+<% if scope['monit::system_memory'] %>
  - type      : 'memory'
    operator  : '>'
-   value     : <%= @system_memory %>
+   value     : <%= scope['monit::system_memory'] %>
 <% end %>
-<% if @system_swap %>
+<% if scope['monit::system_swap'] %>
  - type      : 'swap'
    operator  : '>'
-   value     : <%= @system_swap %>
+   value     : <%= scope['monit::system_swap'] %>
 <% end %>
