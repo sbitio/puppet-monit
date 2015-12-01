@@ -184,6 +184,23 @@ monit::checks :
         port: '80'
         protocol: 'http'
 
+  # Notice: Param 'HOSTHEADER' changed to 'HTTP HEADERS' in monit 5.9
+  # see https://mmonit.com/monit/changes/		
+  http_headers:
+    type: host
+    config:
+      address: '127.0.0.1'
+    tests:
+      - type: 'connection'
+        host: '127.0.0.1'
+        port: '80'
+        protocol: 'http'
+        protocol_test:
+          request: '/'
+          status: 200
+          http headers: '[host: www.example.com]'
+        action: restart
+		
  custom-script:
    type   : 'program'
    config :
