@@ -12,7 +12,7 @@ set eventqueue
     basedir <%= scope['monit::eventqueue_basedir'] %>
     slots <%= scope['monit::eventqueue_slots'] %>
 <% end -%>
-<% if scope['monit::mmonit_url'] %>
+<% if !scope.lookupvar('monit::mmonit_url').empty? %>
 set mmonit <%= scope['monit::mmonit_url'] %>
 <% end -%>
 
