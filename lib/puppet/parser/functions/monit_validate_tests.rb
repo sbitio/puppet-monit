@@ -125,7 +125,7 @@ module Puppet::Parser::Functions
         end
         condition = 'FAILED'
         if test.key? 'unixsocket'
-          condition += "UNIXSOCKET #{test['unixsocket']}"
+          condition += " UNIXSOCKET #{test['unixsocket']}"
         else
           if test.key? 'host'
             condition += " HOST #{test['host']} PORT #{test['port']}"
