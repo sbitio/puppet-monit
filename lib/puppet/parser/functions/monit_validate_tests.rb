@@ -31,7 +31,7 @@ module Puppet::Parser::Functions
     defined?(TEST_TYPES) or TEST_TYPES = {
       'DIRECTORY'   => [],
       'FIFO'        => [],
-      'FILE'        => ['PERMISSION', 'CHECKSUM'],
+      'FILE'        => ['PERMISSION', 'CHECKSUM', 'UID', 'GID'],
       'FILESYSTEM'  => [
         'FSFLAGS', 'SPACE', 'INODE', 'PERM', 'PERMISSION'
       ],
@@ -116,6 +116,20 @@ module Puppet::Parser::Functions
       # CHECKSUM TESTING
       elsif ['CHECKSUM'].include? test['type']
         test['condition'] = "FAILED #{test['type']}"
+
+      # UID TESTING
+      elsif ['UID'].include? test['type']
+        unless test.key? 'value'
+          raise Puppet::ParseError, exception_prefix + "'value' is mandatory"
+        end
+        test['condition'] = "FAILED #{test['type']} #{test['value']}"
+
+      # GID TESTING
+      elsif ['GID'].include? test['type']
+        unless test.key? 'value'
+          raise Puppet::ParseError, exception_prefix + "'value' is mandatory"
+        end
+        test['condition'] = "FAILED #{test['type']} #{test['value']}"
 
       # STATUS TESTING
       elsif test['type'] == 'STATUS'
