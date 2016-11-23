@@ -18,8 +18,8 @@ define monit::check::host(
   $bundle     = $name,
   $order      = 0,
 ) {
-  if !is_domain_name($address) or !is_ip_address($address) {
-    fail("Invalid domain name or ip address '${address}'.")
+  if !is_domain_name($address) and !is_ip_address($address) {
+    fail("Invalid domain name and ip address '${address}'.")
   }
 
   monit::check::instance { "${name}_instance":
