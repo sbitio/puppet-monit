@@ -200,7 +200,7 @@ monit::checks :
           status: 200
           http headers: '[host: www.example.com]'
         action: restart
-		
+
  custom-script:
    type   : 'program'
    config :
