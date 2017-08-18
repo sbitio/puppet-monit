@@ -1,7 +1,9 @@
 # This is tested to work under puppet 3.8.x
 # Centos 7 requires extra module to manage yum repo
 # install it with command
-# puppet module install 'stahnma-epel'
+#   puppet module install 'stahnma-epel'
+# or add it to Puppetfile as:
+#   mode 'stahnma-epel'
 
 # anything else should be defined with hiera
 
