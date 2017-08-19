@@ -1,3 +1,7 @@
+# == Class: monit::config
+#
+# Private class.
+#
 class monit::config {
 
   if $caller_module_name != $module_name {

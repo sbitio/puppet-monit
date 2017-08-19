@@ -1,3 +1,6 @@
+# == Class: monit::params
+#
+#
 class monit::params {
 
 # $caller_module_name is empty when inherited?
