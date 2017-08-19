@@ -1,18 +1,23 @@
 # This is tested to work under puppet 3.8.x
-# Centos 7 requires extra module to manage yum repo
-# install it with command
-#   puppet module install 'stahnma-epel'
-# or add it to Puppetfile as:
-#   mode 'stahnma-epel'
+#
+# Centos 7 requires extra module to manage yum repo:
 
-# anything else should be defined with hiera
+# Install it with command:
+#   `puppet module install 'stahnma-epel'`
+
+# Or add it to Puppetfile as:
+#   `mod 'stahnma-epel'`
+
+# Anything else should be defined with hiera.
 
 node default {
 
-  # provided by stahnma-epel
+  # Provided by stahnma-epel
   include ::epel
 
   include ::monit
-  Class['epel'] -> Class['monit::install'] # cannot do just Class['monit'] because the way module is constructed
+  # Set precedence. Cannot do just Class['monit']
+  # because the way module is constructed.
+  Class['epel'] -> Class['monit::install']
 
 }
