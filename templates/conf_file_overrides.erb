@@ -1,52 +1,52 @@
 # Managed by Puppet.
 
-set daemon <%= scope['monit::check_interval'] %>
-    with start delay <%= scope['monit::check_start_delay'] %>
+set daemon <%= @check_interval %>
+    with start delay <%= @check_start_delay %>
 
-set logfile <%= scope['monit::logfile'] %>
-<% if scope['monit::mailserver'] %>
-set mailserver <%= scope['monit::mailserver'] %>
+set logfile <%= @logfile %>
+<% if @mailserver %>
+set mailserver <%= @mailserver %>
 <% end -%>
-<% if scope['monit::eventqueue'] %>
+<% if @eventqueue %>
 set eventqueue
-    basedir <%= scope['monit::eventqueue_basedir'] %>
-    slots <%= scope['monit::eventqueue_slots'] %>
+    basedir <%= @eventqueue_basedir %>
+    slots <%= @eventqueue_slots %>
 <% end -%>
-<% if scope['monit::mmonit_url'] %>
-set mmonit <%= scope['monit::mmonit_url'] %>
+<% if @mmonit_url %>
+set mmonit <%= @mmonit_url %>
 <% end -%>
 
 set mail-format {
-    from: <%= scope['monit::mailformat_from'] %>
-<% if scope['monit::mailformat_replyto'] -%>
-    reply-to: <%= scope['monit::mailformat_replyto'] %>
+    from: <%= @mailformat_from %>
+<% if @mailformat_replyto -%>
+    reply-to: <%= @mailformat_replyto %>
 <% end -%>
-<% if scope['monit::mailformat_subject'] -%>
-    subject: <%= scope['monit::mailformat_subject'] %>
+<% if @mailformat_subject -%>
+    subject: <%= @mailformat_subject %>
 <% end -%>
-<% if scope['monit::mailformat_message'] -%>
-    message: <%= scope['monit::mailformat_message'] %>
+<% if @mailformat_message -%>
+    message: <%= @mailformat_message %>
 <% end -%>
 }
-<% if scope['monit::alerts'] -%>
+<% if @alerts -%>
 
-  <%- scope['monit::alerts'].each do |alert| -%>
+  <%- @alerts.each do |alert| -%>
 set alert <%= alert %>
   <%- end -%>
 <% end %>
-<% if scope['monit::httpserver'] -%>
+<% if @httpserver -%>
 set httpd
-    port <%= scope['monit::httpserver_port'] %>
+    port <%= @httpserver_port %>
     signature disable
-  <%- if scope['monit::httpserver_bind_address'] -%>
-    use address <%= scope['monit::httpserver_bind_address'] %>
+  <%- if @httpserver_bind_address -%>
+    use address <%= @httpserver_bind_address %>
   <%- end -%>
-  <%- if scope['monit::httpserver_ssl'] and scope['monit::httpserver_pemfile'] -%>
+  <%- if @httpserver_ssl and @httpserver_pemfile -%>
     ssl enable
-    pemfile <%= scope['monit::httpserver_pemfile'] %>
+    pemfile <%= @httpserver_pemfile %>
   <%- end -%>
-  <%- if scope['monit::httpserver_allow'] -%>
-    <%- scope['monit::httpserver_allow'].each do |allow| -%>
+  <%- if @httpserver_allow -%>
+    <%- @httpserver_allow.each do |allow| -%>
     allow <%= allow %>
     <%- end -%>
   <%- end -%>
