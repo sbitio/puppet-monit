@@ -16,6 +16,9 @@ series it defaults to `sysv` for compatibility reasons. From 1.0.x onwards it
 defaults to the init system that each supported OS configures by default.
 The init type to use can be also set per service. See below for details.
 
+Use 1.x.x releases for Puppet 3.x and 2.x.x for Puppet 4.
+
+
 ## Classes and Defined Types
 
 ### Class: `monit`
