@@ -1,8 +1,7 @@
 # Change Log
 
-## [Unreleased](https://github.com/sbitio/puppet-monit/tree/HEAD)
-
-[Full Changelog](https://github.com/sbitio/puppet-monit/compare/1.0.0...HEAD)
+## [1.1.0](https://github.com/sbitio/puppet-monit/tree/1.1.0) (2017-08-21)
+[Full Changelog](https://github.com/sbitio/puppet-monit/compare/1.0.0...1.1.0)
 
 **Merged pull requests:**
 
