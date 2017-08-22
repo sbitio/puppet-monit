@@ -14,7 +14,7 @@
   ],
   "operatingsystem_support": [
     {"operatingsystem": "CentOS","operatingsystemrelease":["6","7"]},
-    {"operatingsystem": "Debian","operatingsystemrelease":["6","7","8"]},
+    {"operatingsystem": "Debian","operatingsystemrelease":["7","8"]},
     {"operatingsystem": "Redhat","operatingsystemrelease":["6","7"]},
     {"operatingsystem": "Ubuntu","operatingsystemrelease":["12.04","14.04"]}
   ],
@@ -22,4 +22,3 @@
     {"name": "puppet", "version_requirement": ">= 4.0.0 < 5.0.0"}
   ]
 }
-
