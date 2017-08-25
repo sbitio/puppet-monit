@@ -4,17 +4,22 @@
 # Creates Monit check files by fragments.
 #
 define monit::check::instance(
-  $ensure,
-  $type,
-  $header,
-  $group,
-  $alerts,
-  $noalerts,
-  $tests,
-  $depends,
-  $priority,
-  $bundle,
-  $order,
+  Enum[
+    'present',
+    'absent'
+    ] $ensure,
+  String $type,
+  String $header,
+  String $group,
+  Array[String] $alerts,
+  Array[String] $noalerts,
+  Array[
+    Hash[String, String]
+    ] $tests,
+  Array[String] $depends,
+  String $priority,
+  String $bundle,
+  Integer $order,
 ) {
 
   $priority_real = $priority ? {

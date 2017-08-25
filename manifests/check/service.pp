@@ -30,54 +30,54 @@
 #   Default: "${monit::params::systemd_unitdir}/${name}.service"
 #
 define monit::check::service(
-  # Check type specific.
-  $template        = undef,
-  $binary          = "/usr/sbin/${name}",
-  $init_system     = $monit::init_system,
-  $sysv_file       = "/etc/init.d/${name}",
-  $upstart_file    = "/etc/init/${name}.conf",
-  $systemd_file    = "${monit::params::systemd_unitdir}/${name}.service",
-
-  # Params for process type.
-  $pidfile         = undef,
-  $matching        = undef,
-  $uid             = undef,
-  $gid             = undef,
-  $program_start   = "${monit::service_program} ${name} start",
-  $program_stop    = "${monit::service_program} ${name} stop",
-  $timeout         = undef,
-  $timeout_start   = undef,
-  $timeout_stop    = undef,
-
   # Common parameters.
-  $ensure        = present,
-  $group         = $name,
-  $alerts        = [],
-  $noalerts      = [],
-  $tests         = [],
-  $depends       = [],
-  $priority      = '20',
-  $bundle        = $name,
-  $order         = 0,
-) {
+  Enum[
+    'present',
+    'absent'
+    ] $ensure             = present,
+  String $group           = $name,
+  Array[String] $alerts   = [],
+  Array[String] $noalerts = [],
+  Array[
+    Hash[String, String]
+    ] $tests              = [],
+  Array[String] $depends  = [],
+  String $priority        = '20',
+  String $bundle          = $name,
+  Integer $order          = 0,
 
-  validate_absolute_path($binary)
+  # Check type specific.
+  Undef $template                         = undef,
+  Stdlib::Absolutepath $binary            = "/usr/sbin/${name}",
+  Enum[
+    'sysv',
+    'systemd',
+    'upstart'
+    ] $init_system                        = $monit::init_system,
+  Stdlib::Absolutepath $sysv_file         = "/etc/init.d/${name}",
+  Stdlib::Absolutepath $upstart_file      = "/etc/init/${name}.conf",
+  Stdlib::Absolutepath $systemd_file      = "${monit::params::systemd_unitdir}/${name}.service",
+  # Params for process type.
+  Optional[Stdlib::Absolutepath] $pidfile = undef,
+  Optional[String] $matching              = undef,
+  Optional[Integer] $uid                  = undef,
+  Optional[Integer] $gid                  = undef,
+  String $program_start                   = "${monit::service_program} ${name} start",
+  String $program_stop                    = "${monit::service_program} ${name} stop",
+  Optional[Numeric] $timeout              = undef,
+  Optional[Numeric] $timeout_start        = undef,
+  Optional[Numeric] $timeout_stop         = undef,
+) {
 
   case $init_system {
     'sysv': {
-      validate_absolute_path($sysv_file)
       $service_file = $sysv_file
     }
     'upstart': {
-      validate_absolute_path($upstart_file)
       $service_file = $upstart_file
     }
     'systemd': {
-      validate_absolute_path($systemd_file)
       $service_file = $systemd_file
-    }
-    default: {
-      fail("unknown init system '${init_system}'. Supported systems are: sysv, upstart, systemd.")
     }
   }
 
@@ -115,7 +115,7 @@ define monit::check::service(
   $params_service_file = {
     'path'       => $service_file,
     'bundle'     => $bundle,
-    'order'      => inline_template('<%= @order.to_i + 1 %>'),
+    'order'      => 0 + inline_template('<%= @order.to_i + 1 %>'),
   }
   ensure_resource('monit::check::file', "${name}_service_file", merge($defaults, $params_service_file))
 
@@ -123,7 +123,7 @@ define monit::check::service(
   $params_binary = {
     'path'       => $binary,
     'bundle'     => $bundle,
-    'order'      => inline_template('<%= @order.to_i + 2 %>'),
+    'order'      => 0 + inline_template('<%= @order.to_i + 2 %>'),
   }
   ensure_resource('monit::check::file', "${name}_binary", merge($defaults, $params_binary))
 }

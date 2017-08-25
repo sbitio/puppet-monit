@@ -3,19 +3,24 @@
 # Implement Monit's CHECK SYSTEM
 #
 define monit::check::system(
-  # Check type specific.
-  $template   = 'monit/check/system.erb',
-
   # Common parameters.
-  $ensure     = present,
-  $group      = $name,
-  $alerts     = [],
-  $noalerts   = [],
-  $tests      = [],
-  $depends    = [],
-  $priority   = '20',
-  $bundle     = $name,
-  $order      = 0,
+  Enum[
+    'present',
+    'absent'
+    ] $ensure             = present,
+  String $group           = $name,
+  Array[String] $alerts   = [],
+  Array[String] $noalerts = [],
+  Array[
+    Hash[String, String]
+    ] $tests              = [],
+  Array[String] $depends  = [],
+  String $priority        = '20',
+  String $bundle          = $name,
+  Integer $order          = 0,
+
+  # Check type specific.
+  String $template  = 'monit/check/system.erb',
 ) {
 
   monit::check::instance { "${name}_instance":

@@ -3,23 +3,29 @@
 # Implement Monit's CHECK FILESYSTEM
 #
 define monit::check::filesystem(
-  # Check type specific.
-  $path,
-  $template   = 'monit/check/filesystem.erb',
-
   # Common parameters.
-  $ensure     = present,
-  $group      = $name,
-  $alerts     = [],
-  $noalerts   = [],
-  $tests      = [],
-  $depends    = [],
-  $priority   = '20',
-  $bundle     = $name,
-  $order      = 0,
-) {
+  Enum[
+    'present',
+    'absent'
+    ] $ensure             = present,
+  String $group           = $name,
+  Array[String] $alerts   = [],
+  Array[String] $noalerts = [],
+  Array[
+    Hash[String, String]
+    ] $tests              = [],
+  Array[String] $depends  = [],
+  String $priority        = '20',
+  String $bundle          = $name,
+  Integer $order          = 0,
 
-  validate_absolute_path($path)
+  # Check type specific.
+  String $template        = 'monit/check/filesystem.erb',
+  Variant[
+    Stdlib::Absolutepath,
+    Pattern['^/']
+    ] $path,
+) {
 
   monit::check::instance { "${name}_instance":
     ensure   => $ensure,

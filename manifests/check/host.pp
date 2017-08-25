@@ -3,24 +3,33 @@
 # Implement Monit's CHECK HOST
 #
 define monit::check::host(
-  # Check type specific.
-  $address,
-  $template   = 'monit/check/host.erb',
-
   # Common parameters.
-  $ensure     = present,
-  $group      = $name,
-  $alerts     = [],
-  $noalerts   = [],
-  $tests      = [],
-  $depends    = [],
-  $priority   = '20',
-  $bundle     = $name,
-  $order      = 0,
+  Enum[
+    'present',
+    'absent'
+    ] $ensure             = present,
+  String $group           = $name,
+  Array[String] $alerts   = [],
+  Array[String] $noalerts = [],
+  Array[
+    Hash[String, String]
+    ] $tests              = [],
+  Array[String] $depends  = [],
+  String $priority        = '20',
+  String $bundle          = $name,
+  Integer $order          = 0,
+
+  # Check type specific.
+  String $template = 'monit/check/host.erb',
+  String $address
 ) {
-  if !is_domain_name($address) and !is_ip_address($address) {
-    fail("Invalid domain name or ip address '${address}'.")
-  }
+
+  #@todo@ match regex for hostname and ip address
+  #Could leverage thrnio/puppet-ip
+  # Any solution is overkill as of today.
+  #if !is_domain_name($address) and !is_ip_address($address) {
+  # fail("Invalid domain name or ip address '${address}'.")
+  #}
 
   monit::check::instance { "${name}_instance":
     ensure   => $ensure,

@@ -3,32 +3,36 @@
 # Implement Monit's CHECK PROCESS
 #
 define monit::check::process(
-  # Check type specific.
-  $program_start,
-  $program_stop,
-  $template        = 'monit/check/process.erb',
-  $pidfile         = undef,
-  $matching        = undef,
-  $uid             = undef,
-  $gid             = undef,
-  $timeout         = undef,
-  $timeout_start   = undef,
-  $timeout_stop    = undef,
-
   # Common parameters.
-  $ensure     = present,
-  $group      = $name,
-  $alerts     = [],
-  $noalerts   = [],
-  $tests      = [],
-  $depends    = [],
-  $priority   = '20',
-  $bundle     = $name,
-  $order      = 0,
+  Enum[
+    'present',
+    'absent'
+    ] $ensure             = present,
+  String $group           = $name,
+  Array[String] $alerts   = [],
+  Array[String] $noalerts = [],
+  Array[
+    Hash[String, String]
+    ] $tests              = [],
+  Array[String] $depends  = [],
+  String $priority        = '20',
+  String $bundle          = $name,
+  Integer $order          = 0,
+
+  # Check type specific.
+  String $template                        = 'monit/check/process.erb',
+  String $program_start,
+  String $program_stop,
+  Optional[Stdlib::Absolutepath] $pidfile = undef,
+  Optional[String] $matching              = undef,
+  Optional[Integer] $uid                  = undef,
+  Optional[Integer] $gid                  = undef,
+  Optional[Numeric] $timeout              = undef,
+  Optional[Numeric] $timeout_start        = undef,
+  Optional[Numeric] $timeout_stop         = undef,
 ) {
 
   if $pidfile {
-    validate_absolute_path($pidfile)
     if $matching {
       warning("monit::check::process: both 'pidfile' and 'matching' provided. Ignoring 'matching'.")
     }
@@ -38,8 +42,8 @@ define monit::check::process(
   }
 
   if $timeout {
-    $real_timeout_start   = pick($timeout_start, $timeout)
-    $real_timeout_stop    = pick($timeout_stop, $timeout)
+    $real_timeout_start = pick($timeout_start, $timeout)
+    $real_timeout_stop  = pick($timeout_stop, $timeout)
   }
 
   monit::check::instance { "${name}_instance":

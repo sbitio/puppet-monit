@@ -2,17 +2,17 @@
 <% if scope['monit::system_loadavg_1min'] %>
  - type      : 'loadavg(1min)'
    operator  : '>'
-   value     : <%= scope['monit::system_loadavg_1min'] %>
+   value     : '<%= scope['monit::system_loadavg_1min'] %>'
 <% end %>
 <% if scope['monit::system_loadavg_5min'] %>
  - type      : 'loadavg(5min)'
    operator  : '>'
-   value     : <%= scope['monit::system_loadavg_5min'] %>
+   value     : '<%= scope['monit::system_loadavg_5min'] %>'
 <% end %>
 <% if scope['monit::system_loadavg_15min'] %>
  - type      : 'loadavg(15min)'
    operator  : '>'
-   value     : <%= scope['monit::system_loadavg_15min'] %>
+   value     : '<%= scope['monit::system_loadavg_15min'] %>'
 <% end %>
 <% if scope['monit::system_cpu_user'] %>
  - type      : 'cpu(user)'

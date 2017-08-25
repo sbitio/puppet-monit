@@ -34,23 +34,31 @@
 #   Order of the check within the bundle filename.
 #
 define monit::check(
-  $ensure   = present,
-  $type     = undef,
-  $config   = {},
-  $group    = $name,
-  $tests    = [],
-  $priority = '20',
-  $template = "monit/check/${type}.erb",
-  $bundle   = $name,
-  $order    = 0,
+  Enum[
+    'present',
+    'absent'
+    ] $ensure                  = 'present',
+  Hash[String, String] $config = {},
+  String $group                = $name,
+  Array[
+    Hash[String, String]
+    ] $tests                   = [],
+  String $priority             = '20',
+  String $template             = "monit/check/${type}.erb",
+  String $bundle               = $name,
+  Integer $order               = 0,
+  Enum[
+    'directory',
+    'fifo',
+    'file',
+    'filesystem',
+    'host',
+    'process',
+    'program',
+    'service',
+    'system'
+    ] $type,
 ) {
-
-  validate_re(
-    $type,
-    '^(directory|fifo|file|filesystem|host|process|program|service|system)$',
-    "Unknown check type '${type}'."
-  )
-  validate_hash($config)
 
   $defaults = {
     'name'       => $name,

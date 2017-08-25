@@ -3,24 +3,26 @@
 # Implement Monit's CHECK PROGRAM
 #
 define monit::check::program(
-  # Check type specific.
-  $path,
-  $template   = 'monit/check/program.erb',
-
   # Common parameters.
-  $ensure     = present,
-  $group      = $name,
-  $alerts     = [],
-  $noalerts   = [],
-  $tests      = [],
-  $depends    = [],
-  $priority   = '20',
-  $bundle     = $name,
-  $order      = 0,
-) {
+  Enum[
+    'present',
+    'absent'
+    ] $ensure             = present,
+  String $group           = $name,
+  Array[String] $alerts   = [],
+  Array[String] $noalerts = [],
+  Array[
+    Hash[String, String]
+    ] $tests              = [],
+  Array[String] $depends  = [],
+  String $priority        = '20',
+  String $bundle          = $name,
+  Integer $order          = 0,
 
-  $path_parts = split($path, ' ')
-  validate_absolute_path($path_parts[0])
+  # Check type specific.
+  String $template           = 'monit/check/program.erb',
+  Stdlib::Absolutepath $path
+) {
 
   monit::check::instance { "${name}_instance":
     ensure   => $ensure,
