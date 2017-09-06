@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Defined Type: monit::check::instance
+  
+    &mdash; Documentation by YARD 0.9.9
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_defined_types::monit::check::instance";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_defined_type_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (m)</a> &raquo;
+    <span class='title'><span class='object_link'>Defined Types</span></span>
+     &raquo; 
+    <span class="title">monit::check::instance</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Defined Type: monit::check::instance</h1>
+<div class="box_info">
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/check/instance.pp
+    </dd>
+  </dl>
+</div>
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+<p>monit::check::instance Common code invoked by all check types. Creates
+Monit check files by fragments.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ensure</span>
+      
+      
+        <span class='type'>(<tt>Enum[
+    'present',
+    'absent'
+    ]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Enum[&#39;present&#39;, &#39;absent&#39;] Whether this check must be
+present or absent.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>String Type of check.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>header</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>String Fragment of the test specific config.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>group</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>String Monit group.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>alerts</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p><a href="String">Array</a> Alert recipients (with event filters) to set.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>noalerts</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p><a href="String">Array</a> Alerts to disable for this check.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tests</span>
+      
+      
+        <span class='type'>(<tt>Array[
+    Hash[String, Variant[Array, Hash, Integer, String]]
+    ]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>depends</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p><a href="String">Array</a> Dependencies of this check on other checks.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>priority</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>String Used as a prefix for the filename generated. Load order doesn&#39;t
+matter to Monit. This is just a facility to organize your checks by
+filename.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bundle</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>String Used to group checks by filename. All checks in the same bundle will
+be added to the same filename.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>order</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Integer Order of the check within the bundle filename.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/check/instance.pp', line 20</span>
+
+define monit::check::instance(
+  Enum[
+    &#39;present&#39;,
+    &#39;absent&#39;
+    ] $ensure,
+  String $type,
+  String $header,
+  String $group,
+  Array[String] $alerts,
+  Array[String] $noalerts,
+  Array[
+    Hash[String, Variant[Array, Hash, Integer, String]]
+    ] $tests,
+  Array[String] $depends,
+  String $priority,
+  String $bundle,
+  Integer $order,
+) {
+
+  $priority_real = $priority ? {
+    undef   =&gt; &#39;&#39;,
+    default =&gt; &quot;${priority}_&quot;,
+  }
+  $file = &quot;${monit::conf_dir}/${priority_real}${bundle}&quot;
+  if !defined(Concat[$file]) {
+    concat{ $file:
+      ensure         =&gt; $ensure,
+      warn           =&gt; &quot;# MANAGED BY PUPPET!\n\n&quot;,
+      ensure_newline =&gt; true,
+    }
+  }
+
+  $tests_real = monit_validate_tests($type, $tests)
+  $content = template(&#39;monit/check/common.erb&#39;)
+  concat::fragment { &quot;${file}_${name}&quot;:
+    target  =&gt; $file,
+    content =&gt; &quot;${header}${content}&quot;,
+    order   =&gt; $order,
+    notify  =&gt; Service[$monit::service],
+  }
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+  Generated on Wed Sep  6 11:04:52 2017 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.9 (ruby-2.1.5).
+</div>
+
+    </div>
+  </body>
+</html>

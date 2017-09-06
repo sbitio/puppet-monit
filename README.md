@@ -15,12 +15,14 @@
 
 ## Description
 
-Performs installation and configuration of Monit service, along with fine grained definition of checks.
+Performs installation and configuration of Monit service, along with fine
+grained definition of checks.
 
-All check types provided by Monit are supported. Namely: `directory`, `fifo`, `file`, `filesystem`, `host`, `process`, `program`, and `system`.
+All check types provided by Monit are supported. Namely: `directory`, `fifo`,
+`file`, `filesystem`, `host`, `process`, `program`, and `system`.
 
-In adition to primitive types, a compound check type is provided: `service`. It is a set of primitives to check a service's init script, binary and process.
-
+In adition to primitive types, a compound check type is provided: `service`.
+It is a set of primitives to check a service's init script, binary and process.
 
 ## Setup
 
@@ -45,13 +47,24 @@ class { '::monit':
 
 ## Usage
 
-All parameters for the monit module are contained within the main `::monit` class, so for any function of the module, set the options you want. See the common usages below for examples.
+All parameters for the monit module are contained within the main `::monit`
+class, so for any function of the module, set the options you want.
+See the common usages below for examples.
 
-There're several entry points to declare your own checks:
+Check types are implemented by defined types, named after `monit::check::TYPE`.
+All check types have several configuration options in common (ex: group,
+priority, alerts, dependencies, etc.), along with the check specific options.
 
- * Create an instance of the specific defined type for the given check (ex: `monit::check::CHECKTYPE`)
+On the other hand, `monit::check` defined type is a facade for all check types.
+It works as a single entry point to declare any type of check in the same way.
+Common configuration options are parameters of the defined type, and check
+specific options are passed through a hash in the `config` parameter.
+
+So there're several entry points to declare your own checks:
+
+ * Create an instance of the specific defined type for the given check (ex: `monit::check::TYPE`)
  * Create an instance of the generic `monit::check` defined type, and pass in the details of the check
- * Pass in a hash of checks to `::monit` class. This enables providing the checks from Hiera, optionally with `hiera_hash` merge strategy
+ * Pass in a hash of checks to `::monit` class. This enables providing the checks from Hiera, with your preferred merge strategy
 
 
 ### Install and enable monit
@@ -289,48 +302,7 @@ files.
 
 ## Reference
 
-### Classes and Defined Types
-
-#### Class: `monit`
-
-`monit` class is the responsible of installing and configuring the Monit
-service. Almost all configuration options for `monitrc` are exposed as class
-parameters.
-
-In addition to Monit configuration options, this class accepts other parameters:
-
- * `init_system`, to set globally the default init system for `service` checks.
-
- * `checks`, useful to pass in Monit checks declared in Hiera.
-
-If your hiera setup supports a hierarchy structure, you can set
-'monit::hiera_merge_strategy' to 'hiera_hash' in order use the hiera_hash function for
-config merging.
-
-Lastly, this class also configures a `system` check with sane defaults. It can
-be disabled or tweaked to fit your needs. This check includes loadavg, cpu,
-memory, swap and filesytem tests.
-
-See [manifests/init.pp](https://github.com/sbitio/puppet-monit/blob/master/manifests/init.pp)
-for a reference of all supported parameters.
-
-
-#### Defined type: `monit::check`
-
-Check types are implemented by defined types, named after `monit::check::TYPE`.
-All check types have several configuration options in common (ex: group,
-priority, alerts, dependencies, etc.), along with the check specific options.
-
-See [manifests/check/*.pp](https://github.com/sbitio/puppet-monit/blob/master/manifests/check)
-for a reference of parameters accepted by each check type.
-
-On the other hand, `monit::check` defined type is a facade for all check types.
-It works as a single entry point to declare any type of check in the same way.
-Common configuration options are parameters of the defined type, and check
-specific options are passed through a hash in the `config` parameter.
-
-See [manifests/check.pp](https://github.com/sbitio/puppet-monit/blob/master/manifests/check.pp)
-for a reference of all parameters accepted by `monit::check`.
+See Puppet Strings doc at [doc/index.html](https://github.com/sbitio/puppet-monit/blob/master/doc/index.html)
 
 
 ## Limitations

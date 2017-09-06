@@ -1,6 +1,7 @@
-# == Class: monit::install
+# monit::config
+# @api private
 #
-# Private class.
+# This class handles monit package.
 #
 class monit::install {
 

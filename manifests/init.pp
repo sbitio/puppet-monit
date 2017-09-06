@@ -1,17 +1,62 @@
-# == Class: monit
+# monit
 #
-# This class is the entrance point to install and configure monit service.
+# This class is the responsible of installing and configuring the Monit
+# service. Almost all configuration options for `monitrc` are exposed as class
+# parameters.
 #
-# === Parameters
+# In addition to Monit configuration options, this class accepts other parameters:
 #
-# [*alerts*]
-#   Array of emails with optional event filters.
-#   e.g:
-#   - "foo@bar"
-#   - "foo@bar only on { timeout, nonexist }"
-#   - "foo@bar but not on { instance }"
+#  * `init_system`, to set globally the default init system for `service` checks.
+#  * `checks`, to provide checks from Hiera.
+#  * `hiera_merge_strategy` Merge strategy for monit::checks.
 #
-#   Monit doc reference: http://mmonit.com/monit/documentation/monit.html#setting_an_alert_recipient
+# Lastly, this class also configures a `system` check with sane defaults. It can
+# be disabled or tweaked to fit your needs. See the set of parameters
+# starting with `system_`.
+#
+#
+# @param service_enable Boolean Whether to enable the monit service.
+# @param service_ensure Enum['running', 'stopped'] Ensure status of the monit service.
+# @param conf_file [Stdlib::Absolutepath] Path to the Monit main configuration file.
+# @param conf_dir [Stdlib::Absolutepath] Path to the Monit configuration directory (where checks are placed).
+# @param conf_purge [Boolean] Whether to purge checks not managed by Puppet.
+# @param check_interval [Integer] Check services at given interval.
+# @param check_start_delay [Integer] Delay the first check after Monit starts by this interval.
+# @param logfile Variant[Stdlib::Absolutepath, Pattern['^syslog( facility [_a-zA-Z0-9]+)?$']] Path to a logfile or syslog logging facility.
+# @param idfile Stdlib::Absolutepath Path to the Monit instance unique id file.
+# @param statefile Stdlib::Absolutepath Path to the persistent state file.
+# @param eventqueue Boolean Whether to enable the event queue.
+# @param eventqueue_basedir Stdlib::Absolutepath Path to the event queue directory.
+# @param eventqueue_slots Integer Size of the event queue.
+# @param mmonit_url Optional[Stdlib::Httpurl] M/Monit url.
+# @param mailserver Optional[String] List of mail servers for alert delivery.
+# @param mailformat_from String Override FROM field of the alert mail format.
+# @param mailformat_replyto Optional[String] Override REPLYTO field of the alert mail format. NOTE: reply-to available since Monit 5.
+# @param mailformat_subject Optional[String] Override SUBJECT field of the alert mail format.
+# @param mailformat_message Optional[String] Override MESSAGE field of the alert mail format.
+# @param alerts Array[String] Alert recipients. Alerts may be restricted on events by using a filter.
+# @param httpserver Boolean Whether to enable the embedded webserver.
+# @param httpserver_port Integer[1024, 65535] Webserver port.
+# @param httpserver_bind_address String Webserver bind address.
+# @param httpserver_ssl Boolean Whether to enable SSL for the webserver.
+# @param httpserver_pemfile Optional[Stdlib::Absolutepath] Webserver SSL certificate file.
+# @param httpserver_allow Array[String] Webserver grants.
+# @param init_system Enum['sysv', 'systemd', 'upstart'] Default init system. Used to build service checks.
+# @param service_program Stdlib::Absolutepath Path to the default init system program.
+# @param system_check_ensure Enum['present', 'absent'] Whether to create the system check.
+# @param system_loadavg_1min Numeric 1 minute load average threshold.
+# @param system_loadavg_5min Numeric 5 minute load average threshold.
+# @param system_loadavg_15min Numeric 15 minute load average threshold.
+# @param system_cpu_user String CPU user usage threshold.
+# @param system_cpu_system String CPU system usage threshold.
+# @param system_cpu_wait String CPU wait usage threshold.
+# @param system_memory String Memory usage threshold.
+# @param system_swap Optional[String] Swap usage threshold. NOTE: swap available since monit 5.2.
+# @param system_fs Variant[Array[Stdlib::Absolutepath], Array[Pattern['^/']]] Path to filesystems to check.
+# @param system_fs_space_usage String Filesystem space usage threshold.
+# @param system_fs_inode_usage String Filesystem inode usage threshold.
+# @param checks Hash[String, Hash] Hash of additional checks to create.
+# @param hiera_merge_strategy Optional[Enum['hiera_hash']] Merge strategy when obtaining checks from Hiera.
 #
 class monit(
   Boolean $service_enable                  = true,

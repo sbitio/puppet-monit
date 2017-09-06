@@ -1,3 +1,8 @@
+# monit::config
+# @api private
+#
+# This class handles the monit service.
+#
 class monit::service {
 
   if $caller_module_name != $module_name {

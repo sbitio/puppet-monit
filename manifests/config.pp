@@ -1,6 +1,7 @@
-# == Class: monit::config
+# monit::config
+# @api private
 #
-# Private class.
+# This class handles the configuration files.
 #
 class monit::config {
 
