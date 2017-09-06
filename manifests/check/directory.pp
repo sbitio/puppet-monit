@@ -12,7 +12,7 @@ define monit::check::directory(
   Array[String] $alerts   = [],
   Array[String] $noalerts = [],
   Array[
-    Hash[String, String]
+    Hash[String, Variant[Array, Hash, Integer, String]]
     ] $tests              = [],
   Array[String] $depends  = [],
   String $priority        = '20',

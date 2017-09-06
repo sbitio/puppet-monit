@@ -41,7 +41,7 @@ define monit::check(
   Hash[String, String] $config = {},
   String $group                = $name,
   Array[
-    Hash[String, String]
+    Hash[String, Variant[Array, Hash, Integer, String]]
     ] $tests                   = [],
   String $priority             = '20',
   String $template             = "monit/check/${type}.erb",

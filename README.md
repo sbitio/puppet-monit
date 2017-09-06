@@ -162,54 +162,53 @@ monit::system_fs         : ['/', '/mnt/backups']
 monit::checks :
 
   somefs :
-    type     : 'filesystem'
+    type     : filesystem
     config   :
-      path   : '/mount/somefs'
+      path   : /mount/somefs
     tests    :
-      - type: 'fsflags'
-      - type: 'permission'
+      - type: fsflags
+      - type: permission
         value: '0755'
-      - type: 'space'
+      - type: space
         operator: '>'
-        value: '80%'
+        value: 80%
 
   sshd :
-    type    : 'process'
+    type    : process
     config  :
-      pidfile       : '/var/run/sshd.pid'
-      program_start : '/etc/init.d/sshd start'
-      program_stop  : '/etc/init.d/sshd stop'
+      pidfile       : /var/run/sshd.pid
+      program_start : /etc/init.d/sshd start
+      program_stop  : /etc/init.d/sshd stop
     tests  :
-      - type     : 'connection'
-        host     : '127.0.0.1'
-        port     : '22'
-        protocol : 'ssh'
-        action   : 'restart'
+      - type     : connection
+        host     : 127.0.0.1
+        port     : 22
+        protocol : ssh
+        action   : restart
 
   php5-fpm :
     type    : process
     config  :
-      pidfile       : '/var/run/php5-fpm.pid'
-      binary        : '/usr/sbin/php5-fpm'
-      program_start : '/etc/init.d/php5-fpm start'
-      program_stop  : '/etc/init.d/php5-fpm stop'
+      pidfile       : /var/run/php5-fpm.pid
+      program_start : /etc/init.d/php5-fpm start
+      program_stop  : /etc/init.d/php5-fpm stop
     tests  :
-      - type          : 'connection'
-        host          : '127.0.0.1'
-        port          : '9000''
-        socket_type   : 'TCP'
-        protocol      : 'GENERIC'
+      - type          : connection
+        host          : 127.0.0.1
+        port          : 9000
+        socket_type   : TCP
+        protocol      : GENERIC
         protocol_test :
           - send   : '"\0x01\0x09\0x00\0x00\0x00\0x00\0x08\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00"'
             expect : '"\0x01\0x0A"'
-        action   : 'restart'
+        action   : restart
 
-  ntp:
+  ntp :
     type   : process
     config :
-      pidfile       : '/var/run/ntpd.pid'
-      program_start : '/etc/init.d/ntpd start'
-      program_stop  : '/etc/init.d/ntpd stop'
+      pidfile       : /var/run/ntpd.pid
+      program_start : /etc/init.d/ntpd start
+      program_stop  : /etc/init.d/ntpd stop
     tests  :
       - type        : connection
         host        : 127.0.0.1
@@ -218,69 +217,68 @@ monit::checks :
         protocol    : ntp
         action      : restart
 
-  varnish:
-    type   : 'process'
+  varnish :
+    type   : process
     config :
-      pidfile       : '/var/run/varnish.pid'
-      program_start : '/etc/init.d/varnish start'
-      program_stop  : '/etc/init.d/varnish stop'
+      pidfile       : /var/run/varnish.pid
+      program_start : /etc/init.d/varnish start
+      program_stop  : /etc/init.d/varnish stop
     tests  :
-      - type: 'connection'
-        host: '127.0.0.1'
-        port: '8080'
-        protocol: 'http'
+      - type: connection
+        host: 127.0.0.1
+        port: 8080
+        protocol: http
         protocol_test:
-          request: '/health.varnish'
-      - type      : 'cpu(user)'
+          request: /health.varnish
+      - type      : cpu(user)
         operator  : '>'
-        value     : '60%'
+        value     : 60%
         tolerance :
-          cycles  : '2'
-      - type      : 'children'
+          cycles  : 2
+      - type      : children
         operator  : '>'
-        value     : '150'
+        value     : 150
 
-  httpd:
-    type   : 'service'
+  httpd :
+    type   : service
     config :
-      pidfile : '/var/run/httpd/httpd.pid'
-      binary  : '/usr/sbin/httpd'
-      initd   : '/etc/init.d/httpd'
+      pidfile : /var/run/httpd/httpd.pid
+      binary  : /usr/sbin/httpd
     tests  :
-      - type: 'connection'
-        host: '127.0.0.1'
-        port: '80'
-        protocol: 'http'
+      - type: connection
+        host: 127.0.0.1
+        port: 80
+        protocol: http
 
-  # Notice: Param 'HOSTHEADER' changed to 'HTTP HEADERS' in monit 5.9
-  # see https://mmonit.com/monit/changes/
-  http_headers:
+# Notice: Param 'HOSTHEADER' changed to 'HTTP HEADERS' in monit 5.9
+# see https://mmonit.com/monit/changes/
+  http_headers :
     type: host
     config:
-      address: '127.0.0.1'
+      address: 127.0.0.1
     tests:
-      - type: 'connection'
-        host: '127.0.0.1'
-        port: '80'
-        protocol: 'http'
+      - type: connection
+        host: 127.0.0.1
+        port: 80
+        protocol: http
         protocol_test:
-          request: '/'
+          request: /
           status: 200
           http headers: '[host: www.example.com]'
         action: restart
 
- custom-script:
-   type   : 'program'
-   config :
-     path   : "/path/to/custom/pingcheck.sh"
-   tests  :
-     - type      : 'status'
-       operator  : '!='
-       value     : '0'
-       tolerance :
-         cycles  : '2'
-       action    : 'exec'
-       exec      : 'sudo /sbin/reboot'
+  custom-script :
+    type   : program
+    config :
+      path   : /path/to/custom/pingcheck.sh
+    tests  :
+      - type      : status
+        operator  : '!='
+        value     : 0
+        tolerance :
+          cycles  : 2
+        action    : exec
+        exec      : sudo /sbin/reboot
 ```
 
 There's a bunch of examples for configuring real services across Debian and
