@@ -44,7 +44,7 @@ define monit::check::instance(
   if !defined(Concat[$file]) {
     concat{ $file:
       ensure         => $ensure,
-      warn           => "# MANAGED BY PUPPET!\n\n",
+      warn           => true,
       ensure_newline => true,
     }
   }
@@ -54,7 +54,8 @@ define monit::check::instance(
   concat::fragment { "${file}_${name}":
     target  => $file,
     content => "${header}${content}",
-    order   => $order,
+    # Add one to the order, since the warn message above has order 0
+    order   => 0 + inline_template('<%= @order.to_i + 1 %>'),
     notify  => Service[$monit::service],
   }
 }
