@@ -90,7 +90,7 @@ class monit(
   Array[String] $alerts                    = [],
   Boolean $httpserver                      = true,
   Integer[1024, 65535] $httpserver_port    = 2812,
-  String $httpserver_bind_address          = 'localhost',
+  String $httpserver_bind_address          = undef,
   Boolean $httpserver_ssl                  = false,
   Optional[
     Stdlib::Absolutepath
