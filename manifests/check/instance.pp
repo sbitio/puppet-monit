@@ -46,6 +46,7 @@ define monit::check::instance(
       ensure         => $ensure,
       warn           => true,
       ensure_newline => true,
+      notify         => Service[$monit::service],
     }
   }
 
@@ -56,7 +57,6 @@ define monit::check::instance(
     content => "${header}${content}",
     # Add one to the order, since the warn message above has order 0
     order   => 0 + inline_template('<%= @order.to_i + 1 %>'),
-    notify  => Service[$monit::service],
   }
 }
 
