@@ -34,6 +34,8 @@
 #   Timeout on the start operation. Generic timeout will be used if not specified.
 # @param timeout_stop
 #   Timeout on the stop operation. Generic timeout will be used if not specified.
+# @param restart_limit
+#   Used to define limits on restarts.
 # @param ensure
 #   Whether this check must be present or absent.
 # @param group
@@ -91,6 +93,7 @@ define monit::check::service(
   String $priority                        = '20',
   String $bundle                          = $name,
   Integer $order                          = 0,
+  Optional[Hash] $restart_limit           = undef,
 ) {
 
   case $init_system {
@@ -109,14 +112,15 @@ define monit::check::service(
   }
 
   $defaults = {
-    'ensure'     => $ensure,
-    'priority'   => $priority,
-    'bundle'     => $bundle,
-    'group'      => $group,
-    'depends'    => $depends,
-    'every'      => $every,
-    'alerts'     => $alerts,
-    'noalerts'   => $noalerts,
+    'ensure'        => $ensure,
+    'priority'      => $priority,
+    'bundle'        => $bundle,
+    'group'         => $group,
+    'every'         => $every,
+    'depends'       => $depends,
+    'alerts'        => $alerts,
+    'noalerts'      => $noalerts,
+    'restart_limit' => $restart_limit,
   }
 
   # Check service process.
@@ -141,17 +145,17 @@ define monit::check::service(
 
   # Check service file.
   $params_service_file = {
-    'path'       => $service_file,
-    'bundle'     => $bundle,
-    'order'      => Integer(inline_template('<%= @order.to_i + 1 %>')),
+    'path'   => $service_file,
+    'bundle' => $bundle,
+    'order'  => Integer(inline_template('<%= @order.to_i + 1 %>')),
   }
   ensure_resource('monit::check::file', "${name}_service_file", merge($defaults, $params_service_file))
 
   # Check service binary.
   $params_binary = {
-    'path'       => $binary,
-    'bundle'     => $bundle,
-    'order'      => Integer(inline_template('<%= @order.to_i + 2 %>')),
+    'path'   => $binary,
+    'bundle' => $bundle,
+    'order'  => Integer(inline_template('<%= @order.to_i + 2 %>')),
   }
   ensure_resource('monit::check::file', "${name}_binary", merge($defaults, $params_binary))
 }

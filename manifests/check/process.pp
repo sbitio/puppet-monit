@@ -23,6 +23,8 @@
 #   Timeout on the start operation. Generic timeout will be used if not specified.
 # @param timeout_stop
 #   Timeout on the stop operation. Generic timeout will be used if not specified.
+# @param restart_limit
+#   Used to define limits on restarts.
 # @param ensure
 #   Whether this check must be present or absent.
 # @param group
@@ -59,16 +61,17 @@ define monit::check::process(
   Optional[Numeric] $timeout_stop         = undef,
 
   # Common parameters.
-  Monit::Check::Ensure $ensure = 'present',
-  String $group                = $name,
-  String $every                = '',
-  Array[String] $alerts        = [],
-  Array[String] $noalerts      = [],
-  Monit::Check::Tests $tests   = [],
-  Array[String] $depends       = [],
-  String $priority             = '20',
-  String $bundle               = $name,
-  Integer $order               = 0,
+  Monit::Check::Ensure $ensure            = 'present',
+  String $group                           = $name,
+  String $every                           = '',
+  Array[String] $alerts                   = [],
+  Array[String] $noalerts                 = [],
+  Monit::Check::Tests $tests              = [],
+  Array[String] $depends                  = [],
+  String $priority                        = '20',
+  String $bundle                          = $name,
+  Integer $order                          = 0,
+  Optional[Hash] $restart_limit           = undef,
 ) {
 
   if $pidfile {
@@ -86,18 +89,19 @@ define monit::check::process(
   }
 
   monit::check::instance { "${name}_instance":
-    ensure   => $ensure,
-    name     => $name,
-    type     => 'process',
-    header   => template($template),
-    group    => $group,
-    every    => $every,
-    alerts   => $alerts,
-    noalerts => $noalerts,
-    tests    => $tests,
-    depends  => $depends,
-    priority => $priority,
-    bundle   => $bundle,
-    order    => $order,
+    ensure            => $ensure,
+    name              => $name,
+    type              => 'process',
+    header            => template($template),
+    group             => $group,
+    every             => $every,
+    alerts            => $alerts,
+    noalerts          => $noalerts,
+    tests             => $tests,
+    depends           => $depends,
+    priority          => $priority,
+    bundle            => $bundle,
+    order             => $order,
+    restart_limit     => $restart_limit,
   }
 }

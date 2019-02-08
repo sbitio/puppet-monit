@@ -30,6 +30,8 @@
 #   Used to group checks by filename. All checks in the same bundle will be added to the same filename.
 # @param order
 #   Order of the check within the bundle filename.
+# @param restart_limit
+#   Used to define limits on restarts.
 #
 define monit::check::instance(
   Monit::Check::Ensure $ensure,
@@ -44,7 +46,18 @@ define monit::check::instance(
   String $priority,
   String $bundle,
   Integer $order,
+  Optional[Hash] $restart_limit = undef,
 ) {
+
+  if $restart_limit {
+    if !has_key($restart_limit, 'restarts') or !has_key($restart_limit, 'cycles') or !has_key($restart_limit, 'action') {
+      fail("monit::check::process: please ensure 'restart' parameter contains 'restarts', 'cycles' and 'action'.")
+    } else {
+      $restarts = $restart_limit['restarts']
+      $cycles = $restart_limit['cycles']
+      $action = $restart_limit['action']
+    }
+  }
 
   $priority_real = $priority ? {
     undef   => '',
