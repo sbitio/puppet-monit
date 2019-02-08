@@ -31,12 +31,13 @@
 #
 define monit::check::service(
   # Check type specific.
-  $template        = undef,
-  $binary          = "/usr/sbin/${name}",
-  $init_system     = $monit::init_system,
-  $sysv_file       = "/etc/init.d/${name}",
-  $upstart_file    = "/etc/init/${name}.conf",
-  $systemd_file    = "${monit::params::systemd_unitdir}/${name}.service",
+  $template          = undef,
+  $binary            = "/usr/sbin/${name}",
+  $init_system       = $monit::init_system,
+  $sysv_file         = "/etc/init.d/${name}",
+  $upstart_file      = "/etc/init/${name}.conf",
+  $systemd_file      = "${monit::params::systemd_unitdir}/${name}.service",
+  $restart_tolerance = undef,
 
   # Params for process type.
   $pidfile         = undef,
@@ -94,20 +95,21 @@ define monit::check::service(
   # Check service process.
   $depends_all = union($depends, ["${name}_service_file", "${name}_binary"])
   $params_process = {
-    'name'          => $name,
-    'depends'       => $depends_all,
-    'tests'         => $tests,
-    'pidfile'       => $pidfile,
-    'matching'      => $matching,
-    'uid'           => $uid,
-    'gid'           => $gid,
-    'program_start' => $program_start,
-    'program_stop'  => $program_stop,
-    'bundle'        => $bundle,
-    'order'         => $order,
-    'timeout'       => $timeout,
-    'timeout_start' => $timeout_start,
-    'timeout_stop'  => $timeout_stop,
+    'name'              => $name,
+    'depends'           => $depends_all,
+    'tests'             => $tests,
+    'pidfile'           => $pidfile,
+    'matching'          => $matching,
+    'uid'               => $uid,
+    'gid'               => $gid,
+    'program_start'     => $program_start,
+    'program_stop'      => $program_stop,
+    'bundle'            => $bundle,
+    'order'             => $order,
+    'timeout'           => $timeout,
+    'timeout_start'     => $timeout_start,
+    'timeout_stop'      => $timeout_stop,
+    'restart_tolerance' => $restart_tolerance,
   }
   ensure_resource('monit::check::process', "${name}_process", merge($defaults, $params_process))
 

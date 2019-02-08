@@ -3,6 +3,10 @@ CHECK PROCESS <%= @name %> WITH PIDFILE <%= @pidfile %>
 <%- else -%>
 CHECK PROCESS <%= @name %> MATCHING <%= @matching %>
 <%- end -%>
+
+  <%- if @restart_tolerance -%>
+  IF <%= @restarts %> RESTARTS WITHIN <%= @cycles %> CYCLES THEN <%= @action %>
+  <%- end -%>
   START PROGRAM = "<%= @program_start %>"
   <%- if @uid -%>
     AS UID <%= @uid %>
