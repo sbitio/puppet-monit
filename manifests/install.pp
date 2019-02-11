@@ -1,3 +1,8 @@
+# monit::config
+# @api private
+#
+# This class handles monit package.
+#
 class monit::install {
 
   if $caller_module_name != $module_name {

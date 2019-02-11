@@ -1,9 +1,14 @@
+# monit::config
+# @api private
+#
+# This class handles the module data.
+#
 class monit::params {
 
-# $caller_module_name is empty when inherited?
-#  if $caller_module_name != $module_name {
-#    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
-#  }
+  # $caller_module_name is empty when inherited?
+  #iif $caller_module_name != $module_name {
+  #  warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+  #}
 
   $package = 'monit'
   $service = 'monit'
