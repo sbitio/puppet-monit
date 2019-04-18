@@ -19,7 +19,10 @@ define monit::check(
     'present',
     'absent'
     ] $ensure                  = 'present',
-  Hash[String, String] $config = {},
+  Hash[
+    String,
+    Variant[Array, Hash, Integer, String]
+    ] $config                  = {},
   String $group                = $name,
   Array[
     Hash[String, Variant[Array, Hash, Integer, String]]
