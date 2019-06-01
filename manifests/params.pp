@@ -44,6 +44,17 @@ class monit::params {
         }
       }
     }
+    'FreeBSD': {
+      $conf_file  = '/usr/local/etc/monitrc'
+      $conf_dir   = '/usr/local/etc/monit.d'
+      $logfile    = '/var/log/monit'
+      $idfile     = '/var/.monit.id'
+      $statefile  = '/var/.monit.state'
+      $eventqueue = false
+
+      $service_program = '/usr/sbin/service'
+      $init_system = 'sysv'
+    }
     'RedHat': {
       $conf_file  = '/etc/monit.conf'
       $conf_dir   = '/etc/monit.d'
