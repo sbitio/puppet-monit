@@ -12,6 +12,7 @@ class monit::config {
   # Monit conf file and directory.
   file { $monit::conf_file:
     ensure  => present,
+    mode    => '0700',
     content => template('monit/conf_file.erb'),
   }
   file { $monit::conf_dir:
