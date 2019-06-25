@@ -1,49 +1,54 @@
-module Puppet::Parser::Functions
-  newfunction(:monit_validate_tests, :type => :rvalue, :doc => <<-EOS
-    Validate monit tests and transforms some parts into monit language.
-    EOS
-  ) do |args|
+# Validate monit tests and transforms some parts into monit language.
+Puppet::Functions.create_function(:'monit_validate_tests') do
+  # Validate monit tests
+  # @param check_type The check type
+  # @param tests The real tests
+  dispatch :validate do
+    param 'String', :check_type
+    param 'Tuple', :tests
+  end
 
-    # Valid tests for resources.
-    # # RESOURCE TESTING: IF resource operator value THEN action
-    # # SPACE TESTING: IF SPACE operator value unit THEN action
-    # # INODE TESTING: IF INODE operator value [unit] THEN action
-    defined?(RESOURCE_TESTS) or RESOURCE_TESTS = [
-      'CPU', 'CPU(USER)', 'CPU(SYSTEM)', 'CPU(WAIT)', 'TOTAL CPU', 'CHILDREN',
-      'LOADAVG(1MIN)', 'LOADAVG(5MIN)', 'LOADAVG(15MIN)',
-      'TOTAL MEMORY', 'MEMORY', 'SWAP'
-    ]
-    # Valid operators for resource testing.
-    defined?(RESOURCE_TESTS_OPERATORS) or RESOURCE_TESTS_OPERATORS = [
-      '<', '>', '!=', '==',
-      'GT', 'LT', 'EQ', 'NE',
-      'GREATER', 'LESS', 'EQUAL', 'NOTEQUAL',
-    ]
+  # Valid tests for resources.
+  # # RESOURCE TESTING: IF resource operator value THEN action
+  # # SPACE TESTING: IF SPACE operator value unit THEN action
+  # # INODE TESTING: IF INODE operator value [unit] THEN action
+  RESOURCE_TESTS = [
+    'CPU', 'CPU(USER)', 'CPU(SYSTEM)', 'CPU(WAIT)', 'TOTAL CPU', 'CHILDREN',
+    'LOADAVG(1MIN)', 'LOADAVG(5MIN)', 'LOADAVG(15MIN)',
+    'TOTAL MEMORY', 'MEMORY', 'SWAP'
+  ]
+  # Valid operators for resource testing.
+  RESOURCE_TESTS_OPERATORS = [
+    '<', '>', '!=', '==',
+    'GT', 'LT', 'EQ', 'NE',
+    'GREATER', 'LESS', 'EQUAL', 'NOTEQUAL',
+  ]
 
-    defined?(PROTOCOL_TESTS) or PROTOCOL_TESTS = {
-      #TODO: GENERIC, SIP, RADIUS, WEBSOCKET
-      #CHANGES: Param 'HOSTHEADER' changed to 'HTTP HEADERS' in monit 5.9, see https://mmonit.com/monit/changes/
-      'GENERIC'       => ['SEND', 'EXPECT'],
-      'HTTP'          => ['REQUEST', 'STATUS', 'CHECKSUM', 'HOSTHEADER', 'HTTP HEADERS', 'CONTENT'],
-      'APACHE-STATUS' => ['LOGLIMIT', 'CLOSELIMIT', 'DNSLIMIT', 'KEEPALIVELIMIT', 'REPLYLIMIT', 'REQUESTLIMIT', 'STARTLIMIT', 'WAITLIMIT', 'GRACEFULLIMIT', 'CLEANUPLIMIT']
-    }
+  PROTOCOL_TESTS = {
+    #TODO: GENERIC, SIP, RADIUS, WEBSOCKET
+    #CHANGES: Param 'HOSTHEADER' changed to 'HTTP HEADERS' in monit 5.9, see https://mmonit.com/monit/changes/
+    'GENERIC'       => ['SEND', 'EXPECT'],
+    'HTTP'          => ['REQUEST', 'STATUS', 'CHECKSUM', 'HOSTHEADER', 'HTTP HEADERS', 'CONTENT'],
+    'APACHE-STATUS' => ['LOGLIMIT', 'CLOSELIMIT', 'DNSLIMIT', 'KEEPALIVELIMIT', 'REPLYLIMIT', 'REQUESTLIMIT', 'STARTLIMIT', 'WAITLIMIT', 'GRACEFULLIMIT', 'CLEANUPLIMIT']
+  }
 
-    defined?(TEST_TYPES) or TEST_TYPES = {
-      'DIRECTORY'   => [],
-      'FIFO'        => [],
-      'FILE'        => ['PERMISSION', 'CHECKSUM', 'UID', 'GID'],
-      'FILESYSTEM'  => [
-        'FSFLAGS', 'SPACE', 'INODE', 'PERM', 'PERMISSION'
-      ],
-      'HOST'        => ['CONNECTION'],
-      'PROCESS'     => RESOURCE_TESTS + ['CONNECTION',],
-      'PROGRAM'     => ['STATUS'],
-      'SYSTEM'      => RESOURCE_TESTS,
-    }
-    defined?(TEST_ACTIONS) or TEST_ACTIONS = ['ALERT', 'RESTART', 'START', 'STOP', 'EXEC', 'UNMONITOR']
+  TEST_TYPES = {
+    'DIRECTORY'   => [],
+    'FIFO'        => [],
+    'FILE'        => ['PERMISSION', 'CHECKSUM', 'UID', 'GID'],
+    'FILESYSTEM'  => [
+      'FSFLAGS', 'SPACE', 'INODE', 'PERM', 'PERMISSION'
+    ],
+    'HOST'        => ['CONNECTION'],
+    'PROCESS'     => RESOURCE_TESTS + ['CONNECTION',],
+    'PROGRAM'     => ['STATUS'],
+    'SYSTEM'      => RESOURCE_TESTS,
+  }
+  TEST_ACTIONS = ['ALERT', 'RESTART', 'START', 'STOP', 'EXEC', 'UNMONITOR']
 
-    check_type = args[0].upcase
-    tests = args[1]
+  def validate(check_type, tests)
+
+    check_type = check_type.upcase
 
     tests.each_with_index do |test, index|
 
@@ -238,4 +243,3 @@ module Puppet::Parser::Functions
     return tests
   end
 end
-
