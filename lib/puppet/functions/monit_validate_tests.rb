@@ -55,7 +55,7 @@ Puppet::Functions.create_function(:'monit_validate_tests') do
       # Validate test type.
       test['type'] = test['type'].upcase
       unless TEST_TYPES[check_type].include? test['type']
-        raise Puppet::ParseError, "Tests for '#{check_type}': invalid test type '#{test['type']}'"
+        raise Puppet::ParseError, "Tests for '#{check_type}': invalid test type '#{test['type']}'. Valid types are #{TEST_TYPES[check_type]}"
       end
 
       exception_prefix =  "Tests for '#{check_type}' ('#{test['type']}'): "
