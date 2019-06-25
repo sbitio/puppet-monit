@@ -35,7 +35,7 @@ Puppet::Functions.create_function(:'monit_validate_tests') do
   TEST_TYPES = {
     'DIRECTORY'   => [],
     'FIFO'        => [],
-    'FILE'        => ['PERMISSION', 'CHECKSUM', 'UID', 'GID'],
+    'FILE'        => ['PERMISSION', 'CHECKSUM', 'UID', 'GID', 'EXIST'],
     'FILESYSTEM'  => [
       'FSFLAGS', 'SPACE', 'INODE', 'PERM', 'PERMISSION'
     ],
@@ -135,6 +135,10 @@ Puppet::Functions.create_function(:'monit_validate_tests') do
           raise Puppet::ParseError, exception_prefix + "'value' is mandatory"
         end
         test['condition'] = "FAILED #{test['type']} #{test['value']}"
+
+      # EXIST TESTING
+      elsif ['EXIST'].include? test['type']
+        test['condition'] = "#{test['type']}"
 
       # STATUS TESTING
       elsif test['type'] == 'STATUS'
