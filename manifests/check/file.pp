@@ -17,23 +17,24 @@ define monit::check::file(
   $priority   = '20',
   $bundle     = $name,
   $order      = 0,
+  $restart_tolerance = undef,
 ) {
 
   validate_absolute_path($path)
 
   monit::check::instance { "${name}_instance":
-    ensure   => $ensure,
-    name     => $name,
-    type     => 'file',
-    header   => template($template),
-    group    => $group,
-    alerts   => $alerts,
-    noalerts => $noalerts,
-    tests    => $tests,
-    depends  => $depends,
-    priority => $priority,
-    bundle   => $bundle,
-    order    => $order,
+    ensure            => $ensure,
+    name              => $name,
+    type              => 'file',
+    header            => template($template),
+    group             => $group,
+    alerts            => $alerts,
+    noalerts          => $noalerts,
+    tests             => $tests,
+    depends           => $depends,
+    priority          => $priority,
+    bundle            => $bundle,
+    order             => $order,
+    restart_tolerance => $restart_tolerance,
   }
 }
-

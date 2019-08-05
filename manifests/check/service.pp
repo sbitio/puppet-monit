@@ -83,13 +83,14 @@ define monit::check::service(
   }
 
   $defaults = {
-    'ensure'     => $ensure,
-    'priority'   => $priority,
-    'bundle'     => $bundle,
-    'group'      => $group,
-    'depends'    => $depends,
-    'alerts'     => $alerts,
-    'noalerts'   => $noalerts,
+    'ensure'            => $ensure,
+    'priority'          => $priority,
+    'bundle'            => $bundle,
+    'group'             => $group,
+    'depends'           => $depends,
+    'alerts'            => $alerts,
+    'noalerts'          => $noalerts,
+    'restart_tolerance' => $restart_tolerance,
   }
 
   # Check service process.
@@ -109,7 +110,6 @@ define monit::check::service(
     'timeout'           => $timeout,
     'timeout_start'     => $timeout_start,
     'timeout_stop'      => $timeout_stop,
-    'restart_tolerance' => $restart_tolerance,
   }
   ensure_resource('monit::check::process', "${name}_process", merge($defaults, $params_process))
 

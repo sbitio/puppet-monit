@@ -28,15 +28,6 @@ define monit::check::process(
   $order      = 0,
 ) {
 
-  if $restart_tolerance {
-    if !has_key($restart_tolerance, 'restarts') or !has_key($restart_tolerance, 'cycles') or !has_key($restart_tolerance, 'action') {
-      fail("monit::check::process: please ensure 'restart' parameter contains 'restarts', 'cycles' and 'action'.")
-    } else {
-      $restarts = $restart_tolerance['restarts']
-      $cycles = $restart_tolerance['cycles']
-      $action = $restart_tolerance['action']
-    }
-  }
   if $pidfile {
     validate_absolute_path($pidfile)
     if $matching {
@@ -53,18 +44,19 @@ define monit::check::process(
   }
 
   monit::check::instance { "${name}_instance":
-    ensure   => $ensure,
-    name     => $name,
-    type     => 'process',
-    header   => template($template),
-    group    => $group,
-    alerts   => $alerts,
-    noalerts => $noalerts,
-    tests    => $tests,
-    depends  => $depends,
-    priority => $priority,
-    bundle   => $bundle,
-    order    => $order,
+    ensure            => $ensure,
+    name              => $name,
+    type              => 'process',
+    header            => template($template),
+    group             => $group,
+    alerts            => $alerts,
+    noalerts          => $noalerts,
+    tests             => $tests,
+    depends           => $depends,
+    priority          => $priority,
+    bundle            => $bundle,
+    order             => $order,
+    restart_tolerance => $restart_tolerance,
   }
 }
 
