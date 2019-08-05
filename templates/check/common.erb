@@ -1,3 +1,6 @@
+  <%- if @restart_tolerance -%>
+  IF <%= @restarts %> RESTARTS WITHIN <%= @cycles %> CYCLES THEN <%= @action %>
+  <%- end -%>
   GROUP <%= @group %>
 <%- unless @depends.empty? -%>
   DEPENDS <%= @depends.join(', ') %>
@@ -19,6 +22,3 @@
   <%- end -%>
   THEN <%= test['action'] %>
 <%- end -%>
-  <%- if @restart_tolerance -%>
-  IF <%= @restarts %> RESTARTS WITHIN <%= @cycles %> CYCLES THEN <%= @action %>
-  <%- end -%>
