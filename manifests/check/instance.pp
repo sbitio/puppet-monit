@@ -56,7 +56,7 @@ define monit::check::instance(
     target  => $file,
     content => "${header}${content}",
     # Add one to the order, since the warn message above has order 0
-    order   => 0 + inline_template('<%= @order.to_i + 1 %>'),
+    order   => Integer(inline_template('<%= @order.to_i + 1 %>')),
   }
 }
 

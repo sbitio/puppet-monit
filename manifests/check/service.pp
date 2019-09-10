@@ -114,7 +114,7 @@ define monit::check::service(
   $params_service_file = {
     'path'       => $service_file,
     'bundle'     => $bundle,
-    'order'      => 0 + inline_template('<%= @order.to_i + 1 %>'),
+    'order'      => Integer(inline_template('<%= @order.to_i + 1 %>')),
   }
   ensure_resource('monit::check::file', "${name}_service_file", merge($defaults, $params_service_file))
 
@@ -122,7 +122,7 @@ define monit::check::service(
   $params_binary = {
     'path'       => $binary,
     'bundle'     => $bundle,
-    'order'      => 0 + inline_template('<%= @order.to_i + 2 %>'),
+    'order'      => Integer(inline_template('<%= @order.to_i + 2 %>')),
   }
   ensure_resource('monit::check::file', "${name}_binary", merge($defaults, $params_binary))
 }
