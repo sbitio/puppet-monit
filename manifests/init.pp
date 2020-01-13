@@ -52,7 +52,7 @@
 # @param system_cpu_wait String CPU wait usage threshold.
 # @param system_memory String Memory usage threshold.
 # @param system_swap Optional[String] Swap usage threshold. NOTE: swap available since monit 5.2.
-# @param system_fs Variant[Array[Stdlib::Absolutepath], Array[Pattern['^/']]] Path to filesystems to check.
+# @param system_fs Variant[Array[Stdlib::Absolutepath], Array[Pattern['^/']]] List of paths of filesystems to check.
 # @param system_fs_space_usage String Filesystem space usage threshold.
 # @param system_fs_inode_usage String Filesystem inode usage threshold.
 # @param checks Hash[String, Hash] Hash of additional checks to create.
