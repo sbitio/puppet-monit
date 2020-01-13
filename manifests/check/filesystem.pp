@@ -13,7 +13,7 @@
 # @param bundle String Used to group checks by filename. All checks in the same bundle will be added to the same filename.
 # @param order Integer Order of the check within the bundle filename.
 # @param template String Template used to generate the check file.
-# @param path Stdlib::Absolutepath Path to the filesystem to check.
+# @param path Variant[Stdlib::Absolutepath, Pattern['^/'], Array[Stdlib::Absolutepath], Array[Pattern['^/']]] List of paths of filesystems to check.
 #
 define monit::check::filesystem(
   # Common parameters.
@@ -36,23 +36,33 @@ define monit::check::filesystem(
   String $template        = 'monit/check/filesystem.erb',
   Variant[
     Stdlib::Absolutepath,
-    Pattern['^/']
+    Pattern['^/'],
+    Array[Stdlib::Absolutepath],
+    Array[Pattern['^/']]
     ] $path,
 ) {
 
-  monit::check::instance { "${name}_instance":
-    ensure   => $ensure,
-    name     => $name,
-    type     => 'filesystem',
-    header   => template($template),
-    group    => $group,
-    alerts   => $alerts,
-    noalerts => $noalerts,
-    tests    => $tests,
-    depends  => $depends,
-    priority => $priority,
-    bundle   => $bundle,
-    order    => $order,
+  if $path =~ Variant[Stdlib::Absolutepath, Pattern['^/']] {
+    $paths = [$path]
+  }
+  else {
+    $paths = $path
+  }
+  $paths.each |$path| {
+    monit::check::instance { "${name}_${path}_instance":
+      ensure   => $ensure,
+      name     => "${name}_${path}",
+      type     => 'filesystem',
+      header   => template($template),
+      group    => $group,
+      alerts   => $alerts,
+      noalerts => $noalerts,
+      tests    => $tests,
+      depends  => $depends,
+      priority => $priority,
+      bundle   => $bundle,
+      order    => $order,
+    }
   }
 }
 
