@@ -38,7 +38,7 @@ class monit::config {
       group    => 'system',
       bundle   => $::fqdn,
       order    => 1,
-      path     => $monit::system_fs,
+      paths    => $monit::system_fs,
       tests    => [
         {'type' => 'fsflags'},
         {'type' => 'space', 'operator' => '>', 'value' => '80%'},
