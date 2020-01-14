@@ -52,9 +52,10 @@
 # @param system_cpu_wait String CPU wait usage threshold.
 # @param system_memory String Memory usage threshold.
 # @param system_swap Optional[String] Swap usage threshold. NOTE: swap available since monit 5.2.
-# @param system_fs Variant[Array[Stdlib::Absolutepath], Array[Pattern['^/']]] List of paths of filesystems to check.
+# @param system_fs Variant[Array[Stdlib::Absolutepath], Array[Pattern['^/']]] Path to filesystems to check. If empty, will check all mounted filesystems, but the ones with a type in $monit::fs_banned_types.
 # @param system_fs_space_usage String Filesystem space usage threshold.
 # @param system_fs_inode_usage String Filesystem inode usage threshold.
+# @param fs_banned_types Array[String] List of filesystem types to ignore in generation of $monit::system_fs.
 # @param checks Hash[String, Hash] Hash of additional checks to create.
 # @param hiera_merge_strategy Optional[Enum['hiera_hash']] Merge strategy when obtaining checks from Hiera.
 #
@@ -120,9 +121,10 @@ class monit(
   Variant[
     Array[Stdlib::Absolutepath],
     Array[Pattern['^/']]
-    ] $system_fs                           = ['/',],
+    ] $system_fs                           = [],
   String $system_fs_space_usage            = '80%',
   String $system_fs_inode_usage            = '80%',
+  Array[String] $fs_banned_types           = ['devpts', 'devtmpfs', 'hugetlbfs', 'mqueue', 'rpc_pipefs', 'tmpfs'],
   # Additional checks.
   Hash[String, Hash] $checks               = {},
   Optional[Enum[

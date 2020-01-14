@@ -91,7 +91,7 @@ class { '::monit':
 include ::monit
 
 monit::check::filesystem { 'somefs':
-  path  => ['/mount/somefs',],
+  paths => ['/mount/somefs',],
   tests => [
     {'type' => 'fsflags'},
     {'type' => 'permission', 'value' => '0755'},
@@ -177,7 +177,7 @@ monit::checks :
   somefs :
     type     : filesystem
     config   :
-      path   :
+      paths  :
         - /
         - /mount/somefs
     tests    :

@@ -13,7 +13,8 @@
 # @param bundle String Used to group checks by filename. All checks in the same bundle will be added to the same filename.
 # @param order Integer Order of the check within the bundle filename.
 # @param template String Template used to generate the check file.
-# @param path Variant[Stdlib::Absolutepath, Pattern['^/'], Array[Stdlib::Absolutepath], Array[Pattern['^/']]] List of paths of filesystems to check.
+# @param path Stdlib::Absolutepath Path of the filesystem to check (**Deprecated**. Use $paths).
+# @param paths Variant[Array[Stdlib::Absolutepath], Array[Pattern['^/']]] List of paths of filesystems to check. If empty, will check all mounted filesystems, but the ones with a type in $monit::banned_fs_types.
 #
 define monit::check::filesystem(
   # Common parameters.
@@ -36,19 +37,29 @@ define monit::check::filesystem(
   String $template        = 'monit/check/filesystem.erb',
   Variant[
     Stdlib::Absolutepath,
-    Pattern['^/'],
+    Pattern['^/']
+  ] $path                 = undef,
+  Variant[
     Array[Stdlib::Absolutepath],
     Array[Pattern['^/']]
-    ] $path,
+    ] $paths              = [],
 ) {
 
-  if $path =~ Variant[Stdlib::Absolutepath, Pattern['^/']] {
-    $paths = [$path]
+  if !empty($path) {
+    notice('\$path parameter is deprecated and will be removed in future versions! Please use \$paths instead')
+    $_paths = merge($paths, $path)
   }
   else {
-    $paths = $path
+    $_paths = $paths
   }
-  $paths.each |$path| {
+
+  if empty($_paths) {
+    $paths_real = keys($::mountpoints.filter |$key, $value| { !($value['filesystem'] in $monit::fs_banned_types) })
+  }
+  else {
+    $paths_real = $_paths
+  }
+  $paths_real.each |$path| {
     monit::check::instance { "${name}_${path}_instance":
       ensure   => $ensure,
       name     => "${name}_${path}",
