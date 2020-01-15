@@ -108,9 +108,9 @@ class monit(
     'present',
     'absent'
     ] $system_check_ensure                 = 'present',
-  Numeric $system_loadavg_1min               = 3 * $processorcount,
-  Numeric $system_loadavg_5min               = 1.5 * $processorcount,
-  Numeric $system_loadavg_15min              = 1.5 * $processorcount,
+  Numeric $system_loadavg_1min             = (3 * $::processorcount),
+  Numeric $system_loadavg_5min             = (1.5 * $::processorcount),
+  Numeric $system_loadavg_15min            = (1.5 * $::processorcount),
   String $system_cpu_user                  = '75%',
   String $system_cpu_system                = '30%',
   String $system_cpu_wait                  = '30%',
@@ -134,10 +134,10 @@ class monit(
   if !empty($hiera_merge_strategy) {
     warning('\$hiera_merge_strategy parameter is deprecated and will be removed in future versions! Please use Hiera 5 `lookup_options` instead. See https://puppet.com/docs/puppet/latest/hiera_merging.html')
   }
-  class{'monit::install': } ->
-  class{'monit::config': } ~>
-  class{'monit::service': } ->
-  Class['monit']
+  class{'monit::install': }
+  -> class{'monit::config': }
+  ~> class{'monit::service': }
+  -> Class['monit']
 
 }
 
