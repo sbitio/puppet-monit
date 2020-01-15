@@ -6,15 +6,15 @@
 <title>
   Defined Type: monit::check::instance
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.24
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_defined_types::monit::check::instance";
   relpath = '../';
 </script>
@@ -72,12 +72,14 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    
-<p>monit::check::instance Common code invoked by all check types. Creates
-Monit check files by fragments.</p>
+    <p>monit::check::instance
+Common code invoked by all check types.
+Creates Monit check files by fragments.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -95,9 +97,7 @@ Monit check files by fragments.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Enum[&#39;present&#39;, &#39;absent&#39;] Whether this check must be
-present or absent.</p>
+        <div class='inline'><p>Enum[‘present’, ‘absent’] Whether this check must be present or absent.</p>
 </div>
       
     </li>
@@ -112,8 +112,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Type of check.</p>
+        <div class='inline'><p>String Type of check.</p>
 </div>
       
     </li>
@@ -128,8 +127,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Fragment of the test specific config.</p>
+        <div class='inline'><p>String Fragment of the test specific config.</p>
 </div>
       
     </li>
@@ -144,8 +142,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Monit group.</p>
+        <div class='inline'><p>String Monit group.</p>
 </div>
       
     </li>
@@ -160,8 +157,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Array</a> Alert recipients (with event filters) to set.</p>
+        <div class='inline'><p>Array[String] Alert recipients (with event filters) to set.</p>
 </div>
       
     </li>
@@ -176,8 +172,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Array</a> Alerts to disable for this check.</p>
+        <div class='inline'><p>Array[String] Alerts to disable for this check.</p>
 </div>
       
     </li>
@@ -194,8 +189,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.</p>
+        <div class='inline'><p>Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.</p>
 </div>
       
     </li>
@@ -210,8 +204,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Array</a> Dependencies of this check on other checks.</p>
+        <div class='inline'><p>Array[String] Dependencies of this check on other checks.</p>
 </div>
       
     </li>
@@ -226,10 +219,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Used as a prefix for the filename generated. Load order doesn&#39;t
-matter to Monit. This is just a facility to organize your checks by
-filename.</p>
+        <div class='inline'><p>String Used as a prefix for the filename generated. Load order doesn’t matter to Monit. This is just a facility to organize your checks by filename.</p>
 </div>
       
     </li>
@@ -244,9 +234,7 @@ filename.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Used to group checks by filename. All checks in the same bundle will
-be added to the same filename.</p>
+        <div class='inline'><p>String Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
 </div>
       
     </li>
@@ -261,8 +249,7 @@ be added to the same filename.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Integer Order of the check within the bundle filename.</p>
+        <div class='inline'><p>Integer Order of the check within the bundle filename.</p>
 </div>
       
     </li>
@@ -317,7 +304,8 @@ be added to the same filename.</p>
 57
 58
 59
-60</pre>
+60
+61</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check/instance.pp', line 20</span>
@@ -349,8 +337,9 @@ define monit::check::instance(
   if !defined(Concat[$file]) {
     concat{ $file:
       ensure         =&gt; $ensure,
-      warn           =&gt; &quot;# MANAGED BY PUPPET!\n\n&quot;,
+      warn           =&gt; true,
       ensure_newline =&gt; true,
+      notify         =&gt; Service[$monit::service],
     }
   }
 
@@ -359,8 +348,8 @@ define monit::check::instance(
   concat::fragment { &quot;${file}_${name}&quot;:
     target  =&gt; $file,
     content =&gt; &quot;${header}${content}&quot;,
-    order   =&gt; $order,
-    notify  =&gt; Service[$monit::service],
+    # Add one to the order, since the warn message above has order 0
+    order   =&gt; Integer(inline_template(&#39;&lt;%= @order.to_i + 1 %&gt;&#39;)),
   }
 }</pre>
       </td>
@@ -370,9 +359,7 @@ define monit::check::instance(
 </div>
 
       <div id="footer">
-  Generated on Wed Sep  6 11:04:52 2017 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.1.5).
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
 </div>
 
     </div>

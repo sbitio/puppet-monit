@@ -6,15 +6,15 @@
 <title>
   Defined Type: monit::check
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.24
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_defined_types::monit::check";
   relpath = '../';
 </script>
@@ -72,14 +72,15 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    
-<p>monit::check</p>
+    <p>monit::check</p>
 
 <p>This define is a facility used as entry point for tests defined in Hiera.
 See main class for reference.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -99,9 +100,7 @@ See main class for reference.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Enum[&#39;present&#39;, &#39;absent&#39;] Whether this check must be
-present or absent.</p>
+        <div class='inline'><p>Enum[‘present’, ‘absent’] Whether this check must be present or absent.</p>
 </div>
       
     </li>
@@ -111,16 +110,17 @@ present or absent.</p>
         <span class='name'>config</span>
       
       
-        <span class='type'>(<tt>Hash[String, String]</tt>)</span>
+        <span class='type'>(<tt>Hash[
+    String,
+    Variant[Array, Hash, Integer, String]
+    ]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>{}</tt>)</em>
       
       
         &mdash;
-        <div class='inline'>
-<p>Hash[String, String] Parameters for <code>monit::check::${type}</code>.
-Empty parameters will be given the default values.</p>
+        <div class='inline'><p>Hash[String, String] Parameters for <code>monit::check::${type}</code>. Empty parameters will be given the default values.</p>
 </div>
       
     </li>
@@ -137,8 +137,7 @@ Empty parameters will be given the default values.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Monit group.</p>
+        <div class='inline'><p>String Monit group.</p>
 </div>
       
     </li>
@@ -157,8 +156,7 @@ Empty parameters will be given the default values.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.</p>
+        <div class='inline'><p>Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.</p>
 </div>
       
     </li>
@@ -175,10 +173,7 @@ Empty parameters will be given the default values.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Used as a prefix for the filename generated. Load order doesn&#39;t
-matter to Monit. This is just a facility to organize your checks by
-filename.</p>
+        <div class='inline'><p>String Used as a prefix for the filename generated. Load order doesn’t matter to Monit. This is just a facility to organize your checks by filename.</p>
 </div>
       
     </li>
@@ -195,8 +190,7 @@ filename.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Template used to generate the check file.</p>
+        <div class='inline'><p>String Template used to generate the check file.</p>
 </div>
       
     </li>
@@ -213,9 +207,7 @@ filename.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Used to group checks by filename. All checks in the same bundle will
-be added to the same filename.</p>
+        <div class='inline'><p>String Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
 </div>
       
     </li>
@@ -232,8 +224,7 @@ be added to the same filename.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Integer Order of the check within the bundle filename.</p>
+        <div class='inline'><p>Integer Order of the check within the bundle filename.</p>
 </div>
       
     </li>
@@ -258,11 +249,7 @@ be added to the same filename.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Enum[&#39;directory&#39;, &#39;fifo&#39;, &#39;file&#39;,
-&#39;filesystem&#39;, &#39;host&#39;, &#39;process&#39;, &#39;program&#39;,
-&#39;service&#39;, &#39;system&#39;] Type of check to perform. See
-<code>manifests/check/*.pp</code> for details.</p>
+        <div class='inline'><p>Enum[‘directory’, ‘fifo’, ‘file’, ‘filesystem’, ‘host’, ‘process’, ‘program’, ‘service’, ‘system’] Type of check to perform. See <code>manifests/check/*.pp</code> for details.</p>
 </div>
       
     </li>
@@ -315,7 +302,10 @@ be added to the same filename.</p>
 52
 53
 54
-55</pre>
+55
+56
+57
+58</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check.pp', line 17</span>
@@ -325,7 +315,10 @@ define monit::check(
     &#39;present&#39;,
     &#39;absent&#39;
     ] $ensure                  = &#39;present&#39;,
-  Hash[String, String] $config = {},
+  Hash[
+    String,
+    Variant[Array, Hash, Integer, String]
+    ] $config                  = {},
   String $group                = $name,
   Array[
     Hash[String, Variant[Array, Hash, Integer, String]]
@@ -366,9 +359,7 @@ define monit::check(
 </div>
 
       <div id="footer">
-  Generated on Wed Sep  6 11:04:51 2017 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.1.5).
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
 </div>
 
     </div>
