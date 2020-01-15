@@ -9,8 +9,8 @@
   "issues_url": "https://github.com/sbitio/puppet-monit/issues",
   "tags": ["monitoring", "monit"],
   "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">= 4.14.0 < 6.0.0"},
-    {"name":"puppetlabs/concat","version_requirement":">= 1.2.1 < 6.0.0"}
+    {"name":"puppetlabs/stdlib","version_requirement":">= 4.14.0 < 7.0.0"},
+    {"name":"puppetlabs/concat","version_requirement":">= 1.2.1 < 7.0.0"}
   ],
   "operatingsystem_support": [
     {"operatingsystem": "FreeBSD"},
@@ -20,6 +20,6 @@
     {"operatingsystem": "Ubuntu","operatingsystemrelease":["12.04","14.04","16.04","18.04"]}
   ],
   "requirements": [
-    {"name": "puppet", "version_requirement": ">= 4.0.0 < 5.0.0"}
+    {"name": "puppet", "version_requirement": ">= 4.0.0 < 7.0.0"}
   ]
 }
