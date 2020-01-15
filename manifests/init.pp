@@ -8,7 +8,6 @@
 #
 #  * `init_system`, to set globally the default init system for `service` checks.
 #  * `checks`, to provide checks from Hiera.
-#  * `hiera_merge_strategy` Merge strategy for monit::checks.
 #
 # Lastly, this class also configures a `system` check with sane defaults. It can
 # be disabled or tweaked to fit your needs. See the set of parameters
@@ -57,7 +56,7 @@
 # @param system_fs_inode_usage String Filesystem inode usage threshold.
 # @param fs_banned_types Array[String] List of filesystem types to ignore in generation of $monit::system_fs.
 # @param checks Hash[String, Hash] Hash of additional checks to create.
-# @param hiera_merge_strategy Optional[Enum['hiera_hash']] Merge strategy when obtaining checks from Hiera.
+# @param hiera_merge_strategy Optional[Enum['hiera_hash']] Merge strategy when obtaining checks from Hiera. **Deprecated** use instead hiera 5 [`lookup_options`](https://puppet.com/docs/puppet/latest/hiera_merging.html).
 #
 class monit(
   Boolean $service_enable                   = true,
@@ -132,6 +131,9 @@ class monit(
     ]] $hiera_merge_strategy               = undef,
 ) inherits monit::params {
 
+  if !empty($hiera_merge_strategy) {
+    notice('\$hiera_merge_strategy parameter is deprecated and will be removed in future versions! Please use Hiera 5 `lookup_options` instead. See https://puppet.com/docs/puppet/latest/hiera_merging.html')
+  }
   class{'monit::install': } ->
   class{'monit::config': } ~>
   class{'monit::service': } ->
