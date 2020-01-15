@@ -3,6 +3,9 @@
 # Implement Monit's CHECK FILESYSTEM
 #
 #
+# @param template String Template used to generate the check file.
+# @param path Optional[Variant[Stdlib::Absolutepath, Pattern['^/']]] Path of the filesystem to check (**Deprecated**. Use $paths).
+# @param paths Variant[Array[Stdlib::Absolutepath], Array[Pattern['^/']]] List of paths of filesystems to check. If empty, will check all mounted filesystems, but the ones with a type in $monit::banned_fs_types.
 # @param ensure Enum['present', 'absent'] Whether this check must be present or absent.
 # @param group String Monit group.
 # @param alerts Array[String] Alert recipients (with event filters) to set.
@@ -12,11 +15,19 @@
 # @param priority String Used as a prefix for the filename generated. Load order doesn't matter to Monit. This is just a facility to organize your checks by filename.
 # @param bundle String Used to group checks by filename. All checks in the same bundle will be added to the same filename.
 # @param order Integer Order of the check within the bundle filename.
-# @param template String Template used to generate the check file.
-# @param path Optional[Variant[Stdlib::Absolutepath, Pattern['^/']]] Path of the filesystem to check (**Deprecated**. Use $paths).
-# @param paths Variant[Array[Stdlib::Absolutepath], Array[Pattern['^/']]] List of paths of filesystems to check. If empty, will check all mounted filesystems, but the ones with a type in $monit::banned_fs_types.
 #
 define monit::check::filesystem(
+  # Check type specific.
+  String $template        = 'monit/check/filesystem.erb',
+  Optional[Variant[
+    Stdlib::Absolutepath,
+    Pattern['^/']
+  ]] $path                = undef,
+  Variant[
+    Array[Stdlib::Absolutepath],
+    Array[Pattern['^/']]
+    ] $paths              = [],
+
   # Common parameters.
   Enum[
     'present',
@@ -32,17 +43,6 @@ define monit::check::filesystem(
   String $priority        = '20',
   String $bundle          = $name,
   Integer $order          = 0,
-
-  # Check type specific.
-  String $template        = 'monit/check/filesystem.erb',
-  Optional[Variant[
-    Stdlib::Absolutepath,
-    Pattern['^/']
-  ]] $path                = undef,
-  Variant[
-    Array[Stdlib::Absolutepath],
-    Array[Pattern['^/']]
-    ] $paths              = [],
 ) {
 
   if !empty($path) {

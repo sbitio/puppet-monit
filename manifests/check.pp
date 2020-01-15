@@ -16,6 +16,17 @@
 #
 define monit::check(
   Enum[
+    'directory',
+    'fifo',
+    'file',
+    'filesystem',
+    'host',
+    'process',
+    'program',
+    'service',
+    'system'
+    ] $type,
+  Enum[
     'present',
     'absent'
     ] $ensure                  = 'present',
@@ -31,17 +42,6 @@ define monit::check(
   String $template             = "monit/check/${type}.erb",
   String $bundle               = $name,
   Integer $order               = 0,
-  Enum[
-    'directory',
-    'fifo',
-    'file',
-    'filesystem',
-    'host',
-    'process',
-    'program',
-    'service',
-    'system'
-    ] $type,
 ) {
 
   $defaults = {

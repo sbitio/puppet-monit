@@ -3,15 +3,7 @@
 # Implements a compound check type for system services.
 # It is a bundle of PROCESS and FILE checks.
 #
-# @param ensure Enum['present', 'absent'] Whether this check must be present or absent.
-# @param group String Monit group.
-# @param alerts Array[String] Alert recipients (with event filters) to set.
-# @param noalerts Array[String] Alerts to disable for this check.
-# @param tests Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.
-# @param depends Array[String] Dependencies of this check on other checks.
-# @param priority String Used as a prefix for the filename generated. Load order doesn't matter to Monit. This is just a facility to organize your checks by filename.
-# @param bundle String Used to group checks by filename. All checks in the same bundle will be added to the same filename.
-# @param order Integer Order of the check within the bundle filename.
+#
 # @param template Undef Not used. This parameter is here for consistency with other check types. See `monit::check` for details.
 # @param binary Stdlib::Absolutepath Path to the service binary. Used to declare a FILE check.
 # @param init_system Enum['sysv', 'systemd', 'upstart'] Type of init system this script uses.
@@ -27,8 +19,40 @@
 # @param timeout Numeric Timeout on the start/stop operations.
 # @param timeout_start Numeric Timeout on the start operation. Generic timeout will be used if not specified.
 # @param timeout_stop Numeric Timeout on the stop operation. Generic timeout will be used if not specified.
+# @param ensure Enum['present', 'absent'] Whether this check must be present or absent.
+# @param group String Monit group.
+# @param alerts Array[String] Alert recipients (with event filters) to set.
+# @param noalerts Array[String] Alerts to disable for this check.
+# @param tests Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.
+# @param depends Array[String] Dependencies of this check on other checks.
+# @param priority String Used as a prefix for the filename generated. Load order doesn't matter to Monit. This is just a facility to organize your checks by filename.
+# @param bundle String Used to group checks by filename. All checks in the same bundle will be added to the same filename.
+# @param order Integer Order of the check within the bundle filename.
 #
 define monit::check::service(
+  # Check type specific.
+  Undef $template                         = undef,
+  Stdlib::Absolutepath $binary            = "/usr/sbin/${name}",
+  Enum[
+    'sysv',
+    'systemd',
+    'upstart'
+    ] $init_system                        = $monit::init_system,
+  Stdlib::Absolutepath $sysv_file         = "/etc/init.d/${name}",
+  Stdlib::Absolutepath $upstart_file      = "/etc/init/${name}.conf",
+  Stdlib::Absolutepath $systemd_file      = "${monit::params::systemd_unitdir}/${name}.service",
+
+  # Params for process type.
+  String $program_start                   = "${monit::service_program} ${name} start",
+  String $program_stop                    = "${monit::service_program} ${name} stop",
+  Optional[Stdlib::Absolutepath] $pidfile = undef,
+  Optional[String] $matching              = undef,
+  Optional[Integer] $uid                  = undef,
+  Optional[Integer] $gid                  = undef,
+  Optional[Numeric] $timeout              = undef,
+  Optional[Numeric] $timeout_start        = undef,
+  Optional[Numeric] $timeout_stop         = undef,
+
   # Common parameters.
   Enum[
     'present',
@@ -44,28 +68,6 @@ define monit::check::service(
   String $priority        = '20',
   String $bundle          = $name,
   Integer $order          = 0,
-
-  # Check type specific.
-  Undef $template                         = undef,
-  Stdlib::Absolutepath $binary            = "/usr/sbin/${name}",
-  Enum[
-    'sysv',
-    'systemd',
-    'upstart'
-    ] $init_system                        = $monit::init_system,
-  Stdlib::Absolutepath $sysv_file         = "/etc/init.d/${name}",
-  Stdlib::Absolutepath $upstart_file      = "/etc/init/${name}.conf",
-  Stdlib::Absolutepath $systemd_file      = "${monit::params::systemd_unitdir}/${name}.service",
-  # Params for process type.
-  String $program_start                   = "${monit::service_program} ${name} start",
-  String $program_stop                    = "${monit::service_program} ${name} stop",
-  Optional[Stdlib::Absolutepath] $pidfile = undef,
-  Optional[String] $matching              = undef,
-  Optional[Integer] $uid                  = undef,
-  Optional[Integer] $gid                  = undef,
-  Optional[Numeric] $timeout              = undef,
-  Optional[Numeric] $timeout_start        = undef,
-  Optional[Numeric] $timeout_stop         = undef,
 ) {
 
   case $init_system {
