@@ -80,6 +80,9 @@ define monit::check::service(
     'systemd': {
       $service_file = $systemd_file
     }
+    default: {
+      fail("Unknown init system: ${init_system}.")
+    }
   }
 
   $defaults = {
