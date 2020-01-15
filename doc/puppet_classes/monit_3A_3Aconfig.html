@@ -140,7 +140,10 @@ This class handles the configuration files.</p>
 52
 53
 54
-55</pre>
+55
+56
+57
+58</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 6</span>
@@ -175,15 +178,18 @@ class monit::config {
       order    =&gt; 0,
       tests    =&gt; parseyaml(template(&#39;monit/system_test_resources.erb&#39;)),
     }
-
-    $system_test_fs_defaults = {
+    monit::check::filesystem { &#39;fs&#39;:
       priority =&gt; &#39;10&#39;,
       group    =&gt; &#39;system&#39;,
       bundle   =&gt; $::fqdn,
       order    =&gt; 1,
+      paths    =&gt; $monit::system_fs,
+      tests    =&gt; [
+        {&#39;type&#39; =&gt; &#39;fsflags&#39;},
+        {&#39;type&#39; =&gt; &#39;space&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; &#39;80%&#39;},
+        {&#39;type&#39; =&gt; &#39;inode&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; &#39;80%&#39;},
+      ]
     }
-    $system_test_fs = parseyaml(template(&#39;monit/system_test_filesystems.erb&#39;))
-    create_resources(&#39;monit::check::filesystem&#39;, $system_test_fs, $system_test_fs_defaults)
   }
 
   # Additional checks.

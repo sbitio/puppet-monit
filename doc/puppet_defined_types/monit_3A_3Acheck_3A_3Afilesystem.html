@@ -267,12 +267,34 @@
         <span class='type'>(<tt>Variant[
     Stdlib::Absolutepath,
     Pattern['^/']
-    ]</tt>)</span>
+  ]</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
-        <div class='inline'><p>Stdlib::Absolutepath Path to the filesystem to check.</p>
+        <div class='inline'><p>Stdlib::Absolutepath Path of the filesystem to check (<strong>Deprecated</strong>. Use $paths).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>paths</span>
+      
+      
+        <span class='type'>(<tt>Variant[
+    Array[Stdlib::Absolutepath],
+    Array[Pattern['^/']]
+    ]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Variant[Array[Stdlib::Absolutepath], Array[Pattern[’^/’]]] List of paths of filesystems to check. If empty, will check all mounted filesystems, but the ones with a type in $monit::banned_fs_types.</p>
 </div>
       
     </li>
@@ -287,7 +309,6 @@
         <pre class="lines">
 
 
-18
 19
 20
 21
@@ -326,10 +347,31 @@
 54
 55
 56
-57</pre>
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check/filesystem.pp', line 18</span>
+        <pre class="code"><span class="info file"># File 'manifests/check/filesystem.pp', line 19</span>
 
 define monit::check::filesystem(
   # Common parameters.
@@ -353,22 +395,42 @@ define monit::check::filesystem(
   Variant[
     Stdlib::Absolutepath,
     Pattern[&#39;^/&#39;]
-    ] $path,
+  ] $path                 = undef,
+  Variant[
+    Array[Stdlib::Absolutepath],
+    Array[Pattern[&#39;^/&#39;]]
+    ] $paths              = [],
 ) {
 
-  monit::check::instance { &quot;${name}_instance&quot;:
-    ensure   =&gt; $ensure,
-    name     =&gt; $name,
-    type     =&gt; &#39;filesystem&#39;,
-    header   =&gt; template($template),
-    group    =&gt; $group,
-    alerts   =&gt; $alerts,
-    noalerts =&gt; $noalerts,
-    tests    =&gt; $tests,
-    depends  =&gt; $depends,
-    priority =&gt; $priority,
-    bundle   =&gt; $bundle,
-    order    =&gt; $order,
+  if !empty($path) {
+    notice(&#39;\$path parameter is deprecated and will be removed in future versions! Please use \$paths instead&#39;)
+    $_paths = merge($paths, $path)
+  }
+  else {
+    $_paths = $paths
+  }
+
+  if empty($_paths) {
+    $paths_real = keys($::mountpoints.filter |$key, $value| { !($value[&#39;filesystem&#39;] in $monit::fs_banned_types) })
+  }
+  else {
+    $paths_real = $_paths
+  }
+  $paths_real.each |$path| {
+    monit::check::instance { &quot;${name}_${path}_instance&quot;:
+      ensure   =&gt; $ensure,
+      name     =&gt; &quot;${name}_${path}&quot;,
+      type     =&gt; &#39;filesystem&#39;,
+      header   =&gt; template($template),
+      group    =&gt; $group,
+      alerts   =&gt; $alerts,
+      noalerts =&gt; $noalerts,
+      tests    =&gt; $tests,
+      depends  =&gt; $depends,
+      priority =&gt; $priority,
+      bundle   =&gt; $bundle,
+      order    =&gt; $order,
+    }
   }
 }</pre>
       </td>

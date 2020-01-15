@@ -760,11 +760,11 @@ starting with <code>system_</code>.</p>
     ]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>[&#39;/&#39;,]</tt>)</em>
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
       
       
         &mdash;
-        <div class='inline'><p>Variant[Array[Stdlib::Absolutepath], Array[Pattern[’^/’]]] Path to filesystems to check.</p>
+        <div class='inline'><p>Variant[Array[Stdlib::Absolutepath], Array[Pattern[’^/’]]] Path to filesystems to check. If empty, will check all mounted filesystems, but the ones with a type in $monit::fs_banned_types.</p>
 </div>
       
     </li>
@@ -799,6 +799,23 @@ starting with <code>system_</code>.</p>
       
         &mdash;
         <div class='inline'><p>String Filesystem inode usage threshold.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>fs_banned_types</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Array[String] List of filesystem types to ignore in generation of $monit::system_fs.</p>
 </div>
       
     </li>
@@ -849,7 +866,6 @@ starting with <code>system_</code>.</p>
         <pre class="lines">
 
 
-61
 62
 63
 64
@@ -926,10 +942,12 @@ starting with <code>system_</code>.</p>
 135
 136
 137
-138</pre>
+138
+139
+140</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 61</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 62</span>
 
 class monit(
   Boolean $service_enable                   = true,
@@ -993,9 +1011,10 @@ class monit(
   Variant[
     Array[Stdlib::Absolutepath],
     Array[Pattern[&#39;^/&#39;]]
-    ] $system_fs                           = [&#39;/&#39;,],
+    ] $system_fs                           = [],
   String $system_fs_space_usage            = &#39;80%&#39;,
   String $system_fs_inode_usage            = &#39;80%&#39;,
+  Array[String] $fs_banned_types           = [&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;],
   # Additional checks.
   Hash[String, Hash] $checks               = {},
   Optional[Enum[
