@@ -6,15 +6,15 @@
 <title>
   Defined Type: monit::check::service
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.24
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_defined_types::monit::check::service";
   relpath = '../';
 </script>
@@ -72,14 +72,15 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    
-<p>monit::check::service</p>
+    <p>monit::check::service</p>
 
-<p>Implements a compound check type for system services. It is a bundle of
-PROCESS and FILE checks.</p>
+<p>Implements a compound check type for system services.
+It is a bundle of PROCESS and FILE checks.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -99,9 +100,7 @@ PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Enum[&#39;present&#39;, &#39;absent&#39;] Whether this check must be
-present or absent.</p>
+        <div class='inline'><p>Enum[‘present’, ‘absent’] Whether this check must be present or absent.</p>
 </div>
       
     </li>
@@ -118,8 +117,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Monit group.</p>
+        <div class='inline'><p>String Monit group.</p>
 </div>
       
     </li>
@@ -136,8 +134,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Array</a> Alert recipients (with event filters) to set.</p>
+        <div class='inline'><p>Array[String] Alert recipients (with event filters) to set.</p>
 </div>
       
     </li>
@@ -154,8 +151,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Array</a> Alerts to disable for this check.</p>
+        <div class='inline'><p>Array[String] Alerts to disable for this check.</p>
 </div>
       
     </li>
@@ -174,8 +170,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.</p>
+        <div class='inline'><p>Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.</p>
 </div>
       
     </li>
@@ -192,8 +187,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Array</a> Dependencies of this check on other checks.</p>
+        <div class='inline'><p>Array[String] Dependencies of this check on other checks.</p>
 </div>
       
     </li>
@@ -210,10 +204,7 @@ present or absent.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Used as a prefix for the filename generated. Load order doesn&#39;t
-matter to Monit. This is just a facility to organize your checks by
-filename.</p>
+        <div class='inline'><p>String Used as a prefix for the filename generated. Load order doesn’t matter to Monit. This is just a facility to organize your checks by filename.</p>
 </div>
       
     </li>
@@ -230,9 +221,7 @@ filename.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Used to group checks by filename. All checks in the same bundle will
-be added to the same filename.</p>
+        <div class='inline'><p>String Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
 </div>
       
     </li>
@@ -249,8 +238,7 @@ be added to the same filename.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Integer Order of the check within the bundle filename.</p>
+        <div class='inline'><p>Integer Order of the check within the bundle filename.</p>
 </div>
       
     </li>
@@ -267,9 +255,7 @@ be added to the same filename.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Undef Not used. This parameter is here for consistency with other check
-types. See <code>monit::check</code> for details.</p>
+        <div class='inline'><p>Undef Not used. This parameter is here for consistency with other check types. See <code>monit::check</code> for details.</p>
 </div>
       
     </li>
@@ -286,9 +272,7 @@ types. See <code>monit::check</code> for details.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Stdlib::Absolutepath Path to the service binary. Used to declare a FILE
-check.</p>
+        <div class='inline'><p>Stdlib::Absolutepath Path to the service binary. Used to declare a FILE check.</p>
 </div>
       
     </li>
@@ -309,9 +293,7 @@ check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Enum[&#39;sysv&#39;, &#39;systemd&#39;, &#39;upstart&#39;] Type of init
-system this script uses.</p>
+        <div class='inline'><p>Enum[‘sysv’, ‘systemd’, ‘upstart’] Type of init system this script uses.</p>
 </div>
       
     </li>
@@ -328,9 +310,7 @@ system this script uses.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Stdlib::Absolutepath If <code>init_system</code> is sysv. This is the path
-to the init script. Otherwise ignored.</p>
+        <div class='inline'><p>Stdlib::Absolutepath If <code>init_system</code> is sysv. This is the path to the init script. Otherwise ignored.</p>
 </div>
       
     </li>
@@ -347,9 +327,7 @@ to the init script. Otherwise ignored.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Stdlib::Absolutepath If <code>init_system</code> is upstart. This is the
-path to the system job. Otherwise ignored.</p>
+        <div class='inline'><p>Stdlib::Absolutepath If <code>init_system</code> is upstart. This is the path to the system job. Otherwise ignored.</p>
 </div>
       
     </li>
@@ -366,9 +344,7 @@ path to the system job. Otherwise ignored.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Stdlib::Absolutepath If <code>init_system</code> is systemd. This is the
-path to the unit configuration file. Otherwise ignored.</p>
+        <div class='inline'><p>Stdlib::Absolutepath If <code>init_system</code> is systemd. This is the path to the unit configuration file. Otherwise ignored.</p>
 </div>
       
     </li>
@@ -385,8 +361,7 @@ path to the unit configuration file. Otherwise ignored.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Command to start the service.</p>
+        <div class='inline'><p>String Command to start the service.</p>
 </div>
       
     </li>
@@ -403,8 +378,7 @@ path to the unit configuration file. Otherwise ignored.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Command to stop the service.</p>
+        <div class='inline'><p>String Command to stop the service.</p>
 </div>
       
     </li>
@@ -421,8 +395,7 @@ path to the unit configuration file. Otherwise ignored.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Stdlib::Absolutepath Path to the PID file of the service.</p>
+        <div class='inline'><p>Stdlib::Absolutepath Path to the PID file of the service.</p>
 </div>
       
     </li>
@@ -439,9 +412,7 @@ path to the unit configuration file. Otherwise ignored.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String If the service doesn&#39;t provide a PID file, use this option to
-pass a regex pattern to check the process list.</p>
+        <div class='inline'><p>String If the service doesn’t provide a PID file, use this option to pass a regex pattern to check the process list.</p>
 </div>
       
     </li>
@@ -458,8 +429,7 @@ pass a regex pattern to check the process list.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Integer UID of the process.</p>
+        <div class='inline'><p>Integer UID of the process.</p>
 </div>
       
     </li>
@@ -476,8 +446,7 @@ pass a regex pattern to check the process list.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Integer GID of the process.</p>
+        <div class='inline'><p>Integer GID of the process.</p>
 </div>
       
     </li>
@@ -494,8 +463,7 @@ pass a regex pattern to check the process list.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Numeric Timeout on the start/stop operations.</p>
+        <div class='inline'><p>Numeric Timeout on the start/stop operations.</p>
 </div>
       
     </li>
@@ -512,9 +480,7 @@ pass a regex pattern to check the process list.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Numeric Timeout on the start operation. Generic timeout will be used if not
-specified.</p>
+        <div class='inline'><p>Numeric Timeout on the start operation. Generic timeout will be used if not specified.</p>
 </div>
       
     </li>
@@ -531,9 +497,7 @@ specified.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Numeric Timeout on the stop operation. Generic timeout will be used if not
-specified.</p>
+        <div class='inline'><p>Numeric Timeout on the stop operation. Generic timeout will be used if not specified.</p>
 </div>
       
     </li>
@@ -736,7 +700,7 @@ define monit::check::service(
   $params_service_file = {
     &#39;path&#39;       =&gt; $service_file,
     &#39;bundle&#39;     =&gt; $bundle,
-    &#39;order&#39;      =&gt; 0 + inline_template(&#39;&lt;%= @order.to_i + 1 %&gt;&#39;),
+    &#39;order&#39;      =&gt; Integer(inline_template(&#39;&lt;%= @order.to_i + 1 %&gt;&#39;)),
   }
   ensure_resource(&#39;monit::check::file&#39;, &quot;${name}_service_file&quot;, merge($defaults, $params_service_file))
 
@@ -744,7 +708,7 @@ define monit::check::service(
   $params_binary = {
     &#39;path&#39;       =&gt; $binary,
     &#39;bundle&#39;     =&gt; $bundle,
-    &#39;order&#39;      =&gt; 0 + inline_template(&#39;&lt;%= @order.to_i + 2 %&gt;&#39;),
+    &#39;order&#39;      =&gt; Integer(inline_template(&#39;&lt;%= @order.to_i + 2 %&gt;&#39;)),
   }
   ensure_resource(&#39;monit::check::file&#39;, &quot;${name}_binary&quot;, merge($defaults, $params_binary))
 }</pre>
@@ -755,9 +719,7 @@ define monit::check::service(
 </div>
 
       <div id="footer">
-  Generated on Wed Sep  6 11:04:52 2017 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.1.5).
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
 </div>
 
     </div>

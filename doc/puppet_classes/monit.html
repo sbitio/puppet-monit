@@ -6,15 +6,15 @@
 <title>
   Puppet Class: monit
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.24
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_classes::monit";
   relpath = '../';
 </script>
@@ -79,30 +79,28 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    
-<p>monit</p>
+    <p>monit</p>
 
 <p>This class is the responsible of installing and configuring the Monit
-service. Almost all configuration options for <code>monitrc</code> are
-exposed as class parameters.</p>
+service. Almost all configuration options for <code>monitrc</code> are exposed as class
+parameters.</p>
 
-<p>In addition to Monit configuration options, this class accepts other
-parameters:</p>
-<ul><li>
-<p><code>init_system</code>, to set globally the default init system for
-<code>service</code> checks.</p>
-</li><li>
-<p><code>checks</code>, to provide checks from Hiera.</p>
-</li><li>
-<p><code>hiera_merge_strategy</code> Merge strategy for monit::checks.</p>
-</li></ul>
+<p>In addition to Monit configuration options, this class accepts other parameters:</p>
 
-<p>Lastly, this class also configures a <code>system</code> check with sane
-defaults. It can be disabled or tweaked to fit your needs. See the set of
-parameters starting with <code>system_</code>.</p>
+<ul>
+  <li><code>init_system</code>, to set globally the default init system for <code>service</code> checks.</li>
+  <li><code>checks</code>, to provide checks from Hiera.</li>
+  <li><code>hiera_merge_strategy</code> Merge strategy for monit::checks.</li>
+</ul>
+
+<p>Lastly, this class also configures a <code>system</code> check with sane defaults. It can
+be disabled or tweaked to fit your needs. See the set of parameters
+starting with <code>system_</code>.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -119,8 +117,7 @@ parameters starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Boolean Whether to enable the monit service.</p>
+        <div class='inline'><p>Boolean Whether to enable the monit service.</p>
 </div>
       
     </li>
@@ -140,9 +137,7 @@ parameters starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Enum[&#39;running&#39;, &#39;stopped&#39;] Ensure status of the monit
-service.</p>
+        <div class='inline'><p>Enum[‘running’, ‘stopped’] Ensure status of the monit service.</p>
 </div>
       
     </li>
@@ -159,8 +154,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Path to the Monit main configuration file.</p>
+        <div class='inline'><p>Path to the Monit main configuration file.</p>
 </div>
       
     </li>
@@ -177,8 +171,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Path to the Monit configuration directory (where checks are placed).</p>
+        <div class='inline'><p>Path to the Monit configuration directory (where checks are placed).</p>
 </div>
       
     </li>
@@ -195,8 +188,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Whether to purge checks not managed by Puppet.</p>
+        <div class='inline'><p>Whether to purge checks not managed by Puppet.</p>
 </div>
       
     </li>
@@ -213,8 +205,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Check services at given interval.</p>
+        <div class='inline'><p>Check services at given interval.</p>
 </div>
       
     </li>
@@ -231,8 +222,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Delay the first check after Monit starts by this interval.</p>
+        <div class='inline'><p>Delay the first check after Monit starts by this interval.</p>
 </div>
       
     </li>
@@ -252,9 +242,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Variant[Stdlib::Absolutepath, Pattern[&#39;^syslog( facility
-[_a-zA-Z0-9]+)?$&#39;]] Path to a logfile or syslog logging facility.</p>
+        <div class='inline'><p>Variant[Stdlib::Absolutepath, Pattern[‘^syslog( facility [_a-zA-Z0-9]+)?$’]] Path to a logfile or syslog logging facility.</p>
 </div>
       
     </li>
@@ -271,8 +259,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Stdlib::Absolutepath Path to the Monit instance unique id file.</p>
+        <div class='inline'><p>Stdlib::Absolutepath Path to the Monit instance unique id file.</p>
 </div>
       
     </li>
@@ -289,8 +276,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Stdlib::Absolutepath Path to the persistent state file.</p>
+        <div class='inline'><p>Stdlib::Absolutepath Path to the persistent state file.</p>
 </div>
       
     </li>
@@ -307,8 +293,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Boolean Whether to enable the event queue.</p>
+        <div class='inline'><p>Boolean Whether to enable the event queue.</p>
 </div>
       
     </li>
@@ -325,8 +310,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Stdlib::Absolutepath Path to the event queue directory.</p>
+        <div class='inline'><p>Stdlib::Absolutepath Path to the event queue directory.</p>
 </div>
       
     </li>
@@ -343,8 +327,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Integer Size of the event queue.</p>
+        <div class='inline'><p>Integer Size of the event queue.</p>
 </div>
       
     </li>
@@ -361,8 +344,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="Stdlib::Httpurl">Optional</a> M/Monit url.</p>
+        <div class='inline'><p>Optional[Stdlib::Httpurl] M/Monit url.</p>
 </div>
       
     </li>
@@ -379,8 +361,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Optional</a> List of mail servers for alert delivery.</p>
+        <div class='inline'><p>Optional[String] List of mail servers for alert delivery.</p>
 </div>
       
     </li>
@@ -397,8 +378,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Override FROM field of the alert mail format.</p>
+        <div class='inline'><p>String Override FROM field of the alert mail format.</p>
 </div>
       
     </li>
@@ -415,9 +395,7 @@ service.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Optional</a> Override REPLYTO field of the alert mail
-format. NOTE: reply-to available since Monit 5.</p>
+        <div class='inline'><p>Optional[String] Override REPLYTO field of the alert mail format. NOTE: reply-to available since Monit 5.</p>
 </div>
       
     </li>
@@ -434,9 +412,7 @@ format. NOTE: reply-to available since Monit 5.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Optional</a> Override SUBJECT field of the alert mail
-format.</p>
+        <div class='inline'><p>Optional[String] Override SUBJECT field of the alert mail format.</p>
 </div>
       
     </li>
@@ -453,9 +429,7 @@ format.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Optional</a> Override MESSAGE field of the alert mail
-format.</p>
+        <div class='inline'><p>Optional[String] Override MESSAGE field of the alert mail format.</p>
 </div>
       
     </li>
@@ -472,9 +446,7 @@ format.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Array</a> Alert recipients. Alerts may be restricted on
-events by using a filter.</p>
+        <div class='inline'><p>Array[String] Alert recipients. Alerts may be restricted on events by using a filter.</p>
 </div>
       
     </li>
@@ -491,8 +463,7 @@ events by using a filter.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Boolean Whether to enable the embedded webserver.</p>
+        <div class='inline'><p>Boolean Whether to enable the embedded webserver.</p>
 </div>
       
     </li>
@@ -509,8 +480,7 @@ events by using a filter.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Integer[1024, 65535] Webserver port.</p>
+        <div class='inline'><p>Integer[1024, 65535] Webserver port.</p>
 </div>
       
     </li>
@@ -520,15 +490,14 @@ events by using a filter.</p>
         <span class='name'>httpserver_bind_address</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;localhost&#39;</tt>)</em>
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Webserver bind address.</p>
+        <div class='inline'><p>Optional[String] Webserver bind address.</p>
 </div>
       
     </li>
@@ -545,8 +514,7 @@ events by using a filter.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Boolean Whether to enable SSL for the webserver.</p>
+        <div class='inline'><p>Boolean Whether to enable SSL for the webserver.</p>
 </div>
       
     </li>
@@ -565,8 +533,7 @@ events by using a filter.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="Stdlib::Absolutepath">Optional</a> Webserver SSL certificate file.</p>
+        <div class='inline'><p>Optional[Stdlib::Absolutepath] Webserver SSL certificate file.</p>
 </div>
       
     </li>
@@ -583,8 +550,7 @@ events by using a filter.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Array</a> Webserver grants.</p>
+        <div class='inline'><p>Array[String] Webserver grants.</p>
 </div>
       
     </li>
@@ -605,9 +571,7 @@ events by using a filter.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Enum[&#39;sysv&#39;, &#39;systemd&#39;, &#39;upstart&#39;] Default init
-system. Used to build service checks.</p>
+        <div class='inline'><p>Enum[‘sysv’, ‘systemd’, ‘upstart’] Default init system. Used to build service checks.</p>
 </div>
       
     </li>
@@ -624,8 +588,7 @@ system. Used to build service checks.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Stdlib::Absolutepath Path to the default init system program.</p>
+        <div class='inline'><p>Stdlib::Absolutepath Path to the default init system program.</p>
 </div>
       
     </li>
@@ -645,9 +608,7 @@ system. Used to build service checks.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Enum[&#39;present&#39;, &#39;absent&#39;] Whether to create the system
-check.</p>
+        <div class='inline'><p>Enum[‘present’, ‘absent’] Whether to create the system check.</p>
 </div>
       
     </li>
@@ -664,8 +625,7 @@ check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Numeric 1 minute load average threshold.</p>
+        <div class='inline'><p>Numeric 1 minute load average threshold.</p>
 </div>
       
     </li>
@@ -682,8 +642,7 @@ check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Numeric 5 minute load average threshold.</p>
+        <div class='inline'><p>Numeric 5 minute load average threshold.</p>
 </div>
       
     </li>
@@ -700,8 +659,7 @@ check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Numeric 15 minute load average threshold.</p>
+        <div class='inline'><p>Numeric 15 minute load average threshold.</p>
 </div>
       
     </li>
@@ -718,8 +676,7 @@ check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String CPU user usage threshold.</p>
+        <div class='inline'><p>String CPU user usage threshold.</p>
 </div>
       
     </li>
@@ -736,8 +693,7 @@ check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String CPU system usage threshold.</p>
+        <div class='inline'><p>String CPU system usage threshold.</p>
 </div>
       
     </li>
@@ -754,8 +710,7 @@ check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String CPU wait usage threshold.</p>
+        <div class='inline'><p>String CPU wait usage threshold.</p>
 </div>
       
     </li>
@@ -772,8 +727,7 @@ check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Memory usage threshold.</p>
+        <div class='inline'><p>String Memory usage threshold.</p>
 </div>
       
     </li>
@@ -790,9 +744,7 @@ check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="String">Optional</a> Swap usage threshold. NOTE: swap available
-since monit 5.2.</p>
+        <div class='inline'><p>Optional[String] Swap usage threshold. NOTE: swap available since monit 5.2.</p>
 </div>
       
     </li>
@@ -812,9 +764,7 @@ since monit 5.2.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="Stdlib::Absolutepath">Variant[Array</a>, <a
-href="'^/'">Array[Pattern</a>]] Path to filesystems to check.</p>
+        <div class='inline'><p>Variant[Array[Stdlib::Absolutepath], Array[Pattern[’^/’]]] Path to filesystems to check.</p>
 </div>
       
     </li>
@@ -831,8 +781,7 @@ href="'^/'">Array[Pattern</a>]] Path to filesystems to check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Filesystem space usage threshold.</p>
+        <div class='inline'><p>String Filesystem space usage threshold.</p>
 </div>
       
     </li>
@@ -849,8 +798,7 @@ href="'^/'">Array[Pattern</a>]] Path to filesystems to check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>String Filesystem inode usage threshold.</p>
+        <div class='inline'><p>String Filesystem inode usage threshold.</p>
 </div>
       
     </li>
@@ -867,8 +815,7 @@ href="'^/'">Array[Pattern</a>]] Path to filesystems to check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Hash[String, Hash] Hash of additional checks to create.</p>
+        <div class='inline'><p>Hash[String, Hash] Hash of additional checks to create.</p>
 </div>
       
     </li>
@@ -887,9 +834,7 @@ href="'^/'">Array[Pattern</a>]] Path to filesystems to check.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p><a href="'hiera_hash'">Optional[Enum</a>] Merge strategy when obtaining
-checks from Hiera.</p>
+        <div class='inline'><p>Optional[Enum[‘hiera_hash’]] Merge strategy when obtaining checks from Hiera.</p>
 </div>
       
     </li>
@@ -987,43 +932,43 @@ checks from Hiera.</p>
         <pre class="code"><span class="info file"># File 'manifests/init.pp', line 61</span>
 
 class monit(
-  Boolean $service_enable                  = true,
+  Boolean $service_enable                   = true,
   Enum[
     &#39;running&#39;,
     &#39;stopped&#39;
-    ] $service_ensure                      = &#39;running&#39;,
-  Stdlib::Absolutepath $conf_file          = $monit::params::conf_file,
-  Stdlib::Absolutepath $conf_dir           = $monit::params::conf_dir,
-  Boolean $conf_purge                      = true,
-  Integer $check_interval                  = $monit::params::check_interval,
-  Integer $check_start_delay               = $monit::params::check_start_delay,
+    ] $service_ensure                       = &#39;running&#39;,
+  Stdlib::Absolutepath $conf_file           = $monit::params::conf_file,
+  Stdlib::Absolutepath $conf_dir            = $monit::params::conf_dir,
+  Boolean $conf_purge                       = true,
+  Integer $check_interval                   = $monit::params::check_interval,
+  Integer $check_start_delay                = $monit::params::check_start_delay,
   # $logfile can be an absolute path or
   # a string of the form &quot;syslog facility log_daemon&quot;
   Variant[
     Stdlib::Absolutepath,
     Pattern[&#39;^syslog( facility [_a-zA-Z0-9]+)?$&#39;]
-    ] $logfile                             = $monit::params::logfile,
-  Stdlib::Absolutepath $idfile             = $monit::params::idfile,
-  Stdlib::Absolutepath $statefile          = $monit::params::statefile,
-  Boolean $eventqueue                      = $monit::params::eventqueue,
-  Stdlib::Absolutepath $eventqueue_basedir = &#39;/var/monit&#39;,
-  Integer $eventqueue_slots                = 100,
-  Optional[Stdlib::Httpurl] $mmonit_url    = undef,
-  Optional[String] $mailserver             = undef,
-  String $mailformat_from                  = &quot;monit@${::fqdn}&quot;,
+    ] $logfile                              = $monit::params::logfile,
+  Stdlib::Absolutepath $idfile              = $monit::params::idfile,
+  Stdlib::Absolutepath $statefile           = $monit::params::statefile,
+  Boolean $eventqueue                       = $monit::params::eventqueue,
+  Stdlib::Absolutepath $eventqueue_basedir  = &#39;/var/monit&#39;,
+  Integer $eventqueue_slots                 = 100,
+  Optional[Stdlib::Httpurl] $mmonit_url     = undef,
+  Optional[String] $mailserver              = undef,
+  String $mailformat_from                   = &quot;monit@${::fqdn}&quot;,
   # NOTE: reply-to available since monit 5.2
-  Optional[String] $mailformat_replyto     = undef,
-  Optional[String] $mailformat_subject     = undef,
-  Optional[String] $mailformat_message     = undef,
-  Array[String] $alerts                    = [],
-  Boolean $httpserver                      = true,
-  Integer[1024, 65535] $httpserver_port    = 2812,
-  String $httpserver_bind_address          = undef,
-  Boolean $httpserver_ssl                  = false,
+  Optional[String] $mailformat_replyto      = undef,
+  Optional[String] $mailformat_subject      = undef,
+  Optional[String] $mailformat_message      = undef,
+  Array[String] $alerts                     = [],
+  Boolean $httpserver                       = true,
+  Integer[1024, 65535] $httpserver_port     = 2812,
+  Optional[String] $httpserver_bind_address = undef,
+  Boolean $httpserver_ssl                   = false,
   Optional[
     Stdlib::Absolutepath
-    ] $httpserver_pemfile                  = undef,
-  Array[String] $httpserver_allow          = [ &#39;localhost&#39; ],
+    ] $httpserver_pemfile                   = undef,
+  Array[String] $httpserver_allow           = [ &#39;localhost&#39; ],
   # Init system defaults.
   Enum[
     &#39;sysv&#39;,
@@ -1071,9 +1016,7 @@ class monit(
 </div>
 
       <div id="footer">
-  Generated on Wed Sep  6 11:04:51 2017 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.1.5).
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
 </div>
 
     </div>
