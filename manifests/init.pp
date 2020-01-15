@@ -132,7 +132,7 @@ class monit(
 ) inherits monit::params {
 
   if !empty($hiera_merge_strategy) {
-    notice('\$hiera_merge_strategy parameter is deprecated and will be removed in future versions! Please use Hiera 5 `lookup_options` instead. See https://puppet.com/docs/puppet/latest/hiera_merging.html')
+    warning('\$hiera_merge_strategy parameter is deprecated and will be removed in future versions! Please use Hiera 5 `lookup_options` instead. See https://puppet.com/docs/puppet/latest/hiera_merging.html')
   }
   class{'monit::install': } ->
   class{'monit::config': } ~>

@@ -46,7 +46,7 @@ define monit::check::filesystem(
 ) {
 
   if !empty($path) {
-    notice('\$path parameter is deprecated and will be removed in future versions! Please use \$paths instead')
+    warning('\$path parameter is deprecated and will be removed in future versions! Please use \$paths instead')
     $_paths = $paths + $path
   }
   else {
