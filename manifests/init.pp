@@ -37,7 +37,7 @@
 # @param alerts Array[String] Alert recipients. Alerts may be restricted on events by using a filter.
 # @param httpserver Boolean Whether to enable the embedded webserver.
 # @param httpserver_port Integer[1024, 65535] Webserver port.
-# @param httpserver_bind_address String Webserver bind address.
+# @param httpserver_bind_address Optional[String] Webserver bind address.
 # @param httpserver_ssl Boolean Whether to enable SSL for the webserver.
 # @param httpserver_pemfile Optional[Stdlib::Absolutepath] Webserver SSL certificate file.
 # @param httpserver_allow Array[String] Webserver grants.
@@ -59,43 +59,43 @@
 # @param hiera_merge_strategy Optional[Enum['hiera_hash']] Merge strategy when obtaining checks from Hiera.
 #
 class monit(
-  Boolean $service_enable                  = true,
+  Boolean $service_enable                   = true,
   Enum[
     'running',
     'stopped'
-    ] $service_ensure                      = 'running',
-  Stdlib::Absolutepath $conf_file          = $monit::params::conf_file,
-  Stdlib::Absolutepath $conf_dir           = $monit::params::conf_dir,
-  Boolean $conf_purge                      = true,
-  Integer $check_interval                  = $monit::params::check_interval,
-  Integer $check_start_delay               = $monit::params::check_start_delay,
+    ] $service_ensure                       = 'running',
+  Stdlib::Absolutepath $conf_file           = $monit::params::conf_file,
+  Stdlib::Absolutepath $conf_dir            = $monit::params::conf_dir,
+  Boolean $conf_purge                       = true,
+  Integer $check_interval                   = $monit::params::check_interval,
+  Integer $check_start_delay                = $monit::params::check_start_delay,
   # $logfile can be an absolute path or
   # a string of the form "syslog facility log_daemon"
   Variant[
     Stdlib::Absolutepath,
     Pattern['^syslog( facility [_a-zA-Z0-9]+)?$']
-    ] $logfile                             = $monit::params::logfile,
-  Stdlib::Absolutepath $idfile             = $monit::params::idfile,
-  Stdlib::Absolutepath $statefile          = $monit::params::statefile,
-  Boolean $eventqueue                      = $monit::params::eventqueue,
-  Stdlib::Absolutepath $eventqueue_basedir = '/var/monit',
-  Integer $eventqueue_slots                = 100,
-  Optional[Stdlib::Httpurl] $mmonit_url    = undef,
-  Optional[String] $mailserver             = undef,
-  String $mailformat_from                  = "monit@${::fqdn}",
+    ] $logfile                              = $monit::params::logfile,
+  Stdlib::Absolutepath $idfile              = $monit::params::idfile,
+  Stdlib::Absolutepath $statefile           = $monit::params::statefile,
+  Boolean $eventqueue                       = $monit::params::eventqueue,
+  Stdlib::Absolutepath $eventqueue_basedir  = '/var/monit',
+  Integer $eventqueue_slots                 = 100,
+  Optional[Stdlib::Httpurl] $mmonit_url     = undef,
+  Optional[String] $mailserver              = undef,
+  String $mailformat_from                   = "monit@${::fqdn}",
   # NOTE: reply-to available since monit 5.2
-  Optional[String] $mailformat_replyto     = undef,
-  Optional[String] $mailformat_subject     = undef,
-  Optional[String] $mailformat_message     = undef,
-  Array[String] $alerts                    = [],
-  Boolean $httpserver                      = true,
-  Integer[1024, 65535] $httpserver_port    = 2812,
-  String $httpserver_bind_address          = undef,
-  Boolean $httpserver_ssl                  = false,
+  Optional[String] $mailformat_replyto      = undef,
+  Optional[String] $mailformat_subject      = undef,
+  Optional[String] $mailformat_message      = undef,
+  Array[String] $alerts                     = [],
+  Boolean $httpserver                       = true,
+  Integer[1024, 65535] $httpserver_port     = 2812,
+  Optional[String] $httpserver_bind_address = undef,
+  Boolean $httpserver_ssl                   = false,
   Optional[
     Stdlib::Absolutepath
-    ] $httpserver_pemfile                  = undef,
-  Array[String] $httpserver_allow          = [ 'localhost' ],
+    ] $httpserver_pemfile                   = undef,
+  Array[String] $httpserver_allow           = [ 'localhost' ],
   # Init system defaults.
   Enum[
     'sysv',
