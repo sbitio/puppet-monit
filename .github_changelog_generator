@@ -1,1 +1,3 @@
-issues=no
+issues=yes
+unreleased=yes
+future-release=2.0.0

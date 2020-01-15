@@ -1,6 +1,6 @@
 {
   "name": "sbitio-monit",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "author": "SB IT Media, S.L.",
   "summary": "Performs installation and configuration of Monit service, along with fine grained definition of checks",
   "license": "MIT",
@@ -13,10 +13,11 @@
     {"name":"puppetlabs/concat","version_requirement":">= 1.2.1 < 6.0.0"}
   ],
   "operatingsystem_support": [
+    {"operatingsystem": "FreeBSD"},
     {"operatingsystem": "CentOS","operatingsystemrelease":["6","7"]},
-    {"operatingsystem": "Debian","operatingsystemrelease":["7","8"]},
+    {"operatingsystem": "Debian","operatingsystemrelease":["7","8","9"]},
     {"operatingsystem": "Redhat","operatingsystemrelease":["6","7"]},
-    {"operatingsystem": "Ubuntu","operatingsystemrelease":["12.04","14.04"]}
+    {"operatingsystem": "Ubuntu","operatingsystemrelease":["12.04","14.04","16.04"]}
   ],
   "requirements": [
     {"name": "puppet", "version_requirement": ">= 4.0.0 < 5.0.0"}
