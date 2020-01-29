@@ -123,7 +123,7 @@ class monit(
     ] $system_fs                           = [],
   String $system_fs_space_usage            = '80%',
   String $system_fs_inode_usage            = '80%',
-  Array[String] $fs_banned_types           = ['devpts', 'devtmpfs', 'hugetlbfs', 'mqueue', 'rpc_pipefs', 'tmpfs'],
+  Array[String] $fs_banned_types           = ['devpts', 'devtmpfs', 'hugetlbfs', 'mqueue', 'nsfs', 'overlay', 'rpc_pipefs', 'tmpfs'],
   # Additional checks.
   Hash[String, Hash] $checks               = {},
   Optional[Enum[
