@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.0.1](https://github.com/sbitio/puppet-monit/tree/2.0.1) (2020-01-29)
+
+[Full Changelog](https://github.com/sbitio/puppet-monit/compare/2.0.0...2.0.1)
+
+**Closed issues:**
+
+- Exclude nsfs and overlay filesystem types [\#44](https://github.com/sbitio/puppet-monit/issues/44)
+- Covert to pdk and improve module score [\#43](https://github.com/sbitio/puppet-monit/issues/43)
+
+**Merged pull requests:**
+
+- Covert to pdk and improve module score [\#45](https://github.com/sbitio/puppet-monit/pull/45) ([jonhattan](https://github.com/jonhattan))
+
 ## [2.0.0](https://github.com/sbitio/puppet-monit/tree/2.0.0) (2020-01-15)
 
 [Full Changelog](https://github.com/sbitio/puppet-monit/compare/1.1.0...2.0.0)
