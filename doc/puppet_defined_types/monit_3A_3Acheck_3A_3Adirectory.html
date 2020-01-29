@@ -86,6 +86,38 @@
   
     <li>
       
+        <span class='name'>path</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Path to the directory to check.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>template</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;monit/check/directory.erb&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Template used to generate the check file.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>ensure</span>
       
       
@@ -99,7 +131,7 @@
       
       
         &mdash;
-        <div class='inline'><p>Enum[‘present’, ‘absent’] Whether this check must be present or absent.</p>
+        <div class='inline'><p>Whether this check must be present or absent.</p>
 </div>
       
     </li>
@@ -116,7 +148,7 @@
       
       
         &mdash;
-        <div class='inline'><p>String Monit group.</p>
+        <div class='inline'><p>Monit group.</p>
 </div>
       
     </li>
@@ -133,7 +165,7 @@
       
       
         &mdash;
-        <div class='inline'><p>Array[String] Alert recipients (with event filters) to set.</p>
+        <div class='inline'><p>Alert recipients (with event filters) to set.</p>
 </div>
       
     </li>
@@ -150,7 +182,7 @@
       
       
         &mdash;
-        <div class='inline'><p>Array[String] Alerts to disable for this check.</p>
+        <div class='inline'><p>Alerts to disable for this check.</p>
 </div>
       
     </li>
@@ -169,7 +201,7 @@
       
       
         &mdash;
-        <div class='inline'><p>Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.</p>
+        <div class='inline'><p>Monit tests.</p>
 </div>
       
     </li>
@@ -186,7 +218,7 @@
       
       
         &mdash;
-        <div class='inline'><p>Array[String] Dependencies of this check on other checks.</p>
+        <div class='inline'><p>Dependencies of this check on other checks.</p>
 </div>
       
     </li>
@@ -203,7 +235,8 @@
       
       
         &mdash;
-        <div class='inline'><p>String Used as a prefix for the filename generated. Load order doesn’t matter to Monit. This is just a facility to organize your checks by filename.</p>
+        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn’t matter to Monit.
+This is just a facility to organize your checks by filename.</p>
 </div>
       
     </li>
@@ -220,7 +253,7 @@
       
       
         &mdash;
-        <div class='inline'><p>String Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
+        <div class='inline'><p>Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
 </div>
       
     </li>
@@ -237,39 +270,7 @@
       
       
         &mdash;
-        <div class='inline'><p>Integer Order of the check within the bundle filename.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>template</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>&#39;monit/check/directory.erb&#39;</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>String Template used to generate the check file.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>path</span>
-      
-      
-        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>Stdlib::Absolutepath Path to the directory to check.</p>
+        <div class='inline'><p>Order of the check within the bundle filename.</p>
 </div>
       
     </li>
@@ -284,18 +285,6 @@
         <pre class="lines">
 
 
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
 30
 31
 32
@@ -320,12 +309,28 @@
 51
 52
 53
-54</pre>
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check/directory.pp', line 18</span>
+        <pre class="code"><span class="info file"># File 'manifests/check/directory.pp', line 30</span>
 
 define monit::check::directory(
+  # Check type specific.
+  Stdlib::Absolutepath $path,
+  String $template           = &#39;monit/check/directory.erb&#39;,
+
   # Common parameters.
   Enum[
     &#39;present&#39;,
@@ -341,10 +346,6 @@ define monit::check::directory(
   String $priority        = &#39;20&#39;,
   String $bundle          = $name,
   Integer $order          = 0,
-
-  # Check type specific.
-  String $template           = &#39;monit/check/directory.erb&#39;,
-  Stdlib::Absolutepath $path
 ) {
 
   monit::check::instance { &quot;${name}_instance&quot;:

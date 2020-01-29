@@ -40,7 +40,8 @@ class monit::params {
           $init_system = 'upstart'
         }
         default: {
-          fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only support operatingsystem Debian and Ubuntu on osfamily Debian")
+          fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
+          module ${module_name} only support operatingsystem Debian and Ubuntu on osfamily Debian")
         }
       }
     }
@@ -73,7 +74,8 @@ class monit::params {
       }
     }
     default: {
-      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only support osfamily Debian and RedHat")
+      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
+      module ${module_name} only support osfamily Debian and RedHat")
     }
   }
 }

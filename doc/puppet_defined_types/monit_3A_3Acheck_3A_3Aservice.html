@@ -87,164 +87,6 @@ It is a bundle of PROCESS and FILE checks.</p>
   
     <li>
       
-        <span class='name'>ensure</span>
-      
-      
-        <span class='type'>(<tt>Enum[
-    'present',
-    'absent'
-    ]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>present</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Enum[‘present’, ‘absent’] Whether this check must be present or absent.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>group</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>$name</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>String Monit group.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>alerts</span>
-      
-      
-        <span class='type'>(<tt>Array[String]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>[]</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Array[String] Alert recipients (with event filters) to set.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>noalerts</span>
-      
-      
-        <span class='type'>(<tt>Array[String]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>[]</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Array[String] Alerts to disable for this check.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>tests</span>
-      
-      
-        <span class='type'>(<tt>Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>[]</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>depends</span>
-      
-      
-        <span class='type'>(<tt>Array[String]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>[]</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Array[String] Dependencies of this check on other checks.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>priority</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>&#39;20&#39;</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>String Used as a prefix for the filename generated. Load order doesn’t matter to Monit. This is just a facility to organize your checks by filename.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>bundle</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>$name</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>String Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>order</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>0</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Integer Order of the check within the bundle filename.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
         <span class='name'>template</span>
       
       
@@ -255,7 +97,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Undef Not used. This parameter is here for consistency with other check types. See <code>monit::check</code> for details.</p>
+        <div class='inline'><p>Not used. This parameter is here for consistency with other check types. See <code>monit::check</code> for details.</p>
 </div>
       
     </li>
@@ -272,7 +114,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Stdlib::Absolutepath Path to the service binary. Used to declare a FILE check.</p>
+        <div class='inline'><p>Path to the service binary. Used to declare a FILE check.</p>
 </div>
       
     </li>
@@ -293,7 +135,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Enum[‘sysv’, ‘systemd’, ‘upstart’] Type of init system this script uses.</p>
+        <div class='inline'><p>Type of init system this script uses.</p>
 </div>
       
     </li>
@@ -310,7 +152,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Stdlib::Absolutepath If <code>init_system</code> is sysv. This is the path to the init script. Otherwise ignored.</p>
+        <div class='inline'><p>If <code>init_system</code> is sysv. This is the path to the init script. Otherwise ignored.</p>
 </div>
       
     </li>
@@ -327,7 +169,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Stdlib::Absolutepath If <code>init_system</code> is upstart. This is the path to the system job. Otherwise ignored.</p>
+        <div class='inline'><p>If <code>init_system</code> is upstart. This is the path to the system job. Otherwise ignored.</p>
 </div>
       
     </li>
@@ -344,7 +186,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Stdlib::Absolutepath If <code>init_system</code> is systemd. This is the path to the unit configuration file. Otherwise ignored.</p>
+        <div class='inline'><p>If <code>init_system</code> is systemd. This is the path to the unit configuration file. Otherwise ignored.</p>
 </div>
       
     </li>
@@ -361,7 +203,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>String Command to start the service.</p>
+        <div class='inline'><p>Command to start the service.</p>
 </div>
       
     </li>
@@ -378,7 +220,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>String Command to stop the service.</p>
+        <div class='inline'><p>Command to stop the service.</p>
 </div>
       
     </li>
@@ -395,7 +237,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Stdlib::Absolutepath Path to the PID file of the service.</p>
+        <div class='inline'><p>Path to the PID file of the service.</p>
 </div>
       
     </li>
@@ -412,7 +254,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>String If the service doesn’t provide a PID file, use this option to pass a regex pattern to check the process list.</p>
+        <div class='inline'><p>If the service doesn’t provide a PID file, use this option to pass a regex pattern to check the process list.</p>
 </div>
       
     </li>
@@ -429,7 +271,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Integer UID of the process.</p>
+        <div class='inline'><p>UID of the process.</p>
 </div>
       
     </li>
@@ -446,7 +288,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Integer GID of the process.</p>
+        <div class='inline'><p>GID of the process.</p>
 </div>
       
     </li>
@@ -463,7 +305,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Numeric Timeout on the start/stop operations.</p>
+        <div class='inline'><p>Timeout on the start/stop operations.</p>
 </div>
       
     </li>
@@ -480,7 +322,7 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Numeric Timeout on the start operation. Generic timeout will be used if not specified.</p>
+        <div class='inline'><p>Timeout on the start operation. Generic timeout will be used if not specified.</p>
 </div>
       
     </li>
@@ -497,7 +339,166 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Numeric Timeout on the stop operation. Generic timeout will be used if not specified.</p>
+        <div class='inline'><p>Timeout on the stop operation. Generic timeout will be used if not specified.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ensure</span>
+      
+      
+        <span class='type'>(<tt>Enum[
+    'present',
+    'absent'
+    ]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>present</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether this check must be present or absent.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>group</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Monit group.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>alerts</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Alert recipients (with event filters) to set.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>noalerts</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Alerts to disable for this check.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tests</span>
+      
+      
+        <span class='type'>(<tt>Array[
+    Hash[String, Variant[Array, Hash, Integer, String]]
+    ]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Monit tests.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>depends</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Dependencies of this check on other checks.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>priority</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;20&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn’t matter to Monit.
+This is just a facility to organize your checks by filename.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bundle</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>order</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>0</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Order of the check within the bundle filename.</p>
 </div>
       
     </li>
@@ -512,32 +513,6 @@ It is a bundle of PROCESS and FILE checks.</p>
         <pre class="lines">
 
 
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
 57
 58
 59
@@ -609,12 +584,65 @@ It is a bundle of PROCESS and FILE checks.</p>
 125
 126
 127
-128</pre>
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check/service.pp', line 31</span>
+        <pre class="code"><span class="info file"># File 'manifests/check/service.pp', line 57</span>
 
 define monit::check::service(
+  # Check type specific.
+  Undef $template                         = undef,
+  Stdlib::Absolutepath $binary            = &quot;/usr/sbin/${name}&quot;,
+  Enum[
+    &#39;sysv&#39;,
+    &#39;systemd&#39;,
+    &#39;upstart&#39;
+    ] $init_system                        = $monit::init_system,
+  Stdlib::Absolutepath $sysv_file         = &quot;/etc/init.d/${name}&quot;,
+  Stdlib::Absolutepath $upstart_file      = &quot;/etc/init/${name}.conf&quot;,
+  Stdlib::Absolutepath $systemd_file      = &quot;${monit::params::systemd_unitdir}/${name}.service&quot;,
+
+  # Params for process type.
+  String $program_start                   = &quot;${monit::service_program} ${name} start&quot;,
+  String $program_stop                    = &quot;${monit::service_program} ${name} stop&quot;,
+  Optional[Stdlib::Absolutepath] $pidfile = undef,
+  Optional[String] $matching              = undef,
+  Optional[Integer] $uid                  = undef,
+  Optional[Integer] $gid                  = undef,
+  Optional[Numeric] $timeout              = undef,
+  Optional[Numeric] $timeout_start        = undef,
+  Optional[Numeric] $timeout_stop         = undef,
+
   # Common parameters.
   Enum[
     &#39;present&#39;,
@@ -630,28 +658,6 @@ define monit::check::service(
   String $priority        = &#39;20&#39;,
   String $bundle          = $name,
   Integer $order          = 0,
-
-  # Check type specific.
-  Undef $template                         = undef,
-  Stdlib::Absolutepath $binary            = &quot;/usr/sbin/${name}&quot;,
-  Enum[
-    &#39;sysv&#39;,
-    &#39;systemd&#39;,
-    &#39;upstart&#39;
-    ] $init_system                        = $monit::init_system,
-  Stdlib::Absolutepath $sysv_file         = &quot;/etc/init.d/${name}&quot;,
-  Stdlib::Absolutepath $upstart_file      = &quot;/etc/init/${name}.conf&quot;,
-  Stdlib::Absolutepath $systemd_file      = &quot;${monit::params::systemd_unitdir}/${name}.service&quot;,
-  # Params for process type.
-  String $program_start                   = &quot;${monit::service_program} ${name} start&quot;,
-  String $program_stop                    = &quot;${monit::service_program} ${name} stop&quot;,
-  Optional[Stdlib::Absolutepath] $pidfile = undef,
-  Optional[String] $matching              = undef,
-  Optional[Integer] $uid                  = undef,
-  Optional[Integer] $gid                  = undef,
-  Optional[Numeric] $timeout              = undef,
-  Optional[Numeric] $timeout_start        = undef,
-  Optional[Numeric] $timeout_stop         = undef,
 ) {
 
   case $init_system {
@@ -663,6 +669,9 @@ define monit::check::service(
     }
     &#39;systemd&#39;: {
       $service_file = $systemd_file
+    }
+    default: {
+      fail(&quot;Unknown init system: ${init_system}.&quot;)
     }
   }
 

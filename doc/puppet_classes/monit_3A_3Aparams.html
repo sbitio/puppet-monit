@@ -173,7 +173,9 @@ This class handles the module data.</p>
 76
 77
 78
-79</pre>
+79
+80
+81</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/params.pp', line 6</span>
@@ -215,7 +217,8 @@ class monit::params {
           $init_system = &#39;upstart&#39;
         }
         default: {
-          fail(&quot;Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only support operatingsystem Debian and Ubuntu on osfamily Debian&quot;)
+          fail(&quot;Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
+          module ${module_name} only support operatingsystem Debian and Ubuntu on osfamily Debian&quot;)
         }
       }
     }
@@ -248,7 +251,8 @@ class monit::params {
       }
     }
     default: {
-      fail(&quot;Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only support osfamily Debian and RedHat&quot;)
+      fail(&quot;Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
+      module ${module_name} only support osfamily Debian and RedHat&quot;)
     }
   }
 }</pre>

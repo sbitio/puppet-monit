@@ -86,164 +86,6 @@
   
     <li>
       
-        <span class='name'>ensure</span>
-      
-      
-        <span class='type'>(<tt>Enum[
-    'present',
-    'absent'
-    ]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>present</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Enum[‘present’, ‘absent’] Whether this check must be present or absent.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>group</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>$name</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>String Monit group.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>alerts</span>
-      
-      
-        <span class='type'>(<tt>Array[String]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>[]</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Array[String] Alert recipients (with event filters) to set.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>noalerts</span>
-      
-      
-        <span class='type'>(<tt>Array[String]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>[]</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Array[String] Alerts to disable for this check.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>tests</span>
-      
-      
-        <span class='type'>(<tt>Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>[]</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Array[Hash[String, Variant[Array, Hash, Integer, String]]] Monit tests.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>depends</span>
-      
-      
-        <span class='type'>(<tt>Array[String]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>[]</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Array[String] Dependencies of this check on other checks.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>priority</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>&#39;20&#39;</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>String Used as a prefix for the filename generated. Load order doesn’t matter to Monit. This is just a facility to organize your checks by filename.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>bundle</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>$name</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>String Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>order</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>0</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Integer Order of the check within the bundle filename.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
         <span class='name'>template</span>
       
       
@@ -254,7 +96,7 @@
       
       
         &mdash;
-        <div class='inline'><p>String Template used to generate the check file.</p>
+        <div class='inline'><p>Template used to generate the check file.</p>
 </div>
       
     </li>
@@ -274,7 +116,7 @@
       
       
         &mdash;
-        <div class='inline'><p>Optional[Variant[Stdlib::Absolutepath, Pattern[’^/’]]] Path of the filesystem to check (<strong>Deprecated</strong>. Use $paths).</p>
+        <div class='inline'><p>Path of the filesystem to check (<strong>Deprecated</strong>. Use $paths).</p>
 </div>
       
     </li>
@@ -294,7 +136,167 @@
       
       
         &mdash;
-        <div class='inline'><p>Variant[Array[Stdlib::Absolutepath], Array[Pattern[’^/’]]] List of paths of filesystems to check. If empty, will check all mounted filesystems, but the ones with a type in $monit::banned_fs_types.</p>
+        <div class='inline'><p>List of paths of filesystems to check. If empty, will check all mounted filesystems,
+but the ones with a type in $monit::banned_fs_types.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ensure</span>
+      
+      
+        <span class='type'>(<tt>Enum[
+    'present',
+    'absent'
+    ]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>present</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether this check must be present or absent.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>group</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Monit group.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>alerts</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Alert recipients (with event filters) to set.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>noalerts</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Alerts to disable for this check.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tests</span>
+      
+      
+        <span class='type'>(<tt>Array[
+    Hash[String, Variant[Array, Hash, Integer, String]]
+    ]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Monit tests.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>depends</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Dependencies of this check on other checks.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>priority</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;20&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn’t matter to Monit.
+This is just a facility to organize your checks by filename.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bundle</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>order</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>0</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Order of the check within the bundle filename.</p>
 </div>
       
     </li>
@@ -309,20 +311,6 @@
         <pre class="lines">
 
 
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
 33
 34
 35
@@ -368,12 +356,37 @@
 75
 76
 77
-78</pre>
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check/filesystem.pp', line 19</span>
+        <pre class="code"><span class="info file"># File 'manifests/check/filesystem.pp', line 33</span>
 
 define monit::check::filesystem(
+  # Check type specific.
+  String $template        = &#39;monit/check/filesystem.erb&#39;,
+  Optional[Variant[
+    Stdlib::Absolutepath,
+    Pattern[&#39;^/&#39;]
+  ]] $path                = undef,
+  Variant[
+    Array[Stdlib::Absolutepath],
+    Array[Pattern[&#39;^/&#39;]]
+    ] $paths              = [],
+
   # Common parameters.
   Enum[
     &#39;present&#39;,
@@ -389,21 +402,10 @@ define monit::check::filesystem(
   String $priority        = &#39;20&#39;,
   String $bundle          = $name,
   Integer $order          = 0,
-
-  # Check type specific.
-  String $template        = &#39;monit/check/filesystem.erb&#39;,
-  Optional[Variant[
-    Stdlib::Absolutepath,
-    Pattern[&#39;^/&#39;]
-  ]] $path                = undef,
-  Variant[
-    Array[Stdlib::Absolutepath],
-    Array[Pattern[&#39;^/&#39;]]
-    ] $paths              = [],
 ) {
 
   if !empty($path) {
-    notice(&#39;\$path parameter is deprecated and will be removed in future versions! Please use \$paths instead&#39;)
+    warning(&#39;\$path parameter is deprecated and will be removed in future versions! Please use \$paths instead&#39;)
     $_paths = $paths + $path
   }
   else {

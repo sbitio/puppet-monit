@@ -116,7 +116,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Boolean Whether to enable the monit service.</p>
+        <div class='inline'><p>Whether to enable the monit service.</p>
 </div>
       
     </li>
@@ -136,7 +136,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Enum[‘running’, ‘stopped’] Ensure status of the monit service.</p>
+        <div class='inline'><p>Ensure status of the monit service.</p>
 </div>
       
     </li>
@@ -241,7 +241,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Variant[Stdlib::Absolutepath, Pattern[‘^syslog( facility [_a-zA-Z0-9]+)?$’]] Path to a logfile or syslog logging facility.</p>
+        <div class='inline'><p>Path to a logfile or syslog logging facility.</p>
 </div>
       
     </li>
@@ -258,7 +258,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Stdlib::Absolutepath Path to the Monit instance unique id file.</p>
+        <div class='inline'><p>Path to the Monit instance unique id file.</p>
 </div>
       
     </li>
@@ -275,7 +275,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Stdlib::Absolutepath Path to the persistent state file.</p>
+        <div class='inline'><p>Path to the persistent state file.</p>
 </div>
       
     </li>
@@ -292,7 +292,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Boolean Whether to enable the event queue.</p>
+        <div class='inline'><p>Whether to enable the event queue.</p>
 </div>
       
     </li>
@@ -309,7 +309,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Stdlib::Absolutepath Path to the event queue directory.</p>
+        <div class='inline'><p>Path to the event queue directory.</p>
 </div>
       
     </li>
@@ -326,7 +326,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Integer Size of the event queue.</p>
+        <div class='inline'><p>Size of the event queue.</p>
 </div>
       
     </li>
@@ -343,7 +343,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Optional[Stdlib::Httpurl] M/Monit url.</p>
+        <div class='inline'><p>M/Monit url.</p>
 </div>
       
     </li>
@@ -360,7 +360,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Optional[String] List of mail servers for alert delivery.</p>
+        <div class='inline'><p>List of mail servers for alert delivery.</p>
 </div>
       
     </li>
@@ -377,7 +377,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>String Override FROM field of the alert mail format.</p>
+        <div class='inline'><p>Override FROM field of the alert mail format.</p>
 </div>
       
     </li>
@@ -394,7 +394,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Optional[String] Override REPLYTO field of the alert mail format. NOTE: reply-to available since Monit 5.</p>
+        <div class='inline'><p>Override REPLYTO field of the alert mail format. NOTE: reply-to available since Monit 5.</p>
 </div>
       
     </li>
@@ -411,7 +411,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Optional[String] Override SUBJECT field of the alert mail format.</p>
+        <div class='inline'><p>Override SUBJECT field of the alert mail format.</p>
 </div>
       
     </li>
@@ -428,7 +428,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Optional[String] Override MESSAGE field of the alert mail format.</p>
+        <div class='inline'><p>Override MESSAGE field of the alert mail format.</p>
 </div>
       
     </li>
@@ -445,7 +445,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Array[String] Alert recipients. Alerts may be restricted on events by using a filter.</p>
+        <div class='inline'><p>Alert recipients. Alerts may be restricted on events by using a filter.</p>
 </div>
       
     </li>
@@ -462,7 +462,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Boolean Whether to enable the embedded webserver.</p>
+        <div class='inline'><p>Whether to enable the embedded webserver.</p>
 </div>
       
     </li>
@@ -479,7 +479,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Integer[1024, 65535] Webserver port.</p>
+        <div class='inline'><p>Webserver port.</p>
 </div>
       
     </li>
@@ -496,7 +496,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Optional[String] Webserver bind address.</p>
+        <div class='inline'><p>Webserver bind address.</p>
 </div>
       
     </li>
@@ -513,7 +513,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Boolean Whether to enable SSL for the webserver.</p>
+        <div class='inline'><p>Whether to enable SSL for the webserver.</p>
 </div>
       
     </li>
@@ -532,7 +532,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Optional[Stdlib::Absolutepath] Webserver SSL certificate file.</p>
+        <div class='inline'><p>Webserver SSL certificate file.</p>
 </div>
       
     </li>
@@ -549,7 +549,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Array[String] Webserver grants.</p>
+        <div class='inline'><p>Webserver grants.</p>
 </div>
       
     </li>
@@ -570,7 +570,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Enum[‘sysv’, ‘systemd’, ‘upstart’] Default init system. Used to build service checks.</p>
+        <div class='inline'><p>Default init system. Used to build service checks.</p>
 </div>
       
     </li>
@@ -587,7 +587,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Stdlib::Absolutepath Path to the default init system program.</p>
+        <div class='inline'><p>Path to the default init system program.</p>
 </div>
       
     </li>
@@ -607,7 +607,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Enum[‘present’, ‘absent’] Whether to create the system check.</p>
+        <div class='inline'><p>Whether to create the system check.</p>
 </div>
       
     </li>
@@ -620,11 +620,11 @@ starting with <code>system_</code>.</p>
         <span class='type'>(<tt>Numeric</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>*</tt>)</em>
+        <em class="default">(defaults to: <tt>(</tt>)</em>
       
       
         &mdash;
-        <div class='inline'><p>Numeric 1 minute load average threshold.</p>
+        <div class='inline'><p>1 minute load average threshold.</p>
 </div>
       
     </li>
@@ -637,11 +637,11 @@ starting with <code>system_</code>.</p>
         <span class='type'>(<tt>Numeric</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>*</tt>)</em>
+        <em class="default">(defaults to: <tt>(</tt>)</em>
       
       
         &mdash;
-        <div class='inline'><p>Numeric 5 minute load average threshold.</p>
+        <div class='inline'><p>5 minute load average threshold.</p>
 </div>
       
     </li>
@@ -654,11 +654,11 @@ starting with <code>system_</code>.</p>
         <span class='type'>(<tt>Numeric</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>*</tt>)</em>
+        <em class="default">(defaults to: <tt>(</tt>)</em>
       
       
         &mdash;
-        <div class='inline'><p>Numeric 15 minute load average threshold.</p>
+        <div class='inline'><p>15 minute load average threshold.</p>
 </div>
       
     </li>
@@ -675,7 +675,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>String CPU user usage threshold.</p>
+        <div class='inline'><p>CPU user usage threshold.</p>
 </div>
       
     </li>
@@ -692,7 +692,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>String CPU system usage threshold.</p>
+        <div class='inline'><p>CPU system usage threshold.</p>
 </div>
       
     </li>
@@ -709,7 +709,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>String CPU wait usage threshold.</p>
+        <div class='inline'><p>CPU wait usage threshold.</p>
 </div>
       
     </li>
@@ -726,7 +726,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>String Memory usage threshold.</p>
+        <div class='inline'><p>Memory usage threshold.</p>
 </div>
       
     </li>
@@ -743,7 +743,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Optional[String] Swap usage threshold. NOTE: swap available since monit 5.2.</p>
+        <div class='inline'><p>Swap usage threshold. NOTE: swap available since monit 5.2.</p>
 </div>
       
     </li>
@@ -763,7 +763,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Variant[Array[Stdlib::Absolutepath], Array[Pattern[’^/’]]] Path to filesystems to check. If empty, will check all mounted filesystems, but the ones with a type in $monit::fs_banned_types.</p>
+        <div class='inline'><p>Path to filesystems to check. If empty, will check all mounted filesystems, but the ones with a type in $monit::fs_banned_types.</p>
 </div>
       
     </li>
@@ -780,7 +780,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>String Filesystem space usage threshold.</p>
+        <div class='inline'><p>Filesystem space usage threshold.</p>
 </div>
       
     </li>
@@ -797,7 +797,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>String Filesystem inode usage threshold.</p>
+        <div class='inline'><p>Filesystem inode usage threshold.</p>
 </div>
       
     </li>
@@ -810,11 +810,11 @@ starting with <code>system_</code>.</p>
         <span class='type'>(<tt>Array[String]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>[&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;]</tt>)</em>
+        <em class="default">(defaults to: <tt>[&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;nsfs&#39;, &#39;overlay&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;]</tt>)</em>
       
       
         &mdash;
-        <div class='inline'><p>Array[String] List of filesystem types to ignore in generation of $monit::system_fs.</p>
+        <div class='inline'><p>List of filesystem types to ignore in generation of $monit::system_fs.</p>
 </div>
       
     </li>
@@ -831,7 +831,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Hash[String, Hash] Hash of additional checks to create.</p>
+        <div class='inline'><p>Hash of additional checks to create.</p>
 </div>
       
     </li>
@@ -850,7 +850,7 @@ starting with <code>system_</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>Optional[Enum[‘hiera_hash’]] Merge strategy when obtaining checks from Hiera. <strong>Deprecated</strong> use instead hiera 5 <a href="https://puppet.com/docs/puppet/latest/hiera_merging.html"><code>lookup_options</code></a>.</p>
+        <div class='inline'><p>Merge strategy when obtaining checks from Hiera. <strong>Deprecated</strong> use instead hiera 5 <a href="https://puppet.com/docs/puppet/latest/hiera_merging.html"><code>lookup_options</code></a>.</p>
 </div>
       
     </li>
@@ -865,49 +865,6 @@ starting with <code>system_</code>.</p>
         <pre class="lines">
 
 
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97
-98
-99
-100
-101
-102
-103
 104
 105
 106
@@ -946,10 +903,53 @@ starting with <code>system_</code>.</p>
 139
 140
 141
-142</pre>
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 61</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 104</span>
 
 class monit(
   Boolean $service_enable                   = true,
@@ -1001,9 +1001,9 @@ class monit(
     &#39;present&#39;,
     &#39;absent&#39;
     ] $system_check_ensure                 = &#39;present&#39;,
-  Numeric $system_loadavg_1min               = 3 * $processorcount,
-  Numeric $system_loadavg_5min               = 1.5 * $processorcount,
-  Numeric $system_loadavg_15min              = 1.5 * $processorcount,
+  Numeric $system_loadavg_1min             = (3 * $::processorcount),
+  Numeric $system_loadavg_5min             = (1.5 * $::processorcount),
+  Numeric $system_loadavg_15min            = (1.5 * $::processorcount),
   String $system_cpu_user                  = &#39;75%&#39;,
   String $system_cpu_system                = &#39;30%&#39;,
   String $system_cpu_wait                  = &#39;30%&#39;,
@@ -1016,7 +1016,7 @@ class monit(
     ] $system_fs                           = [],
   String $system_fs_space_usage            = &#39;80%&#39;,
   String $system_fs_inode_usage            = &#39;80%&#39;,
-  Array[String] $fs_banned_types           = [&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;],
+  Array[String] $fs_banned_types           = [&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;nsfs&#39;, &#39;overlay&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;],
   # Additional checks.
   Hash[String, Hash] $checks               = {},
   Optional[Enum[
@@ -1025,12 +1025,12 @@ class monit(
 ) inherits monit::params {
 
   if !empty($hiera_merge_strategy) {
-    notice(&#39;\$hiera_merge_strategy parameter is deprecated and will be removed in future versions! Please use Hiera 5 `lookup_options` instead. See https://puppet.com/docs/puppet/latest/hiera_merging.html&#39;)
+    warning(&#39;\$hiera_merge_strategy parameter is deprecated and will be removed in future versions! Please use Hiera 5 `lookup_options` instead. See https://puppet.com/docs/puppet/latest/hiera_merging.html&#39;)
   }
-  class{&#39;monit::install&#39;: } -&gt;
-  class{&#39;monit::config&#39;: } ~&gt;
-  class{&#39;monit::service&#39;: } -&gt;
-  Class[&#39;monit&#39;]
+  class{&#39;monit::install&#39;: }
+  -&gt; class{&#39;monit::config&#39;: }
+  ~&gt; class{&#39;monit::service&#39;: }
+  -&gt; Class[&#39;monit&#39;]
 
 }</pre>
       </td>
