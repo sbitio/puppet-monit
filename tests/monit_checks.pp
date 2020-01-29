@@ -1,7 +1,7 @@
 class { '::monit':
   checks => {
     'sshd' => {
-      'type'    => 'service',
+      'type'   => 'service',
       'config' => {
         'pidfile'       => '/var/run/sshd.pid',
         'program_start' => '/etc/init.d/sshd start',
