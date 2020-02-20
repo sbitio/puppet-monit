@@ -66,7 +66,7 @@ define monit::check::service(
   Optional[Numeric] $timeout              = undef,
   Optional[Numeric] $timeout_start        = undef,
   Optional[Numeric] $timeout_stop         = undef,
-  Optional[Hash]    $restart_tolerance    = undef,
+  Optional[Hash]    $restart_limit        = undef,
 ) {
 
   case $init_system {
@@ -89,7 +89,7 @@ define monit::check::service(
     'depends'           => $depends,
     'alerts'            => $alerts,
     'noalerts'          => $noalerts,
-    'restart_tolerance' => $restart_tolerance,
+    'restart_limit'     => $restart_limit,
   }
 
   # Check service process.

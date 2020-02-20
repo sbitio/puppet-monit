@@ -1,4 +1,4 @@
-  <%- if @restart_tolerance -%>
+  <%- if @restart_limit -%>
   IF <%= @restarts %> RESTARTS WITHIN <%= @cycles %> CYCLES THEN <%= @action %>
   <%- end -%>
   GROUP <%= @group %>

@@ -34,16 +34,16 @@ define monit::check::instance(
   String $priority,
   String $bundle,
   Integer $order,
-  Optional[Hash] $restart_tolerance = undef,
+  Optional[Hash] $restart_limit = undef,
 ) {
 
-  if $restart_tolerance {
-    if !has_key($restart_tolerance, 'restarts') or !has_key($restart_tolerance, 'cycles') or !has_key($restart_tolerance, 'action') {
+  if $restart_limit {
+    if !has_key($restart_limit, 'restarts') or !has_key($restart_limit, 'cycles') or !has_key($restart_limit, 'action') {
       fail("monit::check::process: please ensure 'restart' parameter contains 'restarts', 'cycles' and 'action'.")
     } else {
-      $restarts = $restart_tolerance['restarts']
-      $cycles = $restart_tolerance['cycles']
-      $action = $restart_tolerance['action']
+      $restarts = $restart_limit['restarts']
+      $cycles = $restart_limit['cycles']
+      $action = $restart_limit['action']
     }
   }
 

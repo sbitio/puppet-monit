@@ -31,7 +31,7 @@ define monit::check::file(
   String $priority                  = '20',
   String $bundle                    = $name,
   Integer $order                    = 0,
-  Optional[Hash] $restart_tolerance = undef,
+  Optional[Hash] $restart_limit     = undef,
 
   # Check type specific.
   String $template           = 'monit/check/file.erb',
@@ -51,6 +51,6 @@ define monit::check::file(
     priority          => $priority,
     bundle            => $bundle,
     order             => $order,
-    restart_tolerance => $restart_tolerance,
+    restart_limit     => $restart_limit,
   }
 }

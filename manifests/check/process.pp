@@ -51,7 +51,7 @@ define monit::check::process(
   Optional[Numeric] $timeout              = undef,
   Optional[Numeric] $timeout_start        = undef,
   Optional[Numeric] $timeout_stop         = undef,
-  Optional[Hash]    $restart_tolerance    = undef,
+  Optional[Hash]    $restart_limit        = undef,
 ) {
 
   if $pidfile {
@@ -81,7 +81,7 @@ define monit::check::process(
     priority          => $priority,
     bundle            => $bundle,
     order             => $order,
-    restart_tolerance => $restart_tolerance,
+    restart_limit     => $restart_limit,
   }
 }
 
