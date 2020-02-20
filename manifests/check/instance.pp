@@ -34,7 +34,18 @@ define monit::check::instance(
   String $priority,
   String $bundle,
   Integer $order,
+  $restart_tolerance = undef,
 ) {
+
+  if $restart_tolerance {
+    if !has_key($restart_tolerance, 'restarts') or !has_key($restart_tolerance, 'cycles') or !has_key($restart_tolerance, 'action') {
+      fail("monit::check::process: please ensure 'restart' parameter contains 'restarts', 'cycles' and 'action'.")
+    } else {
+      $restarts = $restart_tolerance['restarts']
+      $cycles = $restart_tolerance['cycles']
+      $action = $restart_tolerance['action']
+    }
+  }
 
   $priority_real = $priority ? {
     undef   => '',
