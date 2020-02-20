@@ -34,7 +34,7 @@ define monit::check::instance(
   String $priority,
   String $bundle,
   Integer $order,
-  $restart_tolerance = undef,
+  Optional[Hash] $restart_tolerance = undef,
 ) {
 
   if $restart_tolerance {

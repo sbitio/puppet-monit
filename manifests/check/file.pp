@@ -20,18 +20,18 @@ define monit::check::file(
   Enum[
     'present',
     'absent'
-    ] $ensure             = present,
-  String $group           = $name,
-  Array[String] $alerts   = [],
-  Array[String] $noalerts = [],
+    ] $ensure                       = present,
+  String $group                     = $name,
+  Array[String] $alerts             = [],
+  Array[String] $noalerts           = [],
   Array[
     Hash[String, Variant[Array, Hash, Integer, String]]
-    ] $tests              = [],
-  Array[String] $depends  = [],
-  String $priority        = '20',
-  String $bundle          = $name,
-  Integer $order          = 0,
-  $restart_tolerance      = undef,
+    ] $tests                        = [],
+  Array[String] $depends            = [],
+  String $priority                  = '20',
+  String $bundle                    = $name,
+  Integer $order                    = 0,
+  Optional[Hash] $restart_tolerance = undef,
 
   # Check type specific.
   String $template           = 'monit/check/file.erb',
