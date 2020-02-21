@@ -91,11 +91,11 @@ class { '::monit':
 include ::monit
 
 monit::check::filesystem { 'somefs':
-  path  => '/mount/somefs',
+  paths => ['/mount/somefs',],
   tests => [
-    {'type' => 'fsflags'}
-    {'type' => 'permission', 'value' => '0755'}
-    {'type' => 'space', 'operator' => '>', 'value' => '80%'}
+    {'type' => 'fsflags'},
+    {'type' => 'permission', 'value' => '0755'},
+    {'type' => 'space', 'operator' => '>', 'value' => '80%'},
   ]
 }
 ```
@@ -177,7 +177,9 @@ monit::checks :
   somefs :
     type     : filesystem
     config   :
-      path   : /mount/somefs
+      paths  :
+        - /
+        - /mount/somefs
     tests    :
       - type: fsflags
       - type: permission
@@ -309,9 +311,10 @@ See Puppet Strings doc at [doc/index.html](https://github.com/sbitio/puppet-moni
 
 This module requires Puppet 4.x, and is compatible with the following OSes/versions:
 
- * Debian 7, 8
- * RedHat/CentOS 7,8
- * Ubuntu 12.04, 14.04
+ * FreeBSD
+ * Debian 7, 8, 9
+ * RedHat/CentOS 7, 8
+ * Ubuntu 12.04, 14.04, 16.04
 
 For Puppet 3 or older versions of Debian, please use 1.x.x releases.
 

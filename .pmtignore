@@ -1,0 +1,5 @@
+doc/
+examples/
+tests/
+NOTAS
+run-tests.sh
