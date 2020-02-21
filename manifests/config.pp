@@ -12,6 +12,7 @@ class monit::config {
   # Monit conf file and directory.
   file { $monit::conf_file:
     ensure  => present,
+    mode    => '0600',
     content => template('monit/conf_file.erb'),
   }
   file { $monit::conf_dir:
@@ -32,15 +33,18 @@ class monit::config {
       order    => 0,
       tests    => parseyaml(template('monit/system_test_resources.erb')),
     }
-
-    $system_test_fs_defaults = {
+    monit::check::filesystem { 'fs':
       priority => '10',
       group    => 'system',
       bundle   => $::fqdn,
       order    => 1,
+      paths    => $monit::system_fs,
+      tests    => [
+        {'type' => 'fsflags'},
+        {'type' => 'space', 'operator' => '>', 'value' => '80%'},
+        {'type' => 'inode', 'operator' => '>', 'value' => '80%'},
+      ]
     }
-    $system_test_fs = parseyaml(template('monit/system_test_filesystems.erb'))
-    create_resources('monit::check::filesystem', $system_test_fs, $system_test_fs_defaults)
   }
 
   # Additional checks.

@@ -40,9 +40,21 @@ class monit::params {
           $init_system = 'upstart'
         }
         default: {
-          fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only support operatingsystem Debian and Ubuntu on osfamily Debian")
+          fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
+          module ${module_name} only support operatingsystem Debian and Ubuntu on osfamily Debian")
         }
       }
+    }
+    'FreeBSD': {
+      $conf_file  = '/usr/local/etc/monitrc'
+      $conf_dir   = '/usr/local/etc/monit.d'
+      $logfile    = '/var/log/monit'
+      $idfile     = '/var/.monit.id'
+      $statefile  = '/var/.monit.state'
+      $eventqueue = false
+
+      $service_program = '/usr/sbin/service'
+      $init_system = 'sysv'
     }
     'RedHat': {
       $conf_file  = '/etc/monit.conf'
@@ -62,7 +74,8 @@ class monit::params {
       }
     }
     default: {
-      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only support osfamily Debian and RedHat")
+      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
+      module ${module_name} only support osfamily Debian and RedHat")
     }
   }
 }
