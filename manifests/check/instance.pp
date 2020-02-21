@@ -28,6 +28,8 @@
 #   Used to group checks by filename. All checks in the same bundle will be added to the same filename.
 # @param order
 #   Order of the check within the bundle filename.
+# @param restart_limit
+#   Used to define limits on restarts.
 #
 define monit::check::instance(
   Enum[

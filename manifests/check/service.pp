@@ -34,6 +34,8 @@
 #   Timeout on the start operation. Generic timeout will be used if not specified.
 # @param timeout_stop
 #   Timeout on the stop operation. Generic timeout will be used if not specified.
+# @param restart_limit
+#   Used to define limits on restarts.
 # @param ensure
 #   Whether this check must be present or absent.
 # @param group
