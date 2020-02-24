@@ -1,5 +1,6 @@
+<<<<<<< HEAD
 <%- if @restart_limit -%>
-  IF <%= @restarts %> RESTARTS WITHIN <%= @cycles %> CYCLES THEN <%= @action %>
+  IF <%= @restart_limit['restarts'] %> RESTARTS WITHIN <%= @restart_limit['cycles'] %> CYCLES THEN <%= @restart_limit['action'] %>
 <%- end -%>
   GROUP <%= @group %>
 <%- unless @depends.empty? -%>

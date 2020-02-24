@@ -60,40 +60,40 @@
 #
 define monit::check::service(
   # Check type specific.
-  Undef $template                         = undef,
-  Stdlib::Absolutepath $binary            = "/usr/sbin/${name}",
+  Undef $template                              = undef,
+  Stdlib::Absolutepath $binary                 = "/usr/sbin/${name}",
   Enum[
     'sysv',
     'systemd',
     'upstart'
-    ] $init_system                        = $monit::init_system,
-  Stdlib::Absolutepath $sysv_file         = "/etc/init.d/${name}",
-  Stdlib::Absolutepath $upstart_file      = "/etc/init/${name}.conf",
-  Stdlib::Absolutepath $systemd_file      = "${monit::params::systemd_unitdir}/${name}.service",
+    ] $init_system                             = $monit::init_system,
+  Stdlib::Absolutepath $sysv_file              = "/etc/init.d/${name}",
+  Stdlib::Absolutepath $upstart_file           = "/etc/init/${name}.conf",
+  Stdlib::Absolutepath $systemd_file           = "${monit::params::systemd_unitdir}/${name}.service",
 
   # Params for process type.
-  String $program_start                   = "${monit::service_program} ${name} start",
-  String $program_stop                    = "${monit::service_program} ${name} stop",
-  Optional[Stdlib::Absolutepath] $pidfile = undef,
-  Optional[String] $matching              = undef,
-  Optional[Integer] $uid                  = undef,
-  Optional[Integer] $gid                  = undef,
-  Optional[Numeric] $timeout              = undef,
-  Optional[Numeric] $timeout_start        = undef,
-  Optional[Numeric] $timeout_stop         = undef,
+  String $program_start                        = "${monit::service_program} ${name} start",
+  String $program_stop                         = "${monit::service_program} ${name} stop",
+  Optional[Stdlib::Absolutepath] $pidfile      = undef,
+  Optional[String] $matching                   = undef,
+  Optional[Integer] $uid                       = undef,
+  Optional[Integer] $gid                       = undef,
+  Optional[Numeric] $timeout                   = undef,
+  Optional[Numeric] $timeout_start             = undef,
+  Optional[Numeric] $timeout_stop              = undef,
 
   # Common parameters.
-  Monit::Check::Ensure $ensure            = 'present',
-  String $group                           = $name,
-  String $every                           = '',
-  Array[String] $alerts                   = [],
-  Array[String] $noalerts                 = [],
-  Monit::Check::Tests $tests              = [],
-  Array[String] $depends                  = [],
-  String $priority                        = '20',
-  String $bundle                          = $name,
-  Integer $order                          = 0,
-  Optional[Hash] $restart_limit           = undef,
+  Monit::Check::Ensure $ensure                 = 'present',
+  String $group                                = $name,
+  String $every                                = '',
+  Array[String] $alerts                        = [],
+  Array[String] $noalerts                      = [],
+  Monit::Check::Tests $tests                   = [],
+  Array[String] $depends                       = [],
+  String $priority                             = '20',
+  String $bundle                               = $name,
+  Integer $order                               = 0,
+  Optional[Monit::RestartLimit] $restart_limit = undef,
 ) {
 
   case $init_system {
