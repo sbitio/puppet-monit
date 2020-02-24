@@ -49,7 +49,7 @@ define monit::check::file(
   String $priority                  = '20',
   String $bundle                    = $name,
   Integer $order                    = 0,
-  Optional[Hash] $restart_limit     = undef,
+  Optional[Monit::RestartLimit] $restart_limit     = undef,
 ) {
 
   monit::check::instance { "${name}_instance":

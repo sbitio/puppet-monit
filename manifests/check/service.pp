@@ -79,7 +79,7 @@ define monit::check::service(
   Optional[Numeric] $timeout              = undef,
   Optional[Numeric] $timeout_start        = undef,
   Optional[Numeric] $timeout_stop         = undef,
-  Optional[Hash]    $restart_limit        = undef,
+  Optional[Monit::RestartLimit]    $restart_limit        = undef,
 
   # Common parameters.
   Enum[
