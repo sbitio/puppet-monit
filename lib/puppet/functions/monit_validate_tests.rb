@@ -184,7 +184,6 @@ Puppet::Functions.create_function('monit_validate_tests') do
         if test.key? 'retry'
           condition += " RETRY #{test['retry']}"
         end
-        test['action'] = test.key?('action') ? test['action'].upcase : 'ALERT'
         test['condition'] = condition
       end
 
