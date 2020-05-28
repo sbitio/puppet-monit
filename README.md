@@ -282,18 +282,22 @@ monit::checks :
           http headers: '[host: www.example.com]'
         action: restart
 
-  custom-script :
-    type   : program
-    config :
-      path   : /path/to/custom/pingcheck.sh
-    tests  :
-      - type      : status
-        operator  : '!='
-        value     : 0
-        tolerance :
-          cycles  : 2
-        action    : exec
-        exec      : sudo /sbin/reboot
+  custom-script:
+    type: program
+    config:
+      path: /path/to/custom/pingcheck.sh
+    tests:
+      - type: status
+        operator: '!='
+        value: 0
+        tolerance:
+          cycles: 2
+        action: exec
+        exec: sudo /sbin/reboot
+        # uid, git and repeat_every are optional.
+        uid: root
+        gid: root
+        repeat_every: 1
 ```
 
 There's a bunch of examples for configuring real services across Debian and
