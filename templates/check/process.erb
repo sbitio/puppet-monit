@@ -3,6 +3,7 @@ CHECK PROCESS <%= @name %> WITH PIDFILE <%= @pidfile %>
 <%- else -%>
 CHECK PROCESS <%= @name %> MATCHING <%= @matching %>
 <%- end -%>
+<%- if @program_start -%>
   START PROGRAM = "<%= @program_start %>"
   <%- if @uid -%>
     AS UID <%= @uid %>
@@ -13,6 +14,8 @@ CHECK PROCESS <%= @name %> MATCHING <%= @matching %>
   <%- if @real_timeout_start -%>
     WITH timeout <%= @real_timeout_start %> SECONDS
   <%- end -%>
+<%- end -%>
+<%- if @program_stop -%>
   STOP PROGRAM = "<%= @program_stop %>"
   <%- if @uid -%>
     AS UID <%= @uid %>
@@ -23,4 +26,5 @@ CHECK PROCESS <%= @name %> MATCHING <%= @matching %>
   <%- if @real_timeout_stop -%>
     WITH timeout <%= @real_timeout_stop %> SECONDS
   <%- end -%>
+<%- end -%>
 
