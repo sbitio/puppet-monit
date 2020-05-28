@@ -298,6 +298,13 @@ monit::checks :
         uid: root
         gid: root
         repeat_every: 1
+
+  reboot:
+    type: system
+    tests:
+      - type: uptime
+        operator: '<'
+        value: '3 MINUTES'
 ```
 
 There's a bunch of examples for configuring real services across Debian and
