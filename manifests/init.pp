@@ -118,8 +118,8 @@ class monit(
     Stdlib::Absolutepath,
     Pattern['^syslog( facility [_a-zA-Z0-9]+)?$']
     ] $logfile                              = $monit::params::logfile,
-  Stdlib::Absolutepath $idfile              = $monit::params::idfile,
-  Stdlib::Absolutepath $statefile           = $monit::params::statefile,
+  Optional[Stdlib::Absolutepath] $idfile    = $monit::params::idfile,
+  Optional[Stdlib::Absolutepath] $statefile = $monit::params::statefile,
   Boolean $eventqueue                       = $monit::params::eventqueue,
   Stdlib::Absolutepath $eventqueue_basedir  = '/var/monit',
   Integer $eventqueue_slots                 = 100,

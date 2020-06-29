@@ -40,9 +40,9 @@ Puppet::Functions.create_function('monit_validate_tests') do
       'FSFLAGS', 'SPACE', 'INODE', 'PERM', 'PERMISSION'
     ],
     'HOST'        => ['CONNECTION'],
-    'PROCESS'     => RESOURCE_TESTS + ['CONNECTION'],
+    'PROCESS'     => RESOURCE_TESTS + ['CONNECTION', 'UPTIME'],
     'PROGRAM'     => ['STATUS'],
-    'SYSTEM'      => RESOURCE_TESTS,
+    'SYSTEM'      => RESOURCE_TESTS + ['UPTIME'],
   }.freeze
   TEST_ACTIONS = ['ALERT', 'RESTART', 'START', 'STOP', 'EXEC', 'UNMONITOR'].freeze
 
@@ -73,13 +73,22 @@ Puppet::Functions.create_function('monit_validate_tests') do
         if test['action'] == 'EXEC'
           raise Puppet::ParseError, exception_prefix + 'missing command for exec action' unless test.key? 'exec'
           test['action'] = "EXEC \"#{test['exec']}\""
+          if test.key? 'uid'
+              test['action'] += " AS UID #{test['uid']}"
+          end
+          if test.key? 'gid'
+              test['action'] += " AS GID #{test['gid']}"
+          end
+          if test.key? 'repeat_every'
+              test['action'] += " REPEAT EVERY #{test['repeat_every']} CYCLES"
+          end
         end
       else
         test['action'] = 'ALERT'
       end
 
-      # RESOURCE TESTS, SPACE and INODE
-      if (RESOURCE_TESTS.include? test['type']) || (['SPACE', 'INODE'].include? test['type'])
+      # RESOURCE_TESTS, and other tests that share the same syntax.
+      if (RESOURCE_TESTS.include? test['type']) || (['SPACE', 'INODE', 'STATUS', 'UPTIME'].include? test['type'])
         raise Puppet::ParseError, exception_prefix + "'operator' is mandatory" unless test.key? 'operator'
         raise Puppet::ParseError, exception_prefix + "invalid operator: #{test['operator']}" unless RESOURCE_TESTS_OPERATORS.include? test['operator']
         raise Puppet::ParseError, exception_prefix + "'value' is mandatory" unless test.key? 'value'
@@ -112,11 +121,6 @@ Puppet::Functions.create_function('monit_validate_tests') do
       # EXIST TESTING
       elsif ['EXIST'].include? test['type']
         test['condition'] = test['type']
-
-      # STATUS TESTING
-      elsif test['type'] == 'STATUS'
-        test['operator'] = test['operator'].upcase
-        test['condition'] = "#{test['type']} #{test['operator']} #{test['value']}"
 
       # CONNECTION TESTING
       elsif test['type'] == 'CONNECTION'
@@ -184,7 +188,6 @@ Puppet::Functions.create_function('monit_validate_tests') do
         if test.key? 'retry'
           condition += " RETRY #{test['retry']}"
         end
-        test['action'] = test.key?('action') ? test['action'].upcase : 'ALERT'
         test['condition'] = condition
       end
 

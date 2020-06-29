@@ -47,8 +47,8 @@
 #
 define monit::check::process(
   # Check type specific.
-  String $program_start,
-  String $program_stop,
+  Optional[String] $program_start         = undef,
+  Optional[String] $program_stop          = undef,
   String $template                        = 'monit/check/process.erb',
   Optional[Stdlib::Absolutepath] $pidfile = undef,
   Optional[String] $matching              = undef,
