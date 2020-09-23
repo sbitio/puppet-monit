@@ -74,13 +74,13 @@ Puppet::Functions.create_function('monit_validate_tests') do
           raise Puppet::ParseError, exception_prefix + 'missing command for exec action' unless test.key? 'exec'
           test['action'] = "EXEC \"#{test['exec']}\""
           if test.key? 'uid'
-              test['action'] += " AS UID #{test['uid']}"
+            test['action'] += " AS UID #{test['uid']}"
           end
           if test.key? 'gid'
-              test['action'] += " AS GID #{test['gid']}"
+            test['action'] += " AS GID #{test['gid']}"
           end
           if test.key? 'repeat_every'
-              test['action'] += " REPEAT EVERY #{test['repeat_every']} CYCLES"
+            test['action'] += " REPEAT EVERY #{test['repeat_every']} CYCLES"
           end
         end
       else
