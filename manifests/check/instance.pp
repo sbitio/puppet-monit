@@ -36,9 +36,7 @@ define monit::check::instance(
   String $group,
   Array[String] $alerts,
   Array[String] $noalerts,
-  Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ] $tests,
+  Monit::Check::Tests $tests,
   Array[String] $depends,
   String $priority,
   String $bundle,
