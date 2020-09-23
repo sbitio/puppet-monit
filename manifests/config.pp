@@ -26,25 +26,25 @@ class monit::config {
     content => template('monit/conf_file_overrides.erb'),
   }
 
-  if $monit::system_check_ensure == present {
-    monit::check::system {$::fqdn:
-      priority => '10',
-      group    => 'system',
-      order    => 0,
-      tests    => parseyaml(template('monit/system_test_resources.erb')),
-    }
-    monit::check::filesystem { 'fs':
-      priority => '10',
-      group    => 'system',
-      bundle   => $::fqdn,
-      order    => 1,
-      paths    => $monit::system_fs,
-      tests    => [
-        {'type' => 'fsflags'},
-        {'type' => 'space', 'operator' => '>', 'value' => '80%'},
-        {'type' => 'inode', 'operator' => '>', 'value' => '80%'},
-      ]
-    }
+  monit::check::system {$::fqdn:
+    ensure   => $monit::system_check_ensure,
+    priority => '10',
+    group    => 'system',
+    order    => 0,
+    tests    => parseyaml(template('monit/system_test_resources.erb')),
+  }
+  monit::check::filesystem { 'fs':
+    ensure   => $monit::system_check_ensure,
+    priority => '10',
+    group    => 'system',
+    bundle   => $::fqdn,
+    order    => 1,
+    paths    => $monit::system_fs,
+    tests    => [
+      {'type' => 'fsflags'},
+      {'type' => 'space', 'operator' => '>', 'value' => '80%'},
+      {'type' => 'inode', 'operator' => '>', 'value' => '80%'},
+    ]
   }
 
   # Additional checks.
