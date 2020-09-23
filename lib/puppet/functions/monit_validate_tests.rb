@@ -3,6 +3,7 @@ Puppet::Functions.create_function('monit_validate_tests') do
   # Validate monit tests
   # @param check_type The check type
   # @param tests The real tests
+  # @return
   dispatch :validate do
     param 'String', :check_type
     param 'Tuple', :tests

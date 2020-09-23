@@ -6,15 +6,15 @@
 <title>
   Defined Type: monit::check::instance
   
-    &mdash; Documentation by YARD 0.9.24
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
-<script type="text/javascript">
+<script type="text/javascript" charset="utf-8">
   pathId = "puppet_defined_types::monit::check::instance";
   relpath = '../';
 </script>
@@ -89,10 +89,7 @@ Creates Monit check files by fragments.</p>
         <span class='name'>ensure</span>
       
       
-        <span class='type'>(<tt>Enum[
-    'present',
-    'absent'
-    ]</tt>)</span>
+        <span class='type'>(<tt>Monit::Check::Ensure</tt>)</span>
       
       
       
@@ -182,9 +179,7 @@ Creates Monit check files by fragments.</p>
         <span class='name'>tests</span>
       
       
-        <span class='type'>(<tt>Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ]</tt>)</span>
+        <span class='type'>(<tt>Monit::Check::Tests</tt>)</span>
       
       
       
@@ -219,7 +214,7 @@ Creates Monit check files by fragments.</p>
       
       
         &mdash;
-        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn’t matter to Monit.
+        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn&#39;t matter to Monit.
 This is just a facility to organize your checks by filename.</p>
 </div>
       
@@ -312,18 +307,13 @@ This is just a facility to organize your checks by filename.</p>
         <pre class="code"><span class="info file"># File 'manifests/check/instance.pp', line 32</span>
 
 define monit::check::instance(
-  Enum[
-    &#39;present&#39;,
-    &#39;absent&#39;
-    ] $ensure,
+  Monit::Check::Ensure $ensure,
   String $type,
   String $header,
   String $group,
   Array[String] $alerts,
   Array[String] $noalerts,
-  Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ] $tests,
+  Monit::Check::Tests $tests,
   Array[String] $depends,
   String $priority,
   String $bundle,
@@ -336,8 +326,13 @@ define monit::check::instance(
   }
   $file = &quot;${monit::conf_dir}/${priority_real}${bundle}&quot;
   if !defined(Concat[$file]) {
+    $concat_ensure = $ensure ? {
+      /(true|&#39;true&#39;)/ =&gt; &#39;present&#39;,
+      /(false|&#39;false&#39;)/ =&gt; &#39;absent&#39;,
+      default =&gt; $ensure,
+    }
     concat{ $file:
-      ensure         =&gt; $ensure,
+      ensure         =&gt; $concat_ensure,
       warn           =&gt; true,
       ensure_newline =&gt; true,
       notify         =&gt; Service[$monit::service],
