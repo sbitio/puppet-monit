@@ -30,10 +30,7 @@
 #   Order of the check within the bundle filename.
 #
 define monit::check::instance(
-  Enum[
-    'present',
-    'absent'
-    ] $ensure,
+  Monit::Check::Ensure $ensure,
   String $type,
   String $header,
   String $group,
@@ -54,8 +51,13 @@ define monit::check::instance(
   }
   $file = "${monit::conf_dir}/${priority_real}${bundle}"
   if !defined(Concat[$file]) {
+    $concat_ensure = $ensure ? {
+      /(true|'true')/ => 'present',
+      /(false|'false')/ => 'absent',
+      default => $ensure,
+    }
     concat{ $file:
-      ensure         => $ensure,
+      ensure         => $concat_ensure,
       warn           => true,
       ensure_newline => true,
       notify         => Service[$monit::service],

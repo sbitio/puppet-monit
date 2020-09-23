@@ -36,10 +36,7 @@ define monit::check(
     'service',
     'system'
     ] $type,
-  Enum[
-    'present',
-    'absent'
-    ] $ensure                  = 'present',
+  Monit::Check::Ensure $ensure = 'present',
   Hash[
     String,
     Variant[Array, Hash, Integer, String]

@@ -57,20 +57,17 @@ define monit::check::process(
   Optional[Numeric] $timeout_stop         = undef,
 
   # Common parameters.
-  Enum[
-    'present',
-    'absent'
-    ] $ensure             = present,
-  String $group           = $name,
-  Array[String] $alerts   = [],
-  Array[String] $noalerts = [],
+  Monit::Check::Ensure $ensure = 'present',
+  String $group                = $name,
+  Array[String] $alerts        = [],
+  Array[String] $noalerts      = [],
   Array[
     Hash[String, Variant[Array, Hash, Integer, String]]
-    ] $tests              = [],
-  Array[String] $depends  = [],
-  String $priority        = '20',
-  String $bundle          = $name,
-  Integer $order          = 0,
+    ] $tests                   = [],
+  Array[String] $depends       = [],
+  String $priority             = '20',
+  String $bundle               = $name,
+  Integer $order               = 0,
 ) {
 
   if $pidfile {
