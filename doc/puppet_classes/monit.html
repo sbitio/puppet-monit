@@ -6,15 +6,15 @@
 <title>
   Puppet Class: monit
   
-    &mdash; Documentation by YARD 0.9.24
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
-<script type="text/javascript">
+<script type="text/javascript" charset="utf-8">
   pathId = "puppet_classes::monit";
   relpath = '../';
 </script>
@@ -88,8 +88,8 @@ parameters.</p>
 <p>In addition to Monit configuration options, this class accepts other parameters:</p>
 
 <ul>
-  <li><code>init_system</code>, to set globally the default init system for <code>service</code> checks.</li>
-  <li><code>checks</code>, to provide checks from Hiera.</li>
+<li><code>init_system</code>, to set globally the default init system for <code>service</code> checks.</li>
+<li><code>checks</code>, to provide checks from Hiera.</li>
 </ul>
 
 <p>Lastly, this class also configures a <code>system</code> check with sane defaults. It can
@@ -251,7 +251,7 @@ starting with <code>system_</code>.</p>
         <span class='name'>idfile</span>
       
       
-        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>$monit::params::idfile</tt>)</em>
@@ -268,7 +268,7 @@ starting with <code>system_</code>.</p>
         <span class='name'>statefile</span>
       
       
-        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>$monit::params::statefile</tt>)</em>
@@ -597,10 +597,7 @@ starting with <code>system_</code>.</p>
         <span class='name'>system_check_ensure</span>
       
       
-        <span class='type'>(<tt>Enum[
-    'present',
-    'absent'
-    ]</tt>)</span>
+        <span class='type'>(<tt>Monit::Check::Ensure</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;present&#39;</tt>)</em>
@@ -943,10 +940,7 @@ starting with <code>system_</code>.</p>
 179
 180
 181
-182
-183
-184
-185</pre>
+182</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/init.pp', line 104</span>
@@ -968,8 +962,8 @@ class monit(
     Stdlib::Absolutepath,
     Pattern[&#39;^syslog( facility [_a-zA-Z0-9]+)?$&#39;]
     ] $logfile                              = $monit::params::logfile,
-  Stdlib::Absolutepath $idfile              = $monit::params::idfile,
-  Stdlib::Absolutepath $statefile           = $monit::params::statefile,
+  Optional[Stdlib::Absolutepath] $idfile    = $monit::params::idfile,
+  Optional[Stdlib::Absolutepath] $statefile = $monit::params::statefile,
   Boolean $eventqueue                       = $monit::params::eventqueue,
   Stdlib::Absolutepath $eventqueue_basedir  = &#39;/var/monit&#39;,
   Integer $eventqueue_slots                 = 100,
@@ -997,31 +991,28 @@ class monit(
     ] $init_system                         = $monit::params::init_system,
   Stdlib::Absolutepath $service_program    = $monit::params::service_program,
   # System resources check.
-  Enum[
-    &#39;present&#39;,
-    &#39;absent&#39;
-    ] $system_check_ensure                 = &#39;present&#39;,
-  Numeric $system_loadavg_1min             = (3 * $::processorcount),
-  Numeric $system_loadavg_5min             = (1.5 * $::processorcount),
-  Numeric $system_loadavg_15min            = (1.5 * $::processorcount),
-  String $system_cpu_user                  = &#39;75%&#39;,
-  String $system_cpu_system                = &#39;30%&#39;,
-  String $system_cpu_wait                  = &#39;30%&#39;,
-  String $system_memory                    = &#39;75%&#39;,
+  Monit::Check::Ensure $system_check_ensure = &#39;present&#39;,
+  Numeric $system_loadavg_1min              = (3 * $::processorcount),
+  Numeric $system_loadavg_5min              = (1.5 * $::processorcount),
+  Numeric $system_loadavg_15min             = (1.5 * $::processorcount),
+  String $system_cpu_user                   = &#39;75%&#39;,
+  String $system_cpu_system                 = &#39;30%&#39;,
+  String $system_cpu_wait                   = &#39;30%&#39;,
+  String $system_memory                     = &#39;75%&#39;,
   # NOTE: swap available since monit 5.2.
-  Optional[String] $system_swap            = undef,
+  Optional[String] $system_swap             = undef,
   Variant[
     Array[Stdlib::Absolutepath],
     Array[Pattern[&#39;^/&#39;]]
-    ] $system_fs                           = [],
-  String $system_fs_space_usage            = &#39;80%&#39;,
-  String $system_fs_inode_usage            = &#39;80%&#39;,
-  Array[String] $fs_banned_types           = [&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;nsfs&#39;, &#39;overlay&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;],
+    ] $system_fs                            = [],
+  String $system_fs_space_usage             = &#39;80%&#39;,
+  String $system_fs_inode_usage             = &#39;80%&#39;,
+  Array[String] $fs_banned_types            = [&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;nsfs&#39;, &#39;overlay&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;],
   # Additional checks.
-  Hash[String, Hash] $checks               = {},
+  Hash[String, Hash] $checks                = {},
   Optional[Enum[
     &#39;hiera_hash&#39;
-    ]] $hiera_merge_strategy               = undef,
+    ]] $hiera_merge_strategy                = undef,
 ) inherits monit::params {
 
   if !empty($hiera_merge_strategy) {

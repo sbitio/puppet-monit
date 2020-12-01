@@ -32,18 +32,13 @@
 #   Used to define limits on restarts.
 #
 define monit::check::instance(
-  Enum[
-    'present',
-    'absent'
-    ] $ensure,
+  Monit::Check::Ensure $ensure,
   String $type,
   String $header,
   String $group,
   Array[String] $alerts,
   Array[String] $noalerts,
-  Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ] $tests,
+  Monit::Check::Tests $tests,
   Array[String] $depends,
   String $priority,
   String $bundle,
@@ -56,8 +51,13 @@ define monit::check::instance(
   }
   $file = "${monit::conf_dir}/${priority_real}${bundle}"
   if !defined(Concat[$file]) {
+    $concat_ensure = $ensure ? {
+      /(true|'true')/ => 'present',
+      /(false|'false')/ => 'absent',
+      default => $ensure,
+    }
     concat{ $file:
-      ensure         => $ensure,
+      ensure         => $concat_ensure,
       warn           => true,
       ensure_newline => true,
       notify         => Service[$monit::service],

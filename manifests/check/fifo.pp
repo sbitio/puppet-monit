@@ -30,23 +30,18 @@
 define monit::check::fifo(
   # Check type specific.
   Stdlib::Absolutepath $path,
-  String $template           = 'monit/check/fifo.erb',
+  String $template             = 'monit/check/fifo.erb',
 
   # Common parameters.
-  Enum[
-    'present',
-    'absent'
-    ] $ensure             = present,
-  String $group           = $name,
-  Array[String] $alerts   = [],
-  Array[String] $noalerts = [],
-  Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ] $tests              = [],
-  Array[String] $depends  = [],
-  String $priority        = '20',
-  String $bundle          = $name,
-  Integer $order          = 0,
+  Monit::Check::Ensure $ensure = 'present',
+  String $group                = $name,
+  Array[String] $alerts        = [],
+  Array[String] $noalerts      = [],
+  Monit::Check::Tests $tests   = [],
+  Array[String] $depends       = [],
+  String $priority             = '20',
+  String $bundle               = $name,
+  Integer $order               = 0,
 ) {
 
   monit::check::instance { "${name}_instance":

@@ -32,24 +32,19 @@
 define monit::check::file(
   # Check type specific.
   Stdlib::Absolutepath $path,
-  String $template           = 'monit/check/file.erb',
+  String $template             = 'monit/check/file.erb',
 
   # Common parameters.
-  Enum[
-    'present',
-    'absent'
-    ] $ensure                       = present,
-  String $group                     = $name,
-  Array[String] $alerts             = [],
-  Array[String] $noalerts           = [],
-  Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ] $tests                        = [],
-  Array[String] $depends            = [],
-  String $priority                  = '20',
-  String $bundle                    = $name,
-  Integer $order                    = 0,
-  Optional[Monit::RestartLimit] $restart_limit     = undef,
+  Monit::Check::Ensure $ensure = 'present',
+  String $group                = $name,
+  Array[String] $alerts        = [],
+  Array[String] $noalerts      = [],
+  Monit::Check::Tests $tests   = [],
+  Array[String] $depends       = [],
+  String $priority             = '20',
+  String $bundle               = $name,
+  Integer $order               = 0,
+  Optional[Monit::RestartLimit] $restart_limit = undef,
 ) {
 
   monit::check::instance { "${name}_instance":

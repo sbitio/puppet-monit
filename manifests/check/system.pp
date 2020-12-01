@@ -30,20 +30,17 @@ define monit::check::system(
   String $template  = 'monit/check/system.erb',
 
   # Common parameters.
-  Enum[
-    'present',
-    'absent'
-    ] $ensure             = present,
-  String $group           = $name,
-  Array[String] $alerts   = [],
-  Array[String] $noalerts = [],
+  Monit::Check::Ensure $ensure = 'present',
+  String $group                = $name,
+  Array[String] $alerts        = [],
+  Array[String] $noalerts      = [],
   Array[
     Hash[String, String]
-    ] $tests              = [],
-  Array[String] $depends  = [],
-  String $priority        = '20',
-  String $bundle          = $name,
-  Integer $order          = 0,
+    ] $tests                   = [],
+  Array[String] $depends       = [],
+  String $priority             = '20',
+  String $bundle               = $name,
+  Integer $order               = 0,
 ) {
 
   monit::check::instance { "${name}_instance":

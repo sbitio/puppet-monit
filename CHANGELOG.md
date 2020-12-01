@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.1.0](https://github.com/sbitio/puppet-monit/tree/2.1.0) (2020-09-23)
+
+[Full Changelog](https://github.com/sbitio/puppet-monit/compare/2.0.1...2.1.0)
+
+**Implemented enhancements:**
+
+- Use type aliases to improve code legibility [\#52](https://github.com/sbitio/puppet-monit/issues/52)
+
+**Fixed bugs:**
+
+- Allow to remove \(ensure=absent\) system checks [\#53](https://github.com/sbitio/puppet-monit/issues/53)
+
+**Closed issues:**
+
+- Add support for EXEC action extra options [\#48](https://github.com/sbitio/puppet-monit/issues/48)
+- exec action param becomes uppercase [\#47](https://github.com/sbitio/puppet-monit/issues/47)
+- idfile and statefile are set to undef on RedHat systems [\#46](https://github.com/sbitio/puppet-monit/issues/46)
+- Start and stop program parameters [\#34](https://github.com/sbitio/puppet-monit/issues/34)
+- Add UPTIME tests to valid tests [\#16](https://github.com/sbitio/puppet-monit/issues/16)
+
+**Merged pull requests:**
+
+- EXEC action: add support for UID, GID and REPEAT EVERY N CYCLES [\#49](https://github.com/sbitio/puppet-monit/pull/49) ([jonhattan](https://github.com/jonhattan))
+
 ## [2.0.1](https://github.com/sbitio/puppet-monit/tree/2.0.1) (2020-01-29)
 
 [Full Changelog](https://github.com/sbitio/puppet-monit/compare/2.0.0...2.0.1)

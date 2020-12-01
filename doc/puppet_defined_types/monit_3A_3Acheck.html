@@ -6,15 +6,15 @@
 <title>
   Defined Type: monit::check
   
-    &mdash; Documentation by YARD 0.9.24
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
-<script type="text/javascript">
+<script type="text/javascript" charset="utf-8">
   pathId = "puppet_defined_types::monit::check";
   relpath = '../';
 </script>
@@ -90,10 +90,7 @@ See main class for reference.</p>
         <span class='name'>ensure</span>
       
       
-        <span class='type'>(<tt>Enum[
-    'present',
-    'absent'
-    ]</tt>)</span>
+        <span class='type'>(<tt>Monit::Check::Ensure</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;present&#39;</tt>)</em>
@@ -147,9 +144,7 @@ See main class for reference.</p>
         <span class='name'>tests</span>
       
       
-        <span class='type'>(<tt>Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ]</tt>)</span>
+        <span class='type'>(<tt>Monit::Check::Tests</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
@@ -173,7 +168,7 @@ See main class for reference.</p>
       
       
         &mdash;
-        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn’t matter to Monit.
+        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn&#39;t matter to Monit.
 This is just a facility to organize your checks by filename.</p>
 </div>
       
@@ -301,12 +296,7 @@ This is just a facility to organize your checks by filename.</p>
 60
 61
 62
-63
-64
-65
-66
-67
-68</pre>
+63</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check.pp', line 27</span>
@@ -323,18 +313,13 @@ define monit::check(
     &#39;service&#39;,
     &#39;system&#39;
     ] $type,
-  Enum[
-    &#39;present&#39;,
-    &#39;absent&#39;
-    ] $ensure                  = &#39;present&#39;,
+  Monit::Check::Ensure $ensure = &#39;present&#39;,
   Hash[
     String,
     Variant[Array, Hash, Integer, String]
     ] $config                  = {},
   String $group                = $name,
-  Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ] $tests                   = [],
+  Monit::Check::Tests $tests   = [],
   String $priority             = &#39;20&#39;,
   String $template             = &quot;monit/check/${type}.erb&quot;,
   String $bundle               = $name,

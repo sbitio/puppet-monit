@@ -6,15 +6,15 @@
 <title>
   Puppet Class: monit::config
   
-    &mdash; Documentation by YARD 0.9.24
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
-<script type="text/javascript">
+<script type="text/javascript" charset="utf-8">
   pathId = "puppet_classes::monit::config";
   relpath = '../';
 </script>
@@ -171,25 +171,25 @@ class monit::config {
     content =&gt; template(&#39;monit/conf_file_overrides.erb&#39;),
   }
 
-  if $monit::system_check_ensure == present {
-    monit::check::system {$::fqdn:
-      priority =&gt; &#39;10&#39;,
-      group    =&gt; &#39;system&#39;,
-      order    =&gt; 0,
-      tests    =&gt; parseyaml(template(&#39;monit/system_test_resources.erb&#39;)),
-    }
-    monit::check::filesystem { &#39;fs&#39;:
-      priority =&gt; &#39;10&#39;,
-      group    =&gt; &#39;system&#39;,
-      bundle   =&gt; $::fqdn,
-      order    =&gt; 1,
-      paths    =&gt; $monit::system_fs,
-      tests    =&gt; [
-        {&#39;type&#39; =&gt; &#39;fsflags&#39;},
-        {&#39;type&#39; =&gt; &#39;space&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; &#39;80%&#39;},
-        {&#39;type&#39; =&gt; &#39;inode&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; &#39;80%&#39;},
-      ]
-    }
+  monit::check::system {$::fqdn:
+    ensure   =&gt; $monit::system_check_ensure,
+    priority =&gt; &#39;10&#39;,
+    group    =&gt; &#39;system&#39;,
+    order    =&gt; 0,
+    tests    =&gt; parseyaml(template(&#39;monit/system_test_resources.erb&#39;)),
+  }
+  monit::check::filesystem { &#39;fs&#39;:
+    ensure   =&gt; $monit::system_check_ensure,
+    priority =&gt; &#39;10&#39;,
+    group    =&gt; &#39;system&#39;,
+    bundle   =&gt; $::fqdn,
+    order    =&gt; 1,
+    paths    =&gt; $monit::system_fs,
+    tests    =&gt; [
+      {&#39;type&#39; =&gt; &#39;fsflags&#39;},
+      {&#39;type&#39; =&gt; &#39;space&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; &#39;80%&#39;},
+      {&#39;type&#39; =&gt; &#39;inode&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; &#39;80%&#39;},
+    ]
   }
 
   # Additional checks.

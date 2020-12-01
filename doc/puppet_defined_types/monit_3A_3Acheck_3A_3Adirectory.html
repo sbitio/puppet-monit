@@ -6,15 +6,15 @@
 <title>
   Defined Type: monit::check::directory
   
-    &mdash; Documentation by YARD 0.9.24
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
-<script type="text/javascript">
+<script type="text/javascript" charset="utf-8">
   pathId = "puppet_defined_types::monit::check::directory";
   relpath = '../';
 </script>
@@ -74,7 +74,7 @@
   <div class="discussion">
     <p>monit::check::directory</p>
 
-<p>Implement Monit’s CHECK DIRECTORY</p>
+<p>Implement Monit&#39;s CHECK DIRECTORY</p>
 
   </div>
 </div>
@@ -121,13 +121,10 @@
         <span class='name'>ensure</span>
       
       
-        <span class='type'>(<tt>Enum[
-    'present',
-    'absent'
-    ]</tt>)</span>
+        <span class='type'>(<tt>Monit::Check::Ensure</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>present</tt>)</em>
+        <em class="default">(defaults to: <tt>&#39;present&#39;</tt>)</em>
       
       
         &mdash;
@@ -192,9 +189,7 @@
         <span class='name'>tests</span>
       
       
-        <span class='type'>(<tt>Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ]</tt>)</span>
+        <span class='type'>(<tt>Monit::Check::Tests</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
@@ -235,7 +230,7 @@
       
       
         &mdash;
-        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn’t matter to Monit.
+        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn&#39;t matter to Monit.
 This is just a facility to organize your checks by filename.</p>
 </div>
       
@@ -316,12 +311,7 @@ This is just a facility to organize your checks by filename.</p>
 58
 59
 60
-61
-62
-63
-64
-65
-66</pre>
+61</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check/directory.pp', line 30</span>
@@ -329,23 +319,18 @@ This is just a facility to organize your checks by filename.</p>
 define monit::check::directory(
   # Check type specific.
   Stdlib::Absolutepath $path,
-  String $template           = &#39;monit/check/directory.erb&#39;,
+  String $template             = &#39;monit/check/directory.erb&#39;,
 
   # Common parameters.
-  Enum[
-    &#39;present&#39;,
-    &#39;absent&#39;
-    ] $ensure             = present,
-  String $group           = $name,
-  Array[String] $alerts   = [],
-  Array[String] $noalerts = [],
-  Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ] $tests              = [],
-  Array[String] $depends  = [],
-  String $priority        = &#39;20&#39;,
-  String $bundle          = $name,
-  Integer $order          = 0,
+  Monit::Check::Ensure $ensure = &#39;present&#39;,
+  String $group                = $name,
+  Array[String] $alerts        = [],
+  Array[String] $noalerts      = [],
+  Monit::Check::Tests $tests   = [],
+  Array[String] $depends       = [],
+  String $priority             = &#39;20&#39;,
+  String $bundle               = $name,
+  Integer $order               = 0,
 ) {
 
   monit::check::instance { &quot;${name}_instance&quot;:

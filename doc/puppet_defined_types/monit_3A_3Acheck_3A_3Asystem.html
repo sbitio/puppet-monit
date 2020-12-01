@@ -6,15 +6,15 @@
 <title>
   Defined Type: monit::check::system
   
-    &mdash; Documentation by YARD 0.9.24
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
-<script type="text/javascript">
+<script type="text/javascript" charset="utf-8">
   pathId = "puppet_defined_types::monit::check::system";
   relpath = '../';
 </script>
@@ -74,7 +74,7 @@
   <div class="discussion">
     <p>monit::check::system</p>
 
-<p>Implement Monit’s CHECK SYSTEM</p>
+<p>Implement Monit&#39;s CHECK SYSTEM</p>
 
   </div>
 </div>
@@ -106,13 +106,10 @@
         <span class='name'>ensure</span>
       
       
-        <span class='type'>(<tt>Enum[
-    'present',
-    'absent'
-    ]</tt>)</span>
+        <span class='type'>(<tt>Monit::Check::Ensure</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>present</tt>)</em>
+        <em class="default">(defaults to: <tt>&#39;present&#39;</tt>)</em>
       
       
         &mdash;
@@ -220,7 +217,7 @@
       
       
         &mdash;
-        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn’t matter to Monit.
+        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn&#39;t matter to Monit.
 This is just a facility to organize your checks by filename.</p>
 </div>
       
@@ -302,10 +299,7 @@ This is just a facility to organize your checks by filename.</p>
 57
 58
 59
-60
-61
-62
-63</pre>
+60</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check/system.pp', line 28</span>
@@ -315,20 +309,17 @@ define monit::check::system(
   String $template  = &#39;monit/check/system.erb&#39;,
 
   # Common parameters.
-  Enum[
-    &#39;present&#39;,
-    &#39;absent&#39;
-    ] $ensure             = present,
-  String $group           = $name,
-  Array[String] $alerts   = [],
-  Array[String] $noalerts = [],
+  Monit::Check::Ensure $ensure = &#39;present&#39;,
+  String $group                = $name,
+  Array[String] $alerts        = [],
+  Array[String] $noalerts      = [],
   Array[
     Hash[String, String]
-    ] $tests              = [],
-  Array[String] $depends  = [],
-  String $priority        = &#39;20&#39;,
-  String $bundle          = $name,
-  Integer $order          = 0,
+    ] $tests                   = [],
+  Array[String] $depends       = [],
+  String $priority             = &#39;20&#39;,
+  String $bundle               = $name,
+  Integer $order               = 0,
 ) {
 
   monit::check::instance { &quot;${name}_instance&quot;:

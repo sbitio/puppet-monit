@@ -1,6 +1,6 @@
 {
   "name": "sbitio-monit",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "author": "SB IT Media, S.L.",
   "summary": "Performs installation and configuration of Monit service, along with fine grained definition of checks",
   "license": "MIT",
@@ -64,7 +64,7 @@
     "monitoring",
     "monit"
   ],
-  "pdk-version": "1.15.0",
-  "template-url": "pdk-default#1.15.0",
-  "template-ref": "tags/1.15.0-0-g0bc522e"
+  "pdk-version": "1.18.0",
+  "template-url": "pdk-default#1.18.0",
+  "template-ref": "tags/1.18.0-0-g095317c"
 }

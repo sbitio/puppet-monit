@@ -6,15 +6,15 @@
 <title>
   Defined Type: monit::check::process
   
-    &mdash; Documentation by YARD 0.9.24
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
-<script type="text/javascript">
+<script type="text/javascript" charset="utf-8">
   pathId = "puppet_defined_types::monit::check::process";
   relpath = '../';
 </script>
@@ -74,7 +74,7 @@
   <div class="discussion">
     <p>monit::check::process</p>
 
-<p>Implement Monit’s CHECK PROCESS</p>
+<p>Implement Monit&#39;s CHECK PROCESS</p>
 
   </div>
 </div>
@@ -89,8 +89,10 @@
         <span class='name'>program_start</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
@@ -104,8 +106,10 @@
         <span class='name'>program_stop</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
@@ -160,7 +164,7 @@
       
       
         &mdash;
-        <div class='inline'><p>If the service doesn’t provide a PID file, use this option to pass a regex pattern to check the process list.</p>
+        <div class='inline'><p>If the service doesn&#39;t provide a PID file, use this option to pass a regex pattern to check the process list.</p>
 </div>
       
     </li>
@@ -255,13 +259,10 @@
         <span class='name'>ensure</span>
       
       
-        <span class='type'>(<tt>Enum[
-    'present',
-    'absent'
-    ]</tt>)</span>
+        <span class='type'>(<tt>Monit::Check::Ensure</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>present</tt>)</em>
+        <em class="default">(defaults to: <tt>&#39;present&#39;</tt>)</em>
       
       
         &mdash;
@@ -326,9 +327,7 @@
         <span class='name'>tests</span>
       
       
-        <span class='type'>(<tt>Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ]</tt>)</span>
+        <span class='type'>(<tt>Monit::Check::Tests</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
@@ -369,7 +368,7 @@
       
       
         &mdash;
-        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn’t matter to Monit.
+        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn&#39;t matter to Monit.
 This is just a facility to organize your checks by filename.</p>
 </div>
       
@@ -472,20 +471,15 @@ This is just a facility to organize your checks by filename.</p>
 96
 97
 98
-99
-100
-101
-102
-103
-104</pre>
+99</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check/process.pp', line 46</span>
 
 define monit::check::process(
   # Check type specific.
-  String $program_start,
-  String $program_stop,
+  Optional[String] $program_start         = undef,
+  Optional[String] $program_stop          = undef,
   String $template                        = &#39;monit/check/process.erb&#39;,
   Optional[Stdlib::Absolutepath] $pidfile = undef,
   Optional[String] $matching              = undef,
@@ -496,20 +490,15 @@ define monit::check::process(
   Optional[Numeric] $timeout_stop         = undef,
 
   # Common parameters.
-  Enum[
-    &#39;present&#39;,
-    &#39;absent&#39;
-    ] $ensure             = present,
-  String $group           = $name,
-  Array[String] $alerts   = [],
-  Array[String] $noalerts = [],
-  Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ] $tests              = [],
-  Array[String] $depends  = [],
-  String $priority        = &#39;20&#39;,
-  String $bundle          = $name,
-  Integer $order          = 0,
+  Monit::Check::Ensure $ensure = &#39;present&#39;,
+  String $group                = $name,
+  Array[String] $alerts        = [],
+  Array[String] $noalerts      = [],
+  Monit::Check::Tests $tests   = [],
+  Array[String] $depends       = [],
+  String $priority             = &#39;20&#39;,
+  String $bundle               = $name,
+  Integer $order               = 0,
 ) {
 
   if $pidfile {

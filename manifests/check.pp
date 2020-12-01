@@ -36,18 +36,13 @@ define monit::check(
     'service',
     'system'
     ] $type,
-  Enum[
-    'present',
-    'absent'
-    ] $ensure                  = 'present',
+  Monit::Check::Ensure $ensure = 'present',
   Hash[
     String,
     Variant[Array, Hash, Integer, String]
     ] $config                  = {},
   String $group                = $name,
-  Array[
-    Hash[String, Variant[Array, Hash, Integer, String]]
-    ] $tests                   = [],
+  Monit::Check::Tests $tests   = [],
   String $priority             = '20',
   String $template             = "monit/check/${type}.erb",
   String $bundle               = $name,

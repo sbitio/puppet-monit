@@ -147,31 +147,28 @@ class monit(
     ] $init_system                         = $monit::params::init_system,
   Stdlib::Absolutepath $service_program    = $monit::params::service_program,
   # System resources check.
-  Enum[
-    'present',
-    'absent'
-    ] $system_check_ensure                 = 'present',
-  Numeric $system_loadavg_1min             = (3 * $::processorcount),
-  Numeric $system_loadavg_5min             = (1.5 * $::processorcount),
-  Numeric $system_loadavg_15min            = (1.5 * $::processorcount),
-  String $system_cpu_user                  = '75%',
-  String $system_cpu_system                = '30%',
-  String $system_cpu_wait                  = '30%',
-  String $system_memory                    = '75%',
+  Monit::Check::Ensure $system_check_ensure = 'present',
+  Numeric $system_loadavg_1min              = (3 * $::processorcount),
+  Numeric $system_loadavg_5min              = (1.5 * $::processorcount),
+  Numeric $system_loadavg_15min             = (1.5 * $::processorcount),
+  String $system_cpu_user                   = '75%',
+  String $system_cpu_system                 = '30%',
+  String $system_cpu_wait                   = '30%',
+  String $system_memory                     = '75%',
   # NOTE: swap available since monit 5.2.
-  Optional[String] $system_swap            = undef,
+  Optional[String] $system_swap             = undef,
   Variant[
     Array[Stdlib::Absolutepath],
     Array[Pattern['^/']]
-    ] $system_fs                           = [],
-  String $system_fs_space_usage            = '80%',
-  String $system_fs_inode_usage            = '80%',
-  Array[String] $fs_banned_types           = ['devpts', 'devtmpfs', 'hugetlbfs', 'mqueue', 'nsfs', 'overlay', 'rpc_pipefs', 'tmpfs'],
+    ] $system_fs                            = [],
+  String $system_fs_space_usage             = '80%',
+  String $system_fs_inode_usage             = '80%',
+  Array[String] $fs_banned_types            = ['devpts', 'devtmpfs', 'hugetlbfs', 'mqueue', 'nsfs', 'overlay', 'rpc_pipefs', 'tmpfs'],
   # Additional checks.
-  Hash[String, Hash] $checks               = {},
+  Hash[String, Hash] $checks                = {},
   Optional[Enum[
     'hiera_hash'
-    ]] $hiera_merge_strategy               = undef,
+    ]] $hiera_merge_strategy                = undef,
 ) inherits monit::params {
 
   if !empty($hiera_merge_strategy) {
