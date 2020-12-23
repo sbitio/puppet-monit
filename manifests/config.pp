@@ -42,8 +42,8 @@ class monit::config {
     paths    => $monit::system_fs,
     tests    => [
       {'type' => 'fsflags'},
-      {'type' => 'space', 'operator' => '>', 'value' => '80%'},
-      {'type' => 'inode', 'operator' => '>', 'value' => '80%'},
+      {'type' => 'space', 'operator' => '>', 'value' => $monit::system_fs_space_usage },
+      {'type' => 'inode', 'operator' => '>', 'value' => $monit::system_fs_inode_usage },
     ]
   }
 
