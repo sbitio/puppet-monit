@@ -3,6 +3,7 @@ CHECK PROCESS <%= @name %> WITH PIDFILE <%= @pidfile %>
 <%- else -%>
 CHECK PROCESS <%= @name %> MATCHING <%= @matching %>
 <%- end -%>
+
 <%- if @program_start -%>
   START PROGRAM = "<%= @program_start %>"
   <%- if @uid -%>

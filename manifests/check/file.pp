@@ -26,6 +26,8 @@
 #   Used to group checks by filename. All checks in the same bundle will be added to the same filename.
 # @param order
 #   Order of the check within the bundle filename.
+# @param restart_limit
+#   Used to define limits on restarts.
 #
 define monit::check::file(
   # Check type specific.
@@ -42,21 +44,22 @@ define monit::check::file(
   String $priority             = '20',
   String $bundle               = $name,
   Integer $order               = 0,
+  Optional[Monit::RestartLimit] $restart_limit = undef,
 ) {
 
   monit::check::instance { "${name}_instance":
-    ensure   => $ensure,
-    name     => $name,
-    type     => 'file',
-    header   => template($template),
-    group    => $group,
-    alerts   => $alerts,
-    noalerts => $noalerts,
-    tests    => $tests,
-    depends  => $depends,
-    priority => $priority,
-    bundle   => $bundle,
-    order    => $order,
+    ensure            => $ensure,
+    name              => $name,
+    type              => 'file',
+    header            => template($template),
+    group             => $group,
+    alerts            => $alerts,
+    noalerts          => $noalerts,
+    tests             => $tests,
+    depends           => $depends,
+    priority          => $priority,
+    bundle            => $bundle,
+    order             => $order,
+    restart_limit     => $restart_limit,
   }
 }
-

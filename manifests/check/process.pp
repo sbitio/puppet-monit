@@ -23,6 +23,8 @@
 #   Timeout on the start operation. Generic timeout will be used if not specified.
 # @param timeout_stop
 #   Timeout on the stop operation. Generic timeout will be used if not specified.
+# @param restart_limit
+#   Used to define limits on restarts.
 # @param ensure
 #   Whether this check must be present or absent.
 # @param group
@@ -55,6 +57,7 @@ define monit::check::process(
   Optional[Numeric] $timeout              = undef,
   Optional[Numeric] $timeout_start        = undef,
   Optional[Numeric] $timeout_stop         = undef,
+  Optional[Hash]    $restart_limit        = undef,
 
   # Common parameters.
   Monit::Check::Ensure $ensure = 'present',
@@ -83,18 +86,19 @@ define monit::check::process(
   }
 
   monit::check::instance { "${name}_instance":
-    ensure   => $ensure,
-    name     => $name,
-    type     => 'process',
-    header   => template($template),
-    group    => $group,
-    alerts   => $alerts,
-    noalerts => $noalerts,
-    tests    => $tests,
-    depends  => $depends,
-    priority => $priority,
-    bundle   => $bundle,
-    order    => $order,
+    ensure            => $ensure,
+    name              => $name,
+    type              => 'process',
+    header            => template($template),
+    group             => $group,
+    alerts            => $alerts,
+    noalerts          => $noalerts,
+    tests             => $tests,
+    depends           => $depends,
+    priority          => $priority,
+    bundle            => $bundle,
+    order             => $order,
+    restart_limit     => $restart_limit,
   }
 }
 

@@ -34,6 +34,8 @@
 #   Timeout on the start operation. Generic timeout will be used if not specified.
 # @param timeout_stop
 #   Timeout on the stop operation. Generic timeout will be used if not specified.
+# @param restart_limit
+#   Used to define limits on restarts.
 # @param ensure
 #   Whether this check must be present or absent.
 # @param group
@@ -77,6 +79,7 @@ define monit::check::service(
   Optional[Numeric] $timeout              = undef,
   Optional[Numeric] $timeout_start        = undef,
   Optional[Numeric] $timeout_stop         = undef,
+  Optional[Monit::RestartLimit]    $restart_limit        = undef,
 
   # Common parameters.
   Monit::Check::Ensure $ensure            = 'present',
@@ -106,32 +109,33 @@ define monit::check::service(
   }
 
   $defaults = {
-    'ensure'     => $ensure,
-    'priority'   => $priority,
-    'bundle'     => $bundle,
-    'group'      => $group,
-    'depends'    => $depends,
-    'alerts'     => $alerts,
-    'noalerts'   => $noalerts,
+    'ensure'            => $ensure,
+    'priority'          => $priority,
+    'bundle'            => $bundle,
+    'group'             => $group,
+    'depends'           => $depends,
+    'alerts'            => $alerts,
+    'noalerts'          => $noalerts,
+    'restart_limit'     => $restart_limit,
   }
 
   # Check service process.
   $depends_all = union($depends, ["${name}_service_file", "${name}_binary"])
   $params_process = {
-    'name'          => $name,
-    'depends'       => $depends_all,
-    'tests'         => $tests,
-    'pidfile'       => $pidfile,
-    'matching'      => $matching,
-    'uid'           => $uid,
-    'gid'           => $gid,
-    'program_start' => $program_start,
-    'program_stop'  => $program_stop,
-    'bundle'        => $bundle,
-    'order'         => $order,
-    'timeout'       => $timeout,
-    'timeout_start' => $timeout_start,
-    'timeout_stop'  => $timeout_stop,
+    'name'              => $name,
+    'depends'           => $depends_all,
+    'tests'             => $tests,
+    'pidfile'           => $pidfile,
+    'matching'          => $matching,
+    'uid'               => $uid,
+    'gid'               => $gid,
+    'program_start'     => $program_start,
+    'program_stop'      => $program_stop,
+    'bundle'            => $bundle,
+    'order'             => $order,
+    'timeout'           => $timeout,
+    'timeout_start'     => $timeout_start,
+    'timeout_stop'      => $timeout_stop,
   }
   ensure_resource('monit::check::process', "${name}_process", merge($defaults, $params_process))
 
