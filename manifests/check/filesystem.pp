@@ -63,7 +63,7 @@ define monit::check::filesystem(
   }
 
   if empty($_paths) {
-    $paths_real = keys($::mountpoints.filter |$key, $value| { !($value['filesystem'] in $monit::fs_banned_types) })
+    $paths_real = keys($::facts['mountpoints'].filter |$key, $value| { !($value['filesystem'] in $monit::fs_banned_types) })
   }
   else {
     $paths_real = $_paths
@@ -85,4 +85,3 @@ define monit::check::filesystem(
     }
   }
 }
-

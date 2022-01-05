@@ -26,7 +26,7 @@ class monit::config {
     content => template('monit/conf_file_overrides.erb'),
   }
 
-  monit::check::system {$::fqdn:
+  monit::check::system {$::facts['networking']['fqdn']:
     ensure   => $monit::system_check_ensure,
     priority => '10',
     group    => 'system',
@@ -37,7 +37,7 @@ class monit::config {
     ensure   => $monit::system_check_ensure,
     priority => '10',
     group    => 'system',
-    bundle   => $::fqdn,
+    bundle   => $::facts['networking']['fqdn'],
     order    => 1,
     paths    => $monit::system_fs,
     tests    => [
@@ -56,4 +56,3 @@ class monit::config {
   }
   create_resources('monit::check', $mychecks)
 }
-
