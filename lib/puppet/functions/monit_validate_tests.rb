@@ -154,7 +154,7 @@ Puppet::Functions.create_function('monit_validate_tests') do
               # fallback to generic test.
               pt_type = PROTOCOL_TESTS.key?(test['protocol']) ? test['protocol'] : 'GENERIC'
               case pt_type
-              when 'HTTP', 'APACHE-STATUS'
+              when 'HTTP', 'HTTPS', 'APACHE-STATUS'
                 pt_options = PROTOCOL_TESTS[pt_type]
                 # Validate test options.
                 raise Puppet::ParseError, exception_prefix + "protocol_test must be a hash with any of this keys: #{pt_options.join(', ')}." unless test['protocol_test'].class == Hash
