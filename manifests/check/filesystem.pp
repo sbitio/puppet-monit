@@ -14,6 +14,8 @@
 #   Whether this check must be present or absent.
 # @param group
 #   Monit group.
+# @param every
+#   Service poll time
 # @param alerts
 #   Alert recipients (with event filters) to set.
 # @param noalerts
@@ -45,6 +47,7 @@ define monit::check::filesystem(
   # Common parameters.
   Monit::Check::Ensure $ensure = 'present',
   String $group                = $name,
+  String $every                = '',
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
   Monit::Check::Tests $tests   = [],
@@ -75,6 +78,7 @@ define monit::check::filesystem(
       type     => 'filesystem',
       header   => template($template),
       group    => $group,
+      every    => $every,
       alerts   => $alerts,
       noalerts => $noalerts,
       tests    => $tests,

@@ -13,6 +13,8 @@
 #   Fragment of the test specific config.
 # @param group
 #   Monit group.
+# @param every
+#   Service poll time
 # @param alerts
 #   Alert recipients (with event filters) to set.
 # @param noalerts
@@ -34,6 +36,7 @@ define monit::check::instance(
   String $type,
   String $header,
   String $group,
+  String $every,
   Array[String] $alerts,
   Array[String] $noalerts,
   Monit::Check::Tests $tests,
@@ -71,4 +74,3 @@ define monit::check::instance(
     order   => Integer(inline_template('<%= @order.to_i + 1 %>')),
   }
 }
-

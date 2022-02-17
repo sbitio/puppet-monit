@@ -38,6 +38,8 @@
 #   Whether this check must be present or absent.
 # @param group
 #   Monit group.
+# @param every
+#   Service poll time
 # @param alerts
 #   Alert recipients (with event filters) to set.
 # @param noalerts
@@ -81,6 +83,7 @@ define monit::check::service(
   # Common parameters.
   Monit::Check::Ensure $ensure            = 'present',
   String $group                           = $name,
+  String $every                           = '',
   Array[String] $alerts                   = [],
   Array[String] $noalerts                 = [],
   Monit::Check::Tests $tests              = [],
@@ -111,6 +114,7 @@ define monit::check::service(
     'bundle'     => $bundle,
     'group'      => $group,
     'depends'    => $depends,
+    'every'      => $every,
     'alerts'     => $alerts,
     'noalerts'   => $noalerts,
   }
@@ -151,4 +155,3 @@ define monit::check::service(
   }
   ensure_resource('monit::check::file', "${name}_binary", merge($defaults, $params_binary))
 }
-

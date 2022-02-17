@@ -2,6 +2,9 @@
 <%- unless @depends.empty? -%>
   DEPENDS <%= @depends.join(', ') %>
 <%- end -%>
+<%- unless @every.empty? -%>
+  EVERY <%= @every %>
+<%- end -%>
 <%- unless @alerts.empty? -%>
   <%- @alerts.each do |alert| -%>
   ALERT <%= alert %>
@@ -19,4 +22,3 @@
   <%- end -%>
   THEN <%= test['action'] %>
 <%- end -%>
-

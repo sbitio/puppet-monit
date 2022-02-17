@@ -9,6 +9,8 @@
 #   Whether this check must be present or absent.
 # @param group
 #   Monit group.
+# @param every
+#   Service poll time
 # @param alerts
 #   Alert recipients (with event filters) to set.
 # @param noalerts
@@ -32,6 +34,7 @@ define monit::check::system(
   # Common parameters.
   Monit::Check::Ensure $ensure = 'present',
   String $group                = $name,
+  String $every                = '',
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
   Array[
@@ -49,6 +52,7 @@ define monit::check::system(
     type     => 'system',
     header   => template($template),
     group    => $group,
+    every    => $every,
     alerts   => $alerts,
     noalerts => $noalerts,
     tests    => $tests,
@@ -58,4 +62,3 @@ define monit::check::system(
     order    => $order,
   }
 }
-
