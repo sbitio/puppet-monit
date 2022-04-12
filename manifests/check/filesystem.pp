@@ -14,6 +14,8 @@
 #   Whether this check must be present or absent.
 # @param group
 #   Monit group.
+# @param every
+#   Service poll time
 # @param alerts
 #   Alert recipients (with event filters) to set.
 # @param noalerts
@@ -45,6 +47,7 @@ define monit::check::filesystem(
   # Common parameters.
   Monit::Check::Ensure $ensure = 'present',
   String $group                = $name,
+  String $every                = '',
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
   Monit::Check::Tests $tests   = [],
@@ -63,7 +66,7 @@ define monit::check::filesystem(
   }
 
   if empty($_paths) {
-    $paths_real = keys($::mountpoints.filter |$key, $value| { !($value['filesystem'] in $monit::fs_banned_types) })
+    $paths_real = keys($::facts['mountpoints'].filter |$key, $value| { !($value['filesystem'] in $monit::fs_banned_types) })
   }
   else {
     $paths_real = $_paths
@@ -75,6 +78,7 @@ define monit::check::filesystem(
       type     => 'filesystem',
       header   => template($template),
       group    => $group,
+      every    => $every,
       alerts   => $alerts,
       noalerts => $noalerts,
       tests    => $tests,
@@ -85,4 +89,3 @@ define monit::check::filesystem(
     }
   }
 }
-

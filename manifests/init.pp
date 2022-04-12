@@ -148,9 +148,9 @@ class monit(
   Stdlib::Absolutepath $service_program    = $monit::params::service_program,
   # System resources check.
   Monit::Check::Ensure $system_check_ensure = 'present',
-  Numeric $system_loadavg_1min              = (3 * $::processorcount),
-  Numeric $system_loadavg_5min              = (1.5 * $::processorcount),
-  Numeric $system_loadavg_15min             = (1.5 * $::processorcount),
+  Numeric $system_loadavg_1min              = (3 * $::facts['processors']['count']),
+  Numeric $system_loadavg_5min              = (1.5 * $::facts['processors']['count']),
+  Numeric $system_loadavg_15min             = (1.5 * $::facts['processors']['count']),
   String $system_cpu_user                   = '75%',
   String $system_cpu_system                 = '30%',
   String $system_cpu_wait                   = '30%',
@@ -180,4 +180,3 @@ class monit(
   -> Class['monit']
 
 }
-

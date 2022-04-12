@@ -16,7 +16,7 @@ class monit::params {
   $check_interval    = 120
   $check_start_delay = 240
 
-  case $::osfamily {
+  case $::facts['os']['family'] {
     'Debian': {
       $conf_file  = '/etc/monit/monitrc'
       $conf_dir   = '/etc/monit/conf.d'
@@ -26,9 +26,9 @@ class monit::params {
       $eventqueue = true
 
       $service_program = '/usr/sbin/service'
-      case $::operatingsystem {
+      case $::facts['os']['name'] {
         'Debian': {
-          if versioncmp($::lsbmajdistrelease, '8') < 0 {
+          if versioncmp($::facts['os']['release']['major'], '8') < 0 {
             $init_system = 'sysv'
           }
           else {
@@ -65,7 +65,7 @@ class monit::params {
       $eventqueue = false
 
       $service_program = '/sbin/service'
-      if versioncmp($::lsbmajdistrelease, '7') < 0 {
+      if versioncmp($::facts['os']['release']['major'], '7') < 0 {
         $init_system = 'sysv'
       }
       else {
@@ -79,4 +79,3 @@ class monit::params {
     }
   }
 }
-
