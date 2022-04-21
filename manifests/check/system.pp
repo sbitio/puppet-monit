@@ -37,9 +37,7 @@ define monit::check::system(
   String $every                = '',
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
-  Array[
-    Hash[String, String]
-    ] $tests                   = [],
+  Monit::Check::Tests $tests   = [],
   Array[String] $depends       = [],
   String $priority             = '20',
   String $bundle               = $name,

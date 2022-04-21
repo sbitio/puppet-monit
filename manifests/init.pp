@@ -94,6 +94,8 @@
 #   Filesystem space usage threshold.
 # @param system_fs_inode_usage
 #   Filesystem inode usage threshold.
+# @param system_cycles
+#   Number of cycles before alerting.
 # @param fs_banned_types
 #   List of filesystem types to ignore in generation of $monit::system_fs.
 # @param checks
@@ -163,6 +165,7 @@ class monit(
     ] $system_fs                            = [],
   String $system_fs_space_usage             = '80%',
   String $system_fs_inode_usage             = '80%',
+  Optional[Integer] $system_cycles          = undef,
   Array[String] $fs_banned_types            = ['devpts', 'devtmpfs', 'hugetlbfs', 'mqueue', 'nsfs', 'overlay', 'rpc_pipefs', 'tmpfs'],
   # Additional checks.
   Hash[String, Hash] $checks                = {},
