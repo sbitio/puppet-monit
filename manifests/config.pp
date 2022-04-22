@@ -26,12 +26,31 @@ class monit::config {
     content => template('monit/conf_file_overrides.erb'),
   }
 
+  # System check
+  $tolerance =  $monit::system_cycles ? {
+    undef => undef,
+    default => {'tolerance' => {'cycles' => "${monit::system_cycles}"}},
+  }
+  $system_tests_available = ['loadavg(1min)', 'loadavg(5min)', 'loadavg(15min)', 'cpu(user)', 'cpu(system)', 'cpu(wait)', 'memory', 'swap']
+  $system_tests = $system_tests_available.map |$test_type| {
+    # Convert loadavg(1min) to loadavg_1min
+    $param = regsubst(regsubst($test_type, '\)', ''), '\(', '_')
+    $value = getvar("monit::system_${param}")
+    if ($value) {
+      $test = {
+        'type' => $test_type,
+        'operator' => '>',
+        'value' => "${value}",
+      }
+      merge($test, $tolerance)
+    }
+  }.filter |$val| { $val =~ NotUndef }
   monit::check::system {$::facts['networking']['fqdn']:
     ensure   => $monit::system_check_ensure,
     priority => '10',
     group    => 'system',
     order    => 0,
-    tests    => parseyaml(template('monit/system_test_resources.erb')),
+    tests    => $system_tests,
   }
   monit::check::filesystem { 'fs':
     ensure   => $monit::system_check_ensure,
