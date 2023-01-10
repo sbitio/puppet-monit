@@ -129,14 +129,14 @@ monit::check { 'ntp':
 ### Provide the monit class with a check for ssh service
 
 ```puppet
-include ::monit
+include::monit
 
 class { '::monit':
   checks => {
     'sshd' => {
       'type'    => 'service',
       'config' => {
-        'pidfile'       => '/var/run/sshd.pid',
+        'pidfile' => '/var/run/sshd.pid',
       },
       'tests'  => [
         {
@@ -157,30 +157,30 @@ class { '::monit':
 
 ```yaml
 # Main monitrc configuration options.
-monit::check_interval    : '60'
-monit::check_start_delay : '120'
-monit::mailserver        : 'localhost'
-monit::eventqueue        : true
-monit::alerts            :
+monit::check_interval: '60'
+monit::check_start_delay: '120'
+monit::mailserver: 'localhost'
+monit::eventqueue: true
+monit::alerts:
   - 'root@localhost'
   - 'sla1@example.com only on { timeout, nonexist }'
-monit::httpserver        : true
-monit::httpserver_allow  :
+monit::httpserver: true
+monit::httpserver_allow:
   - 'admin:secret'
 
 # Tweak system check.
-monit::system_fs         : ['/', '/mnt/backups']
+monit::system_fs: ['/', '/mnt/backups']
 
 # Add some checks.
-monit::checks :
+monit::checks:
 
-  somefs :
-    type     : filesystem
-    config   :
-      paths  :
+  somefs:
+    type: filesystem
+    config:
+      paths:
         - /
         - /mount/somefs
-    tests    :
+    tests:
       - type: fsflags
       - type: permission
         value: '0755'
@@ -188,78 +188,78 @@ monit::checks :
         operator: '>'
         value: 80%
 
-  sshd :
-    type    : process
-    config  :
-      pidfile       : /var/run/sshd.pid
-      program_start : /etc/init.d/sshd start
-      program_stop  : /etc/init.d/sshd stop
-    tests  :
-      - type     : connection
-        host     : 127.0.0.1
-        port     : 22
-        protocol : ssh
-        action   : restart
+  sshd:
+    type: process
+    config:
+      pidfile: /var/run/sshd.pid
+      program_start: /etc/init.d/sshd start
+      program_stop: /etc/init.d/sshd stop
+    tests:
+      - type: connection
+        host: 127.0.0.1
+        port: 22
+        protocol: ssh
+        action: restart
 
-  php5-fpm :
-    type    : process
-    config  :
-      pidfile       : /var/run/php5-fpm.pid
-      program_start : /etc/init.d/php5-fpm start
-      program_stop  : /etc/init.d/php5-fpm stop
-    tests  :
-      - type          : connection
-        host          : 127.0.0.1
-        port          : 9000
-        socket_type   : TCP
-        protocol      : GENERIC
-        protocol_test :
-          - send   : '"\0x01\0x09\0x00\0x00\0x00\0x00\0x08\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00"'
-            expect : '"\0x01\0x0A"'
-        action   : restart
+  php5-fpm:
+    type: process
+    config:
+      pidfile: /var/run/php5-fpm.pid
+      program_start: /etc/init.d/php5-fpm start
+      program_stop: /etc/init.d/php5-fpm stop
+    tests:
+      - type: connection
+        host: 127.0.0.1
+        port: 9000
+        socket_type: TCP
+        protocol: GENERIC
+        protocol_test:
+          - send: '"\0x01\0x09\0x00\0x00\0x00\0x00\0x08\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00"'
+            expect: '"\0x01\0x0A"'
+        action: restart
 
-  ntp :
-    type   : process
-    config :
-      pidfile       : /var/run/ntpd.pid
-      program_start : /etc/init.d/ntpd start
-      program_stop  : /etc/init.d/ntpd stop
-    tests  :
-      - type        : connection
-        host        : 127.0.0.1
-        socket_type : udp
-        port        : 123
-        protocol    : ntp
-        action      : restart
+  ntp:
+    type: process
+    config:
+      pidfile: /var/run/ntpd.pid
+      program_start: /etc/init.d/ntpd start
+      program_stop: /etc/init.d/ntpd stop
+    tests:
+      - type: connection
+        host: 127.0.0.1
+        socket_type: udp
+        port: 123
+        protocol: ntp
+        action: restart
 
-  varnish :
-    type   : process
-    config :
-      pidfile       : /var/run/varnish.pid
-      program_start : /etc/init.d/varnish start
-      program_stop  : /etc/init.d/varnish stop
-    tests  :
+  varnish:
+    type: process
+    config:
+      pidfile: /var/run/varnish.pid
+      program_start: /etc/init.d/varnish start
+      program_stop: /etc/init.d/varnish stop
+    tests:
       - type: connection
         host: 127.0.0.1
         port: 8080
         protocol: http
         protocol_test:
           request: /health.varnish
-      - type      : cpu(user)
-        operator  : '>'
-        value     : 60%
-        tolerance :
-          cycles  : 2
-      - type      : children
-        operator  : '>'
-        value     : 150
+      - type: cpu(user)
+        operator: '>'
+        value: 60%
+        tolerance:
+          cycles: 2
+      - type: children
+        operator: '>'
+        value: 150
 
-  httpd :
-    type   : service
-    config :
-      pidfile : /var/run/httpd/httpd.pid
-      binary  : /usr/sbin/httpd
-    tests  :
+  httpd:
+    type: service
+    config:
+      pidfile: /var/run/httpd/httpd.pid
+      binary: /usr/sbin/httpd
+    tests:
       - type: connection
         host: 127.0.0.1
         port: 80
@@ -267,7 +267,7 @@ monit::checks :
 
 # Notice: Param 'HOSTHEADER' changed to 'HTTP HEADERS' in monit 5.9
 # see https://mmonit.com/monit/changes/
-  http_headers :
+  http_headers:
     type: host
     config:
       address: 127.0.0.1
