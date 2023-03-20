@@ -9,7 +9,7 @@
 #   Path of the filesystem to check (**Deprecated**. Use $paths).
 # @param paths
 #   List of paths of filesystems to check. If empty, will check all mounted filesystems,
-#   but the ones with a type in $monit::banned_fs_types.
+#   but the ones with a type in $monit::fs_banned_types.
 # @param ensure
 #   Whether this check must be present or absent.
 # @param group
