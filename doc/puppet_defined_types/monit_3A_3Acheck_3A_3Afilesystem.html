@@ -6,7 +6,7 @@
 <title>
   Defined Type: monit::check::filesystem
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -72,7 +72,8 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    <p>monit::check::filesystem</p>
+    
+<p>monit::check::filesystem</p>
 
 <p>Implement Monit&#39;s CHECK FILESYSTEM</p>
 
@@ -96,7 +97,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Template used to generate the check file.</p>
+        <div class='inline'>
+<p>Template used to generate the check file.</p>
 </div>
       
     </li>
@@ -116,7 +118,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Path of the filesystem to check (<strong>Deprecated</strong>. Use $paths).</p>
+        <div class='inline'>
+<p>Path of the filesystem to check (<strong>Deprecated</strong>. Use $paths).</p>
 </div>
       
     </li>
@@ -136,8 +139,9 @@
       
       
         &mdash;
-        <div class='inline'><p>List of paths of filesystems to check. If empty, will check all mounted filesystems,
-but the ones with a type in $monit::banned_fs_types.</p>
+        <div class='inline'>
+<p>List of paths of filesystems to check. If empty, will check all mounted
+filesystems, but the ones with a type in $monit::fs_banned_types.</p>
 </div>
       
     </li>
@@ -154,7 +158,8 @@ but the ones with a type in $monit::banned_fs_types.</p>
       
       
         &mdash;
-        <div class='inline'><p>Whether this check must be present or absent.</p>
+        <div class='inline'>
+<p>Whether this check must be present or absent.</p>
 </div>
       
     </li>
@@ -171,7 +176,26 @@ but the ones with a type in $monit::banned_fs_types.</p>
       
       
         &mdash;
-        <div class='inline'><p>Monit group.</p>
+        <div class='inline'>
+<p>Monit group.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>every</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Service poll time</p>
 </div>
       
     </li>
@@ -188,7 +212,8 @@ but the ones with a type in $monit::banned_fs_types.</p>
       
       
         &mdash;
-        <div class='inline'><p>Alert recipients (with event filters) to set.</p>
+        <div class='inline'>
+<p>Alert recipients (with event filters) to set.</p>
 </div>
       
     </li>
@@ -205,7 +230,8 @@ but the ones with a type in $monit::banned_fs_types.</p>
       
       
         &mdash;
-        <div class='inline'><p>Alerts to disable for this check.</p>
+        <div class='inline'>
+<p>Alerts to disable for this check.</p>
 </div>
       
     </li>
@@ -222,7 +248,8 @@ but the ones with a type in $monit::banned_fs_types.</p>
       
       
         &mdash;
-        <div class='inline'><p>Monit tests.</p>
+        <div class='inline'>
+<p>Monit tests.</p>
 </div>
       
     </li>
@@ -239,7 +266,8 @@ but the ones with a type in $monit::banned_fs_types.</p>
       
       
         &mdash;
-        <div class='inline'><p>Dependencies of this check on other checks.</p>
+        <div class='inline'>
+<p>Dependencies of this check on other checks.</p>
 </div>
       
     </li>
@@ -256,8 +284,9 @@ but the ones with a type in $monit::banned_fs_types.</p>
       
       
         &mdash;
-        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn&#39;t matter to Monit.
-This is just a facility to organize your checks by filename.</p>
+        <div class='inline'>
+<p>Used as a prefix for the filename generated. Load order doesn&#39;t matter
+to Monit. This is just a facility to organize your checks by filename.</p>
 </div>
       
     </li>
@@ -274,7 +303,9 @@ This is just a facility to organize your checks by filename.</p>
       
       
         &mdash;
-        <div class='inline'><p>Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
+        <div class='inline'>
+<p>Used to group checks by filename. All checks in the same bundle will be
+added to the same filename.</p>
 </div>
       
     </li>
@@ -291,7 +322,8 @@ This is just a facility to organize your checks by filename.</p>
       
       
         &mdash;
-        <div class='inline'><p>Order of the check within the bundle filename.</p>
+        <div class='inline'>
+<p>Order of the check within the bundle filename.</p>
 </div>
       
     </li>
@@ -306,8 +338,6 @@ This is just a facility to organize your checks by filename.</p>
         <pre class="lines">
 
 
-33
-34
 35
 36
 37
@@ -360,10 +390,14 @@ This is just a facility to organize your checks by filename.</p>
 84
 85
 86
-87</pre>
+87
+88
+89
+90
+91</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check/filesystem.pp', line 33</span>
+        <pre class="code"><span class="info file"># File 'manifests/check/filesystem.pp', line 35</span>
 
 define monit::check::filesystem(
   # Check type specific.
@@ -380,6 +414,7 @@ define monit::check::filesystem(
   # Common parameters.
   Monit::Check::Ensure $ensure = &#39;present&#39;,
   String $group                = $name,
+  String $every                = &#39;&#39;,
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
   Monit::Check::Tests $tests   = [],
@@ -398,7 +433,7 @@ define monit::check::filesystem(
   }
 
   if empty($_paths) {
-    $paths_real = keys($::mountpoints.filter |$key, $value| { !($value[&#39;filesystem&#39;] in $monit::fs_banned_types) })
+    $paths_real = keys($::facts[&#39;mountpoints&#39;].filter |$key, $value| { !($value[&#39;filesystem&#39;] in $monit::fs_banned_types) })
   }
   else {
     $paths_real = $_paths
@@ -410,6 +445,7 @@ define monit::check::filesystem(
       type     =&gt; &#39;filesystem&#39;,
       header   =&gt; template($template),
       group    =&gt; $group,
+      every    =&gt; $every,
       alerts   =&gt; $alerts,
       noalerts =&gt; $noalerts,
       tests    =&gt; $tests,

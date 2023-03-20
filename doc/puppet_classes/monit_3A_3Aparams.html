@@ -6,7 +6,7 @@
 <title>
   Puppet Class: monit::params
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -83,8 +83,8 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    <p>monit::config
-This class handles the module data.</p>
+    
+<p>monit::config This class handles the module data.</p>
 
   </div>
 </div>
@@ -193,7 +193,7 @@ class monit::params {
   $check_interval    = 120
   $check_start_delay = 240
 
-  case $::osfamily {
+  case $::facts[&#39;os&#39;][&#39;family&#39;] {
     &#39;Debian&#39;: {
       $conf_file  = &#39;/etc/monit/monitrc&#39;
       $conf_dir   = &#39;/etc/monit/conf.d&#39;
@@ -203,9 +203,9 @@ class monit::params {
       $eventqueue = true
 
       $service_program = &#39;/usr/sbin/service&#39;
-      case $::operatingsystem {
+      case $::facts[&#39;os&#39;][&#39;name&#39;] {
         &#39;Debian&#39;: {
-          if versioncmp($::lsbmajdistrelease, &#39;8&#39;) &lt; 0 {
+          if versioncmp($::facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;8&#39;) &lt; 0 {
             $init_system = &#39;sysv&#39;
           }
           else {
@@ -242,7 +242,7 @@ class monit::params {
       $eventqueue = false
 
       $service_program = &#39;/sbin/service&#39;
-      if versioncmp($::lsbmajdistrelease, &#39;7&#39;) &lt; 0 {
+      if versioncmp($::facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;7&#39;) &lt; 0 {
         $init_system = &#39;sysv&#39;
       }
       else {

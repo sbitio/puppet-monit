@@ -6,7 +6,7 @@
 <title>
   Defined Type: monit::check::service
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -72,10 +72,11 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    <p>monit::check::service</p>
+    
+<p>monit::check::service</p>
 
-<p>Implements a compound check type for system services.
-It is a bundle of PROCESS and FILE checks.</p>
+<p>Implements a compound check type for system services. It is a bundle of
+PROCESS and FILE checks.</p>
 
   </div>
 </div>
@@ -97,7 +98,9 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Not used. This parameter is here for consistency with other check types. See <code>monit::check</code> for details.</p>
+        <div class='inline'>
+<p>Not used. This parameter is here for consistency with other check types.
+See <code>monit::check</code> for details.</p>
 </div>
       
     </li>
@@ -114,7 +117,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Path to the service binary. Used to declare a FILE check.</p>
+        <div class='inline'>
+<p>Path to the service binary. Used to declare a FILE check.</p>
 </div>
       
     </li>
@@ -135,7 +139,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Type of init system this script uses.</p>
+        <div class='inline'>
+<p>Type of init system this script uses.</p>
 </div>
       
     </li>
@@ -152,7 +157,9 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>If <code>init_system</code> is sysv. This is the path to the init script. Otherwise ignored.</p>
+        <div class='inline'>
+<p>If <code>init_system</code> is sysv. This is the path to the init script.
+Otherwise ignored.</p>
 </div>
       
     </li>
@@ -169,7 +176,9 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>If <code>init_system</code> is upstart. This is the path to the system job. Otherwise ignored.</p>
+        <div class='inline'>
+<p>If <code>init_system</code> is upstart. This is the path to the system job.
+Otherwise ignored.</p>
 </div>
       
     </li>
@@ -186,7 +195,9 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>If <code>init_system</code> is systemd. This is the path to the unit configuration file. Otherwise ignored.</p>
+        <div class='inline'>
+<p>If <code>init_system</code> is systemd. This is the path to the unit
+configuration file. Otherwise ignored.</p>
 </div>
       
     </li>
@@ -203,7 +214,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Command to start the service.</p>
+        <div class='inline'>
+<p>Command to start the service.</p>
 </div>
       
     </li>
@@ -220,7 +232,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Command to stop the service.</p>
+        <div class='inline'>
+<p>Command to stop the service.</p>
 </div>
       
     </li>
@@ -237,7 +250,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Path to the PID file of the service.</p>
+        <div class='inline'>
+<p>Path to the PID file of the service.</p>
 </div>
       
     </li>
@@ -254,7 +268,9 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>If the service doesn&#39;t provide a PID file, use this option to pass a regex pattern to check the process list.</p>
+        <div class='inline'>
+<p>If the service doesn&#39;t provide a PID file, use this option to pass a
+regex pattern to check the process list.</p>
 </div>
       
     </li>
@@ -271,7 +287,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>UID of the process.</p>
+        <div class='inline'>
+<p>UID of the process.</p>
 </div>
       
     </li>
@@ -288,7 +305,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>GID of the process.</p>
+        <div class='inline'>
+<p>GID of the process.</p>
 </div>
       
     </li>
@@ -305,7 +323,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Timeout on the start/stop operations.</p>
+        <div class='inline'>
+<p>Timeout on the start/stop operations.</p>
 </div>
       
     </li>
@@ -322,7 +341,9 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Timeout on the start operation. Generic timeout will be used if not specified.</p>
+        <div class='inline'>
+<p>Timeout on the start operation. Generic timeout will be used if not
+specified.</p>
 </div>
       
     </li>
@@ -339,7 +360,27 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Timeout on the stop operation. Generic timeout will be used if not specified.</p>
+        <div class='inline'>
+<p>Timeout on the stop operation. Generic timeout will be used if not
+specified.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>restart_limit</span>
+      
+      
+        <span class='type'>(<tt>Optional[Monit::RestartLimit]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Used to define limits on restarts.</p>
 </div>
       
     </li>
@@ -356,7 +397,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Whether this check must be present or absent.</p>
+        <div class='inline'>
+<p>Whether this check must be present or absent.</p>
 </div>
       
     </li>
@@ -373,7 +415,26 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Monit group.</p>
+        <div class='inline'>
+<p>Monit group.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>every</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Service poll time</p>
 </div>
       
     </li>
@@ -390,7 +451,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Alert recipients (with event filters) to set.</p>
+        <div class='inline'>
+<p>Alert recipients (with event filters) to set.</p>
 </div>
       
     </li>
@@ -407,7 +469,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Alerts to disable for this check.</p>
+        <div class='inline'>
+<p>Alerts to disable for this check.</p>
 </div>
       
     </li>
@@ -424,7 +487,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Monit tests.</p>
+        <div class='inline'>
+<p>Monit tests.</p>
 </div>
       
     </li>
@@ -441,7 +505,8 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Dependencies of this check on other checks.</p>
+        <div class='inline'>
+<p>Dependencies of this check on other checks.</p>
 </div>
       
     </li>
@@ -458,8 +523,9 @@ It is a bundle of PROCESS and FILE checks.</p>
       
       
         &mdash;
-        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn&#39;t matter to Monit.
-This is just a facility to organize your checks by filename.</p>
+        <div class='inline'>
+<p>Used as a prefix for the filename generated. Load order doesn&#39;t matter
+to Monit. This is just a facility to organize your checks by filename.</p>
 </div>
       
     </li>
@@ -476,7 +542,9 @@ This is just a facility to organize your checks by filename.</p>
       
       
         &mdash;
-        <div class='inline'><p>Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
+        <div class='inline'>
+<p>Used to group checks by filename. All checks in the same bundle will be
+added to the same filename.</p>
 </div>
       
     </li>
@@ -493,7 +561,8 @@ This is just a facility to organize your checks by filename.</p>
       
       
         &mdash;
-        <div class='inline'><p>Order of the check within the bundle filename.</p>
+        <div class='inline'>
+<p>Order of the check within the bundle filename.</p>
 </div>
       
     </li>
@@ -508,10 +577,6 @@ This is just a facility to organize your checks by filename.</p>
         <pre class="lines">
 
 
-57
-58
-59
-60
 61
 62
 63
@@ -604,45 +669,55 @@ This is just a facility to organize your checks by filename.</p>
 150
 151
 152
-153</pre>
+153
+154
+155
+156
+157
+158
+159
+160
+161</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check/service.pp', line 57</span>
+        <pre class="code"><span class="info file"># File 'manifests/check/service.pp', line 61</span>
 
 define monit::check::service(
   # Check type specific.
-  Undef $template                         = undef,
-  Stdlib::Absolutepath $binary            = &quot;/usr/sbin/${name}&quot;,
+  Undef $template                              = undef,
+  Stdlib::Absolutepath $binary                 = &quot;/usr/sbin/${name}&quot;,
   Enum[
     &#39;sysv&#39;,
     &#39;systemd&#39;,
     &#39;upstart&#39;
-    ] $init_system                        = $monit::init_system,
-  Stdlib::Absolutepath $sysv_file         = &quot;/etc/init.d/${name}&quot;,
-  Stdlib::Absolutepath $upstart_file      = &quot;/etc/init/${name}.conf&quot;,
-  Stdlib::Absolutepath $systemd_file      = &quot;${monit::params::systemd_unitdir}/${name}.service&quot;,
+    ] $init_system                             = $monit::init_system,
+  Stdlib::Absolutepath $sysv_file              = &quot;/etc/init.d/${name}&quot;,
+  Stdlib::Absolutepath $upstart_file           = &quot;/etc/init/${name}.conf&quot;,
+  Stdlib::Absolutepath $systemd_file           = &quot;${monit::params::systemd_unitdir}/${name}.service&quot;,
 
   # Params for process type.
-  String $program_start                   = &quot;${monit::service_program} ${name} start&quot;,
-  String $program_stop                    = &quot;${monit::service_program} ${name} stop&quot;,
-  Optional[Stdlib::Absolutepath] $pidfile = undef,
-  Optional[String] $matching              = undef,
-  Optional[Integer] $uid                  = undef,
-  Optional[Integer] $gid                  = undef,
-  Optional[Numeric] $timeout              = undef,
-  Optional[Numeric] $timeout_start        = undef,
-  Optional[Numeric] $timeout_stop         = undef,
+  String $program_start                        = &quot;${monit::service_program} ${name} start&quot;,
+  String $program_stop                         = &quot;${monit::service_program} ${name} stop&quot;,
+  Optional[Stdlib::Absolutepath] $pidfile      = undef,
+  Optional[String] $matching                   = undef,
+  Optional[Integer] $uid                       = undef,
+  Optional[Integer] $gid                       = undef,
+  Optional[Numeric] $timeout                   = undef,
+  Optional[Numeric] $timeout_start             = undef,
+  Optional[Numeric] $timeout_stop              = undef,
 
   # Common parameters.
-  Monit::Check::Ensure $ensure            = &#39;present&#39;,
-  String $group                           = $name,
-  Array[String] $alerts                   = [],
-  Array[String] $noalerts                 = [],
-  Monit::Check::Tests $tests              = [],
-  Array[String] $depends                  = [],
-  String $priority                        = &#39;20&#39;,
-  String $bundle                          = $name,
-  Integer $order                          = 0,
+  Monit::Check::Ensure $ensure                 = &#39;present&#39;,
+  String $group                                = $name,
+  String $every                                = &#39;&#39;,
+  Array[String] $alerts                        = [],
+  Array[String] $noalerts                      = [],
+  Monit::Check::Tests $tests                   = [],
+  Array[String] $depends                       = [],
+  String $priority                             = &#39;20&#39;,
+  String $bundle                               = $name,
+  Integer $order                               = 0,
+  Optional[Monit::RestartLimit] $restart_limit = undef,
 ) {
 
   case $init_system {
@@ -661,13 +736,15 @@ define monit::check::service(
   }
 
   $defaults = {
-    &#39;ensure&#39;     =&gt; $ensure,
-    &#39;priority&#39;   =&gt; $priority,
-    &#39;bundle&#39;     =&gt; $bundle,
-    &#39;group&#39;      =&gt; $group,
-    &#39;depends&#39;    =&gt; $depends,
-    &#39;alerts&#39;     =&gt; $alerts,
-    &#39;noalerts&#39;   =&gt; $noalerts,
+    &#39;ensure&#39;        =&gt; $ensure,
+    &#39;priority&#39;      =&gt; $priority,
+    &#39;bundle&#39;        =&gt; $bundle,
+    &#39;group&#39;         =&gt; $group,
+    &#39;every&#39;         =&gt; $every,
+    &#39;depends&#39;       =&gt; $depends,
+    &#39;alerts&#39;        =&gt; $alerts,
+    &#39;noalerts&#39;      =&gt; $noalerts,
+    &#39;restart_limit&#39; =&gt; $restart_limit,
   }
 
   # Check service process.
@@ -692,17 +769,17 @@ define monit::check::service(
 
   # Check service file.
   $params_service_file = {
-    &#39;path&#39;       =&gt; $service_file,
-    &#39;bundle&#39;     =&gt; $bundle,
-    &#39;order&#39;      =&gt; Integer(inline_template(&#39;&lt;%= @order.to_i + 1 %&gt;&#39;)),
+    &#39;path&#39;   =&gt; $service_file,
+    &#39;bundle&#39; =&gt; $bundle,
+    &#39;order&#39;  =&gt; Integer(inline_template(&#39;&lt;%= @order.to_i + 1 %&gt;&#39;)),
   }
   ensure_resource(&#39;monit::check::file&#39;, &quot;${name}_service_file&quot;, merge($defaults, $params_service_file))
 
   # Check service binary.
   $params_binary = {
-    &#39;path&#39;       =&gt; $binary,
-    &#39;bundle&#39;     =&gt; $bundle,
-    &#39;order&#39;      =&gt; Integer(inline_template(&#39;&lt;%= @order.to_i + 2 %&gt;&#39;)),
+    &#39;path&#39;   =&gt; $binary,
+    &#39;bundle&#39; =&gt; $bundle,
+    &#39;order&#39;  =&gt; Integer(inline_template(&#39;&lt;%= @order.to_i + 2 %&gt;&#39;)),
   }
   ensure_resource(&#39;monit::check::file&#39;, &quot;${name}_binary&quot;, merge($defaults, $params_binary))
 }</pre>

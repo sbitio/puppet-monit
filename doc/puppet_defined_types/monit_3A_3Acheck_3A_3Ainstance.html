@@ -6,7 +6,7 @@
 <title>
   Defined Type: monit::check::instance
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -72,9 +72,9 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    <p>monit::check::instance
-Common code invoked by all check types.
-Creates Monit check files by fragments.</p>
+    
+<p>monit::check::instance Common code invoked by all check types. Creates
+Monit check files by fragments.</p>
 
   </div>
 </div>
@@ -94,7 +94,8 @@ Creates Monit check files by fragments.</p>
       
       
         &mdash;
-        <div class='inline'><p>Whether this check must be present or absent.</p>
+        <div class='inline'>
+<p>Whether this check must be present or absent.</p>
 </div>
       
     </li>
@@ -109,7 +110,8 @@ Creates Monit check files by fragments.</p>
       
       
         &mdash;
-        <div class='inline'><p>Type of check.</p>
+        <div class='inline'>
+<p>Type of check.</p>
 </div>
       
     </li>
@@ -124,7 +126,8 @@ Creates Monit check files by fragments.</p>
       
       
         &mdash;
-        <div class='inline'><p>Fragment of the test specific config.</p>
+        <div class='inline'>
+<p>Fragment of the test specific config.</p>
 </div>
       
     </li>
@@ -139,7 +142,24 @@ Creates Monit check files by fragments.</p>
       
       
         &mdash;
-        <div class='inline'><p>Monit group.</p>
+        <div class='inline'>
+<p>Monit group.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>every</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Service poll time</p>
 </div>
       
     </li>
@@ -154,7 +174,8 @@ Creates Monit check files by fragments.</p>
       
       
         &mdash;
-        <div class='inline'><p>Alert recipients (with event filters) to set.</p>
+        <div class='inline'>
+<p>Alert recipients (with event filters) to set.</p>
 </div>
       
     </li>
@@ -169,7 +190,8 @@ Creates Monit check files by fragments.</p>
       
       
         &mdash;
-        <div class='inline'><p>Alerts to disable for this check.</p>
+        <div class='inline'>
+<p>Alerts to disable for this check.</p>
 </div>
       
     </li>
@@ -184,7 +206,8 @@ Creates Monit check files by fragments.</p>
       
       
         &mdash;
-        <div class='inline'><p>Monit tests.</p>
+        <div class='inline'>
+<p>Monit tests.</p>
 </div>
       
     </li>
@@ -199,7 +222,8 @@ Creates Monit check files by fragments.</p>
       
       
         &mdash;
-        <div class='inline'><p>Dependencies of this check on other checks.</p>
+        <div class='inline'>
+<p>Dependencies of this check on other checks.</p>
 </div>
       
     </li>
@@ -214,8 +238,9 @@ Creates Monit check files by fragments.</p>
       
       
         &mdash;
-        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn&#39;t matter to Monit.
-This is just a facility to organize your checks by filename.</p>
+        <div class='inline'>
+<p>Used as a prefix for the filename generated. Load order doesn&#39;t matter
+to Monit. This is just a facility to organize your checks by filename.</p>
 </div>
       
     </li>
@@ -230,7 +255,9 @@ This is just a facility to organize your checks by filename.</p>
       
       
         &mdash;
-        <div class='inline'><p>Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
+        <div class='inline'>
+<p>Used to group checks by filename. All checks in the same bundle will be
+added to the same filename.</p>
 </div>
       
     </li>
@@ -245,7 +272,26 @@ This is just a facility to organize your checks by filename.</p>
       
       
         &mdash;
-        <div class='inline'><p>Order of the check within the bundle filename.</p>
+        <div class='inline'>
+<p>Order of the check within the bundle filename.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>restart_limit</span>
+      
+      
+        <span class='type'>(<tt>Optional[Monit::RestartLimit]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Used to define limits on restarts.</p>
 </div>
       
     </li>
@@ -260,10 +306,6 @@ This is just a facility to organize your checks by filename.</p>
         <pre class="lines">
 
 
-32
-33
-34
-35
 36
 37
 38
@@ -301,16 +343,22 @@ This is just a facility to organize your checks by filename.</p>
 70
 71
 72
-73</pre>
+73
+74
+75
+76
+77
+78</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check/instance.pp', line 32</span>
+        <pre class="code"><span class="info file"># File 'manifests/check/instance.pp', line 36</span>
 
 define monit::check::instance(
   Monit::Check::Ensure $ensure,
   String $type,
   String $header,
   String $group,
+  String $every,
   Array[String] $alerts,
   Array[String] $noalerts,
   Monit::Check::Tests $tests,
@@ -318,8 +366,8 @@ define monit::check::instance(
   String $priority,
   String $bundle,
   Integer $order,
+  Optional[Monit::RestartLimit] $restart_limit = undef,
 ) {
-
   $priority_real = $priority ? {
     undef   =&gt; &#39;&#39;,
     default =&gt; &quot;${priority}_&quot;,

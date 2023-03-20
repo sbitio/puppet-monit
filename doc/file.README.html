@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -57,45 +57,61 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1>monit</h1>
+      <div id="content"><div id='filecontents'>
+<h1 id="label-monit">monit</h1>
 
-<h4>Table of Contents</h4>
+<h4 id="label-Table+of+Contents">Table of Contents</h4>
+<ol><li>
+<p><a href="#label-Description">Description</a></p>
+</li><li>
+<p><a href="#label-Setup">Setup - The basics of getting started with monit</a></p>
+<ul><li>
+<p><a href="#label-What+monit+affects">What monit affects</a></p>
+</li><li>
+<p><a href="#label-Setup+requirements">Setup requirements</a></p>
+</li><li>
+<p><a href="#label-Beginning+with+monit">Beginning with monit</a></p>
+</li></ul>
+</li><li>
+<p><a href="#label-Usage">Usage - Configuration options and additional
+functionality</a></p>
+</li><li>
+<p><a href="#label-Reference">Reference - An under-the-hood peek at what the module
+is doing and how</a></p>
+</li><li>
+<p><a href="#label-Limitations">Limitations - OS compatibility, etc.</a></p>
+</li><li>
+<p><a href="#label-Development">Development - Guide for contributing to the
+module</a></p>
+</li></ol>
 
-<ol>
-<li><a href="#label-Description">Description</a></li>
-<li><a href="#label-Setup">Setup - The basics of getting started with monit</a>
-
-<ul>
-<li><a href="#label-What+monit+affects">What monit affects</a></li>
-<li><a href="#label-Setup+requirements">Setup requirements</a></li>
-<li><a href="#label-Beginning+with+monit">Beginning with monit</a></li>
-</ul></li>
-<li><a href="#label-Usage">Usage - Configuration options and additional functionality</a></li>
-<li><a href="#label-Reference">Reference - An under-the-hood peek at what the module is doing and how</a></li>
-<li><a href="#label-Limitations">Limitations - OS compatibility, etc.</a></li>
-<li><a href="#label-Development">Development - Guide for contributing to the module</a></li>
-</ol>
-
-<h2>Description</h2>
+<h2 id="label-Description">Description</h2>
 
 <p>Performs installation and configuration of Monit service, along with fine
 grained definition of checks.</p>
 
-<p>All check types provided by Monit are supported. Namely: <code>directory</code>, <code>fifo</code>,
-<code>file</code>, <code>filesystem</code>, <code>host</code>, <code>process</code>, <code>program</code>, and <code>system</code>.</p>
+<p>All check types provided by Monit are supported. Namely:
+<code>directory</code>, <code>fifo</code>, <code>file</code>,
+<code>filesystem</code>, <code>host</code>, <code>process</code>,
+<code>program</code>, and <code>system</code>.</p>
 
-<p>In adition to primitive types, a compound check type is provided: <code>service</code>.
-It is a set of primitives to check a service&#39;s init script, binary and process.</p>
+<p>In adition to primitive types, a compound check type is provided:
+<code>service</code>. It is a set of primitives to check a service&#39;s
+init script, binary and process.</p>
 
-<h2>Setup</h2>
+<h2 id="label-Setup">Setup</h2>
 
-<h3>Beginning with monit</h3>
+<h3 id="label-Beginning+with+monit">Beginning with monit</h3>
 
-<p><code>include &#39;::monit&#39;</code> is enough to get you up and running. It will configure the basis of monit, with HTTP server listening at <code>localhost:2812</code> and a system check for <code>LOADAVG</code>, <code>CPU</code>, <code>MEMORY</code> and <code>FILESYSTEM</code> at <code>/</code>.</p>
+<p><code>include &#39;::monit&#39;</code> is enough to get you up and running.
+It will configure the basis of monit, with HTTP server listening at
+<code>localhost:2812</code> and a system check for <code>LOADAVG</code>,
+<code>CPU</code>, <code>MEMORY</code> and <code>FILESYSTEM</code> at
+<code>/</code>.</p>
 
 <p>To pass in parameters and override default configuration:</p>
 
-<pre class="code puppet"><code class="puppet">class { &#39;::monit&#39;:
+<pre class="code ruby"><code class="ruby">class { &#39;::monit&#39;:
   check_interval    =&gt; 60,
   check_start_delay =&gt; 120,
   mailserver        =&gt; &#39;localhost&#39;,
@@ -103,51 +119,55 @@ It is a set of primitives to check a service&#39;s init script, binary and proce
   alerts            =&gt; [&#39;root@localhost&#39;, &#39;sla1@example.com only on { timeout, nonexist }&#39;],
   httpserver        =&gt; true,
   httpserver_allow  =&gt; [&#39;admin:secret&#39;],
-}
-</code></pre>
+}</code></pre>
 
-<h2>Usage</h2>
+<h2 id="label-Usage">Usage</h2>
 
-<p>All parameters for the monit module are contained within the main <code>::monit</code>
-class, so for any function of the module, set the options you want.
-See the common usages below for examples.</p>
+<p>All parameters for the monit module are contained within the main
+<code>::monit</code> class, so for any function of the module, set the
+options you want. See the common usages below for examples.</p>
 
-<p>Check types are implemented by defined types, named after <code>monit::check::TYPE</code>.
-All check types have several configuration options in common (ex: group,
-priority, alerts, dependencies, etc.), along with the check specific options.</p>
+<p>Check types are implemented by defined types, named after
+<code>monit::check::TYPE</code>. All check types have several configuration
+options in common (ex: group, priority, alerts, dependencies, etc.), along
+with the check specific options.</p>
 
-<p>On the other hand, <code>monit::check</code> defined type is a facade for all check types.
-It works as a single entry point to declare any type of check in the same way.
-Common configuration options are parameters of the defined type, and check
-specific options are passed through a hash in the <code>config</code> parameter.</p>
+<p>On the other hand, <code>monit::check</code> defined type is a facade for
+all check types. It works as a single entry point to declare any type of
+check in the same way. Common configuration options are parameters of the
+defined type, and check specific options are passed through a hash in the
+<code>config</code> parameter.</p>
 
 <p>So there&#39;re several entry points to declare your own checks:</p>
+<ul><li>
+<p>Create an instance of the specific defined type for the given check (ex:
+<code>monit::check::TYPE</code>)</p>
+</li><li>
+<p>Create an instance of the generic <code>monit::check</code> defined type,
+and pass in the details of the check</p>
+</li><li>
+<p>Pass in a hash of checks to <code>::monit</code> class. This enables
+providing the checks from Hiera, with your preferred merge strategy</p>
+</li></ul>
 
-<ul>
-<li>Create an instance of the specific defined type for the given check (ex: <code>monit::check::TYPE</code>)</li>
-<li>Create an instance of the generic <code>monit::check</code> defined type, and pass in the details of the check</li>
-<li>Pass in a hash of checks to <code>::monit</code> class. This enables providing the checks from Hiera, with your preferred merge strategy</li>
-</ul>
+<h3 id="label-Install+and+enable+monit">Install and enable monit</h3>
 
-<h3>Install and enable monit</h3>
-
-<pre class="code puppet"><code class="puppet">include &#39;::monit&#39;
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include'>include</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>::monit</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
-<h3>Customize the system check</h3>
+<h3 id="label-Customize+the+system+check">Customize the system check</h3>
 
-<pre class="code puppet"><code class="puppet">class { &#39;::monit&#39;:
+<pre class="code ruby"><code class="ruby">class { &#39;::monit&#39;:
   system_cpu_wait       =&gt; &#39;40%&#39;,
   system_memory         =&gt; &#39;84%&#39;,
   system_loadavg_1min   =&gt; 14.0,
   system_fs_space_usage =&gt; &#39;88%&#39;,
   system_fs             =&gt; [&#39;/&#39;, &#39;/mnt/backups&#39;],
-}
-</code></pre>
+}</code></pre>
 
-<h3>Declare a check by instantiating the check&#39;s defined type</h3>
+<h3 id="label-Declare+a+check+by+instantiating+the+check-27s+defined+type">Declare a check by instantiating the check&#39;s defined type</h3>
 
-<pre class="code puppet"><code class="puppet">include ::monit
+<pre class="code ruby"><code class="ruby">include ::monit
 
 monit::check::filesystem { &#39;somefs&#39;:
   paths =&gt; [&#39;/mount/somefs&#39;,],
@@ -156,12 +176,11 @@ monit::check::filesystem { &#39;somefs&#39;:
     {&#39;type&#39; =&gt; &#39;permission&#39;, &#39;value&#39; =&gt; &#39;0755&#39;},
     {&#39;type&#39; =&gt; &#39;space&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; &#39;80%&#39;},
   ]
-}
-</code></pre>
+}</code></pre>
 
-<h3>Declare a check by instantiating the generic check defined type</h3>
+<h3 id="label-Declare+a+check+by+instantiating+the+generic+check+defined+type">Declare a check by instantiating the generic check defined type</h3>
 
-<pre class="code puppet"><code class="puppet">include ::monit
+<pre class="code ruby"><code class="ruby">include ::monit
 
 # Add a check for ntp process.
 monit::check { &#39;ntp&#39;:
@@ -180,19 +199,18 @@ monit::check { &#39;ntp&#39;:
       &#39;action&#39;   =&gt; &#39;restart&#39;,
     },
   ],
-}
-</code></pre>
+}</code></pre>
 
-<h3>Provide the monit class with a check for ssh service</h3>
+<h3 id="label-Provide+the+monit+class+with+a+check+for+ssh+service">Provide the monit class with a check for ssh service</h3>
 
-<pre class="code puppet"><code class="puppet">include ::monit
+<pre class="code ruby"><code class="ruby">include::monit
 
 class { &#39;::monit&#39;:
   checks =&gt; {
     &#39;sshd&#39; =&gt; {
       &#39;type&#39;    =&gt; &#39;service&#39;,
       &#39;config&#39; =&gt; {
-        &#39;pidfile&#39;       =&gt; &#39;/var/run/sshd.pid&#39;,
+        &#39;pidfile&#39; =&gt; &#39;/var/run/sshd.pid&#39;,
       },
       &#39;tests&#39;  =&gt; [
         {
@@ -205,36 +223,35 @@ class { &#39;::monit&#39;:
       ],
     },
   }
-}
-</code></pre>
+}</code></pre>
 
-<h3>Provide full module config and checks from Hiera</h3>
+<h3 id="label-Provide+full+module+config+and+checks+from+Hiera">Provide full module config and checks from Hiera</h3>
 
-<pre class="code yaml"><code class="yaml"># Main monitrc configuration options.
-monit::check_interval    : &#39;60&#39;
-monit::check_start_delay : &#39;120&#39;
-monit::mailserver        : &#39;localhost&#39;
-monit::eventqueue        : true
-monit::alerts            :
+<pre class="code ruby"><code class="ruby"># Main monitrc configuration options.
+monit::check_interval: &#39;60&#39;
+monit::check_start_delay: &#39;120&#39;
+monit::mailserver: &#39;localhost&#39;
+monit::eventqueue: true
+monit::alerts:
   - &#39;root@localhost&#39;
   - &#39;sla1@example.com only on { timeout, nonexist }&#39;
-monit::httpserver        : true
-monit::httpserver_allow  :
+monit::httpserver: true
+monit::httpserver_allow:
   - &#39;admin:secret&#39;
 
 # Tweak system check.
-monit::system_fs         : [&#39;/&#39;, &#39;/mnt/backups&#39;]
+monit::system_fs: [&#39;/&#39;, &#39;/mnt/backups&#39;]
 
 # Add some checks.
-monit::checks :
+monit::checks:
 
-  somefs :
-    type     : filesystem
-    config   :
-      paths  :
+  somefs:
+    type: filesystem
+    config:
+      paths:
         - /
         - /mount/somefs
-    tests    :
+    tests:
       - type: fsflags
       - type: permission
         value: &#39;0755&#39;
@@ -242,78 +259,78 @@ monit::checks :
         operator: &#39;&gt;&#39;
         value: 80%
 
-  sshd :
-    type    : process
-    config  :
-      pidfile       : /var/run/sshd.pid
-      program_start : /etc/init.d/sshd start
-      program_stop  : /etc/init.d/sshd stop
-    tests  :
-      - type     : connection
-        host     : 127.0.0.1
-        port     : 22
-        protocol : ssh
-        action   : restart
+  sshd:
+    type: process
+    config:
+      pidfile: /var/run/sshd.pid
+      program_start: /etc/init.d/sshd start
+      program_stop: /etc/init.d/sshd stop
+    tests:
+      - type: connection
+        host: 127.0.0.1
+        port: 22
+        protocol: ssh
+        action: restart
 
-  php5-fpm :
-    type    : process
-    config  :
-      pidfile       : /var/run/php5-fpm.pid
-      program_start : /etc/init.d/php5-fpm start
-      program_stop  : /etc/init.d/php5-fpm stop
-    tests  :
-      - type          : connection
-        host          : 127.0.0.1
-        port          : 9000
-        socket_type   : TCP
-        protocol      : GENERIC
-        protocol_test :
-          - send   : &#39;&quot;\0x01\0x09\0x00\0x00\0x00\0x00\0x08\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00&quot;&#39;
-            expect : &#39;&quot;\0x01\0x0A&quot;&#39;
-        action   : restart
+  php5-fpm:
+    type: process
+    config:
+      pidfile: /var/run/php5-fpm.pid
+      program_start: /etc/init.d/php5-fpm start
+      program_stop: /etc/init.d/php5-fpm stop
+    tests:
+      - type: connection
+        host: 127.0.0.1
+        port: 9000
+        socket_type: TCP
+        protocol: GENERIC
+        protocol_test:
+          - send: &#39;&quot;\0x01\0x09\0x00\0x00\0x00\0x00\0x08\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00\0x00&quot;&#39;
+            expect: &#39;&quot;\0x01\0x0A&quot;&#39;
+        action: restart
 
-  ntp :
-    type   : process
-    config :
-      pidfile       : /var/run/ntpd.pid
-      program_start : /etc/init.d/ntpd start
-      program_stop  : /etc/init.d/ntpd stop
-    tests  :
-      - type        : connection
-        host        : 127.0.0.1
-        socket_type : udp
-        port        : 123
-        protocol    : ntp
-        action      : restart
+  ntp:
+    type: process
+    config:
+      pidfile: /var/run/ntpd.pid
+      program_start: /etc/init.d/ntpd start
+      program_stop: /etc/init.d/ntpd stop
+    tests:
+      - type: connection
+        host: 127.0.0.1
+        socket_type: udp
+        port: 123
+        protocol: ntp
+        action: restart
 
-  varnish :
-    type   : process
-    config :
-      pidfile       : /var/run/varnish.pid
-      program_start : /etc/init.d/varnish start
-      program_stop  : /etc/init.d/varnish stop
-    tests  :
+  varnish:
+    type: process
+    config:
+      pidfile: /var/run/varnish.pid
+      program_start: /etc/init.d/varnish start
+      program_stop: /etc/init.d/varnish stop
+    tests:
       - type: connection
         host: 127.0.0.1
         port: 8080
         protocol: http
         protocol_test:
           request: /health.varnish
-      - type      : cpu(user)
-        operator  : &#39;&gt;&#39;
-        value     : 60%
-        tolerance :
-          cycles  : 2
-      - type      : children
-        operator  : &#39;&gt;&#39;
-        value     : 150
+      - type: cpu(user)
+        operator: &#39;&gt;&#39;
+        value: 60%
+        tolerance:
+          cycles: 2
+      - type: children
+        operator: &#39;&gt;&#39;
+        value: 150
 
-  httpd :
-    type   : service
-    config :
-      pidfile : /var/run/httpd/httpd.pid
-      binary  : /usr/sbin/httpd
-    tests  :
+  httpd:
+    type: service
+    config:
+      pidfile: /var/run/httpd/httpd.pid
+      binary: /usr/sbin/httpd
+    tests:
       - type: connection
         host: 127.0.0.1
         port: 80
@@ -321,7 +338,7 @@ monit::checks :
 
 # Notice: Param &#39;HOSTHEADER&#39; changed to &#39;HTTP HEADERS&#39; in monit 5.9
 # see https://mmonit.com/monit/changes/
-  http_headers :
+  http_headers:
     type: host
     config:
       address: 127.0.0.1
@@ -334,7 +351,6 @@ monit::checks :
           request: /
           status: 200
           http headers: &#39;[host: www.example.com]&#39;
-        action: restart
 
   custom-script:
     type: program
@@ -358,46 +374,52 @@ monit::checks :
     tests:
       - type: uptime
         operator: &#39;&lt;&#39;
-        value: &#39;3 MINUTES&#39;
-</code></pre>
+        value: &#39;3 MINUTES&#39;</code></pre>
 
-<p>There&#39;s a bunch of examples for configuring real services across Debian and
-RedHat families in <a href="https://github.com/sbitio/puppet-ducktape">sbitio/ducktape</a> module.
-Please refer to <a href="https://github.com/sbitio/puppet-ducktape/tree/master/manifests">manifests/*/external/monit.pp</a>
+<p>There&#39;s a bunch of examples for configuring real services across Debian
+and RedHat families in <a
+href="https://github.com/sbitio/puppet-ducktape">sbitio/ducktape</a>
+module. Please refer to <a
+href="https://github.com/sbitio/puppet-ducktape/tree/master/manifests">manifests/*/external/monit.pp</a>
 files.</p>
 
-<h2>Reference</h2>
+<h2 id="label-Reference">Reference</h2>
 
-<p>See Puppet Strings doc at <a href="https://github.com/sbitio/puppet-monit/blob/master/doc/index.html">doc/index.html</a></p>
+<p>See Puppet Strings doc at <a
+href="https://github.com/sbitio/puppet-monit/blob/master/doc/index.html">doc/index.html</a></p>
 
-<h2>Limitations</h2>
+<h2 id="label-Limitations">Limitations</h2>
 
-<p>This module requires Puppet 4.x, and is compatible with the following OSes/versions:</p>
-
-<ul>
-<li>FreeBSD</li>
-<li>Debian 7, 8, 9</li>
-<li>RedHat/CentOS 7, 8</li>
-<li>Ubuntu 12.04, 14.04, 16.04</li>
-</ul>
+<p>This module requires Puppet 4.x, and is compatible with the following
+OSes/versions:</p>
+<ul><li>
+<p>FreeBSD</p>
+</li><li>
+<p>Debian 7, 8, 9</p>
+</li><li>
+<p>RedHat/CentOS 7, 8</p>
+</li><li>
+<p>Ubuntu 12.04, 14.04, 16.04</p>
+</li></ul>
 
 <p>For Puppet 3 or older versions of Debian, please use 1.x.x releases.</p>
 
-<h2>Development</h2>
+<h2 id="label-Development">Development</h2>
 
-<p>Development happens on <a href="https://github.com/sbitio/puppet-monit">GitHub</a>.</p>
+<p>Development happens on <a
+href="https://github.com/sbitio/puppet-monit">GitHub</a>.</p>
 
 <p>Please log issues for any bug report, feature or support request.</p>
 
 <p>Pull requests are welcome.</p>
 
-<h2>License</h2>
+<h2 id="label-License">License</h2>
 
 <p>MIT License, see LICENSE file</p>
 
-<h2>Contact</h2>
+<h2 id="label-Contact">Contact</h2>
 
-<p>Use contact form on <a href="http://sbit.io">http://sbit.io</a></p>
+<p>Use contact form on <a href="http://sbit.io">sbit.io</a></p>
 </div></div>
 
       <div id="footer">

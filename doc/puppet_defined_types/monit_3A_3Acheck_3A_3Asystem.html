@@ -6,7 +6,7 @@
 <title>
   Defined Type: monit::check::system
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -72,7 +72,8 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    <p>monit::check::system</p>
+    
+<p>monit::check::system</p>
 
 <p>Implement Monit&#39;s CHECK SYSTEM</p>
 
@@ -96,7 +97,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Template used to generate the check file.</p>
+        <div class='inline'>
+<p>Template used to generate the check file.</p>
 </div>
       
     </li>
@@ -113,7 +115,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Whether this check must be present or absent.</p>
+        <div class='inline'>
+<p>Whether this check must be present or absent.</p>
 </div>
       
     </li>
@@ -130,7 +133,26 @@
       
       
         &mdash;
-        <div class='inline'><p>Monit group.</p>
+        <div class='inline'>
+<p>Monit group.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>every</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Service poll time</p>
 </div>
       
     </li>
@@ -147,7 +169,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Alert recipients (with event filters) to set.</p>
+        <div class='inline'>
+<p>Alert recipients (with event filters) to set.</p>
 </div>
       
     </li>
@@ -164,7 +187,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Alerts to disable for this check.</p>
+        <div class='inline'>
+<p>Alerts to disable for this check.</p>
 </div>
       
     </li>
@@ -174,16 +198,15 @@
         <span class='name'>tests</span>
       
       
-        <span class='type'>(<tt>Array[
-    Hash[String, String]
-    ]</tt>)</span>
+        <span class='type'>(<tt>Monit::Check::Tests</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
       
       
         &mdash;
-        <div class='inline'><p>Monit tests.</p>
+        <div class='inline'>
+<p>Monit tests.</p>
 </div>
       
     </li>
@@ -200,7 +223,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Dependencies of this check on other checks.</p>
+        <div class='inline'>
+<p>Dependencies of this check on other checks.</p>
 </div>
       
     </li>
@@ -217,8 +241,9 @@
       
       
         &mdash;
-        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn&#39;t matter to Monit.
-This is just a facility to organize your checks by filename.</p>
+        <div class='inline'>
+<p>Used as a prefix for the filename generated. Load order doesn&#39;t matter
+to Monit. This is just a facility to organize your checks by filename.</p>
 </div>
       
     </li>
@@ -235,7 +260,9 @@ This is just a facility to organize your checks by filename.</p>
       
       
         &mdash;
-        <div class='inline'><p>Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
+        <div class='inline'>
+<p>Used to group checks by filename. All checks in the same bundle will be
+added to the same filename.</p>
 </div>
       
     </li>
@@ -252,7 +279,8 @@ This is just a facility to organize your checks by filename.</p>
       
       
         &mdash;
-        <div class='inline'><p>Order of the check within the bundle filename.</p>
+        <div class='inline'>
+<p>Order of the check within the bundle filename.</p>
 </div>
       
     </li>
@@ -267,8 +295,6 @@ This is just a facility to organize your checks by filename.</p>
         <pre class="lines">
 
 
-28
-29
 30
 31
 32
@@ -299,10 +325,12 @@ This is just a facility to organize your checks by filename.</p>
 57
 58
 59
-60</pre>
+60
+61
+62</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check/system.pp', line 28</span>
+        <pre class="code"><span class="info file"># File 'manifests/check/system.pp', line 30</span>
 
 define monit::check::system(
   # Check type specific.
@@ -311,11 +339,10 @@ define monit::check::system(
   # Common parameters.
   Monit::Check::Ensure $ensure = &#39;present&#39;,
   String $group                = $name,
+  String $every                = &#39;&#39;,
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
-  Array[
-    Hash[String, String]
-    ] $tests                   = [],
+  Monit::Check::Tests $tests   = [],
   Array[String] $depends       = [],
   String $priority             = &#39;20&#39;,
   String $bundle               = $name,
@@ -328,6 +355,7 @@ define monit::check::system(
     type     =&gt; &#39;system&#39;,
     header   =&gt; template($template),
     group    =&gt; $group,
+    every    =&gt; $every,
     alerts   =&gt; $alerts,
     noalerts =&gt; $noalerts,
     tests    =&gt; $tests,

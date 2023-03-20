@@ -6,7 +6,7 @@
 <title>
   Puppet Class: monit::config
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -74,8 +74,8 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    <p>monit::config
-This class handles the configuration files.</p>
+    
+<p>monit::config This class handles the configuration files.</p>
 
   </div>
 </div>
@@ -143,7 +143,26 @@ This class handles the configuration files.</p>
 55
 56
 57
-58</pre>
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 6</span>
@@ -171,24 +190,43 @@ class monit::config {
     content =&gt; template(&#39;monit/conf_file_overrides.erb&#39;),
   }
 
-  monit::check::system {$::fqdn:
+  # System check
+  $tolerance =  $monit::system_cycles ? {
+    undef =&gt; undef,
+    default =&gt; {&#39;tolerance&#39; =&gt; {&#39;cycles&#39; =&gt; &quot;${monit::system_cycles}&quot;}},
+  }
+  $system_tests_available = [&#39;loadavg(1min)&#39;, &#39;loadavg(5min)&#39;, &#39;loadavg(15min)&#39;, &#39;cpu(user)&#39;, &#39;cpu(system)&#39;, &#39;cpu(wait)&#39;, &#39;memory&#39;, &#39;swap&#39;]
+  $system_tests = $system_tests_available.map |$test_type| {
+    # Convert loadavg(1min) to loadavg_1min
+    $param = regsubst(regsubst($test_type, &#39;\)&#39;, &#39;&#39;), &#39;\(&#39;, &#39;_&#39;)
+    $value = getvar(&quot;monit::system_${param}&quot;)
+    if ($value) {
+      $test = {
+        &#39;type&#39; =&gt; $test_type,
+        &#39;operator&#39; =&gt; &#39;&gt;&#39;,
+        &#39;value&#39; =&gt; &quot;${value}&quot;,
+      }
+      merge($test, $tolerance)
+    }
+  }.filter |$val| { $val =~ NotUndef }
+  monit::check::system {$::facts[&#39;networking&#39;][&#39;fqdn&#39;]:
     ensure   =&gt; $monit::system_check_ensure,
     priority =&gt; &#39;10&#39;,
     group    =&gt; &#39;system&#39;,
     order    =&gt; 0,
-    tests    =&gt; parseyaml(template(&#39;monit/system_test_resources.erb&#39;)),
+    tests    =&gt; $system_tests,
   }
   monit::check::filesystem { &#39;fs&#39;:
     ensure   =&gt; $monit::system_check_ensure,
     priority =&gt; &#39;10&#39;,
     group    =&gt; &#39;system&#39;,
-    bundle   =&gt; $::fqdn,
+    bundle   =&gt; $::facts[&#39;networking&#39;][&#39;fqdn&#39;],
     order    =&gt; 1,
     paths    =&gt; $monit::system_fs,
     tests    =&gt; [
       {&#39;type&#39; =&gt; &#39;fsflags&#39;},
-      {&#39;type&#39; =&gt; &#39;space&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; &#39;80%&#39;},
-      {&#39;type&#39; =&gt; &#39;inode&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; &#39;80%&#39;},
+      {&#39;type&#39; =&gt; &#39;space&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_space_usage },
+      {&#39;type&#39; =&gt; &#39;inode&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_inode_usage },
     ]
   }
 

@@ -6,7 +6,7 @@
 <title>
   Defined Type: monit::check::process
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -72,7 +72,8 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    <p>monit::check::process</p>
+    
+<p>monit::check::process</p>
 
 <p>Implement Monit&#39;s CHECK PROCESS</p>
 
@@ -96,7 +97,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Command to start the service.</p>
+        <div class='inline'>
+<p>Command to start the service.</p>
 </div>
       
     </li>
@@ -113,7 +115,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Command to stop the service.</p>
+        <div class='inline'>
+<p>Command to stop the service.</p>
 </div>
       
     </li>
@@ -130,7 +133,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Template used to generate the check file.</p>
+        <div class='inline'>
+<p>Template used to generate the check file.</p>
 </div>
       
     </li>
@@ -147,7 +151,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Path to the PID file of the service.</p>
+        <div class='inline'>
+<p>Path to the PID file of the service.</p>
 </div>
       
     </li>
@@ -164,7 +169,9 @@
       
       
         &mdash;
-        <div class='inline'><p>If the service doesn&#39;t provide a PID file, use this option to pass a regex pattern to check the process list.</p>
+        <div class='inline'>
+<p>If the service doesn&#39;t provide a PID file, use this option to pass a
+regex pattern to check the process list.</p>
 </div>
       
     </li>
@@ -181,7 +188,8 @@
       
       
         &mdash;
-        <div class='inline'><p>UID of the process.</p>
+        <div class='inline'>
+<p>UID of the process.</p>
 </div>
       
     </li>
@@ -198,7 +206,8 @@
       
       
         &mdash;
-        <div class='inline'><p>GID of the process.</p>
+        <div class='inline'>
+<p>GID of the process.</p>
 </div>
       
     </li>
@@ -215,7 +224,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Timeout on the start/stop operations.</p>
+        <div class='inline'>
+<p>Timeout on the start/stop operations.</p>
 </div>
       
     </li>
@@ -232,7 +242,9 @@
       
       
         &mdash;
-        <div class='inline'><p>Timeout on the start operation. Generic timeout will be used if not specified.</p>
+        <div class='inline'>
+<p>Timeout on the start operation. Generic timeout will be used if not
+specified.</p>
 </div>
       
     </li>
@@ -249,7 +261,27 @@
       
       
         &mdash;
-        <div class='inline'><p>Timeout on the stop operation. Generic timeout will be used if not specified.</p>
+        <div class='inline'>
+<p>Timeout on the stop operation. Generic timeout will be used if not
+specified.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>restart_limit</span>
+      
+      
+        <span class='type'>(<tt>Optional[Hash]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Used to define limits on restarts.</p>
 </div>
       
     </li>
@@ -266,7 +298,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Whether this check must be present or absent.</p>
+        <div class='inline'>
+<p>Whether this check must be present or absent.</p>
 </div>
       
     </li>
@@ -283,7 +316,26 @@
       
       
         &mdash;
-        <div class='inline'><p>Monit group.</p>
+        <div class='inline'>
+<p>Monit group.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>every</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Service poll time</p>
 </div>
       
     </li>
@@ -300,7 +352,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Alert recipients (with event filters) to set.</p>
+        <div class='inline'>
+<p>Alert recipients (with event filters) to set.</p>
 </div>
       
     </li>
@@ -317,7 +370,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Alerts to disable for this check.</p>
+        <div class='inline'>
+<p>Alerts to disable for this check.</p>
 </div>
       
     </li>
@@ -334,7 +388,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Monit tests.</p>
+        <div class='inline'>
+<p>Monit tests.</p>
 </div>
       
     </li>
@@ -351,7 +406,8 @@
       
       
         &mdash;
-        <div class='inline'><p>Dependencies of this check on other checks.</p>
+        <div class='inline'>
+<p>Dependencies of this check on other checks.</p>
 </div>
       
     </li>
@@ -368,8 +424,9 @@
       
       
         &mdash;
-        <div class='inline'><p>Used as a prefix for the filename generated. Load order doesn&#39;t matter to Monit.
-This is just a facility to organize your checks by filename.</p>
+        <div class='inline'>
+<p>Used as a prefix for the filename generated. Load order doesn&#39;t matter
+to Monit. This is just a facility to organize your checks by filename.</p>
 </div>
       
     </li>
@@ -386,7 +443,9 @@ This is just a facility to organize your checks by filename.</p>
       
       
         &mdash;
-        <div class='inline'><p>Used to group checks by filename. All checks in the same bundle will be added to the same filename.</p>
+        <div class='inline'>
+<p>Used to group checks by filename. All checks in the same bundle will be
+added to the same filename.</p>
 </div>
       
     </li>
@@ -403,7 +462,8 @@ This is just a facility to organize your checks by filename.</p>
       
       
         &mdash;
-        <div class='inline'><p>Order of the check within the bundle filename.</p>
+        <div class='inline'>
+<p>Order of the check within the bundle filename.</p>
 </div>
       
     </li>
@@ -418,10 +478,6 @@ This is just a facility to organize your checks by filename.</p>
         <pre class="lines">
 
 
-46
-47
-48
-49
 50
 51
 52
@@ -471,10 +527,18 @@ This is just a facility to organize your checks by filename.</p>
 96
 97
 98
-99</pre>
+99
+100
+101
+102
+103
+104
+105
+106
+107</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check/process.pp', line 46</span>
+        <pre class="code"><span class="info file"># File 'manifests/check/process.pp', line 50</span>
 
 define monit::check::process(
   # Check type specific.
@@ -490,15 +554,17 @@ define monit::check::process(
   Optional[Numeric] $timeout_stop         = undef,
 
   # Common parameters.
-  Monit::Check::Ensure $ensure = &#39;present&#39;,
-  String $group                = $name,
-  Array[String] $alerts        = [],
-  Array[String] $noalerts      = [],
-  Monit::Check::Tests $tests   = [],
-  Array[String] $depends       = [],
-  String $priority             = &#39;20&#39;,
-  String $bundle               = $name,
-  Integer $order               = 0,
+  Monit::Check::Ensure $ensure            = &#39;present&#39;,
+  String $group                           = $name,
+  String $every                           = &#39;&#39;,
+  Array[String] $alerts                   = [],
+  Array[String] $noalerts                 = [],
+  Monit::Check::Tests $tests              = [],
+  Array[String] $depends                  = [],
+  String $priority                        = &#39;20&#39;,
+  String $bundle                          = $name,
+  Integer $order                          = 0,
+  Optional[Hash] $restart_limit           = undef,
 ) {
 
   if $pidfile {
@@ -516,18 +582,20 @@ define monit::check::process(
   }
 
   monit::check::instance { &quot;${name}_instance&quot;:
-    ensure   =&gt; $ensure,
-    name     =&gt; $name,
-    type     =&gt; &#39;process&#39;,
-    header   =&gt; template($template),
-    group    =&gt; $group,
-    alerts   =&gt; $alerts,
-    noalerts =&gt; $noalerts,
-    tests    =&gt; $tests,
-    depends  =&gt; $depends,
-    priority =&gt; $priority,
-    bundle   =&gt; $bundle,
-    order    =&gt; $order,
+    ensure            =&gt; $ensure,
+    name              =&gt; $name,
+    type              =&gt; &#39;process&#39;,
+    header            =&gt; template($template),
+    group             =&gt; $group,
+    every             =&gt; $every,
+    alerts            =&gt; $alerts,
+    noalerts          =&gt; $noalerts,
+    tests             =&gt; $tests,
+    depends           =&gt; $depends,
+    priority          =&gt; $priority,
+    bundle            =&gt; $bundle,
+    order             =&gt; $order,
+    restart_limit     =&gt; $restart_limit,
   }
 }</pre>
       </td>
