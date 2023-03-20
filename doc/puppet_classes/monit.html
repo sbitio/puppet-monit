@@ -870,7 +870,7 @@ but the ones with a type in $monit::fs_banned_types.</p>
         <span class='type'>(<tt>Array[String]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>[&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;nsfs&#39;, &#39;overlay&#39;, &#39;portal&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;]</tt>)</em>
+        <em class="default">(defaults to: <tt>[&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;nsfs&#39;, &#39;overlay&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;]</tt>)</em>
       
       
         &mdash;
@@ -1077,7 +1077,7 @@ class monit(
   String $system_fs_space_usage             = &#39;80%&#39;,
   String $system_fs_inode_usage             = &#39;80%&#39;,
   Optional[Integer] $system_cycles          = undef,
-  Array[String] $fs_banned_types            = [&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;nsfs&#39;, &#39;overlay&#39;, &#39;portal&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;],
+  Array[String] $fs_banned_types            = [&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;nsfs&#39;, &#39;overlay&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;],
   # Additional checks.
   Hash[String, Hash] $checks                = {},
   Optional[Enum[
