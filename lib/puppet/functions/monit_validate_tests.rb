@@ -42,6 +42,7 @@ Puppet::Functions.create_function('monit_validate_tests') do
       'FSFLAGS', 'SPACE', 'INODE', 'PERM', 'PERMISSION'
     ],
     'HOST'        => ['CONNECTION'],
+    'NETWORK'     => ['LINK', 'LINK DOWN', 'LINK UP'], # See https://mmonit.com/monit/changes/#5.28.0
     'PROCESS'     => RESOURCE_TESTS + ['CONNECTION', 'UPTIME'],
     'PROGRAM'     => ['STATUS'],
     'SYSTEM'      => RESOURCE_TESTS + ['UPTIME'],
@@ -107,11 +108,11 @@ Puppet::Functions.create_function('monit_validate_tests') do
         test['condition'] = "FAILED #{test['type']} #{test['value']}"
 
       # "FAILED <type>" CONDITIONS
-      elsif ['CHECKSUM'].include? test['type']
+      elsif ['CHECKSUM', 'LINK'].include? test['type']
         test['condition'] = "FAILED #{test['type']}"
 
       # "<type>" CONDITIONS
-      elsif ['EXIST'].include? test['type']
+      elsif ['EXIST', 'LINK UP', 'LINK DOWN'].include? test['type']
         test['condition'] = test['type']
 
       # CONNECTION TESTING
