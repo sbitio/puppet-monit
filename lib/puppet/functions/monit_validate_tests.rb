@@ -89,7 +89,7 @@ Puppet::Functions.create_function('monit_validate_tests') do
         test['action'] = 'ALERT'
       end
 
-      # RESOURCE_TESTS, and other tests that share the same syntax.
+      # "<type> <operator> <value>" CONDITIONS
       if (RESOURCE_TESTS.include? test['type']) || (['SPACE', 'INODE', 'STATUS', 'UPTIME'].include? test['type'])
         raise Puppet::ParseError, exception_prefix + "'operator' is mandatory" unless test.key? 'operator'
         raise Puppet::ParseError, exception_prefix + "invalid operator: #{test['operator']}" unless RESOURCE_TESTS_OPERATORS.include? test['operator']
@@ -97,30 +97,20 @@ Puppet::Functions.create_function('monit_validate_tests') do
         test['operator'] = test['operator'].upcase
         test['condition'] = "#{test['type']} #{test['operator']} #{test['value']}"
 
-      # FILESYSTEM FLAGS TESTING
-      elsif test['type'] == 'FSFLAGS'
+      # "CHANGED <type>" CONDITIONS
+      elsif ['FSFLAGS'].include? test['type']
         test['condition'] = "CHANGED #{test['type']}"
 
-      # PERMISSION TESTING
-      elsif ['PERM', 'PERMISSION'].include? test['type']
+      # "FAILED <type> <value>" CONDITIONS
+      elsif ['PERM', 'PERMISSION', 'UID', 'GID'].include? test['type']
         raise Puppet::ParseError, exception_prefix + "'value' is mandatory" unless test.key? 'value'
         test['condition'] = "FAILED #{test['type']} #{test['value']}"
 
-      # CHECKSUM TESTING
+      # "FAILED <type>" CONDITIONS
       elsif ['CHECKSUM'].include? test['type']
         test['condition'] = "FAILED #{test['type']}"
 
-      # UID TESTING
-      elsif ['UID'].include? test['type']
-        raise Puppet::ParseError, exception_prefix + "'value' is mandatory" unless test.key? 'value'
-        test['condition'] = "FAILED #{test['type']} #{test['value']}"
-
-      # GID TESTING
-      elsif ['GID'].include? test['type']
-        raise Puppet::ParseError, exception_prefix + "'value' is mandatory" unless test.key? 'value'
-        test['condition'] = "FAILED #{test['type']} #{test['value']}"
-
-      # EXIST TESTING
+      # "<type>" CONDITIONS
       elsif ['EXIST'].include? test['type']
         test['condition'] = test['type']
 
