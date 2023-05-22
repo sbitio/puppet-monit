@@ -31,6 +31,7 @@ define monit::check(
     'file',
     'filesystem',
     'host',
+    'network',
     'process',
     'program',
     'service',

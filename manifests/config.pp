@@ -45,6 +45,8 @@ class monit::config {
       merge($test, $tolerance)
     }
   }.filter |$val| { $val =~ NotUndef }
+
+  # Filesystem checks
   monit::check::system {$::facts['networking']['fqdn']:
     ensure   => $monit::system_check_ensure,
     priority => '10',
@@ -64,6 +66,24 @@ class monit::config {
       {'type' => 'space', 'operator' => '>', 'value' => $monit::system_fs_space_usage },
       {'type' => 'inode', 'operator' => '>', 'value' => $monit::system_fs_inode_usage },
     ]
+  }
+
+  # Network checks
+  $interfaces = $monit::system_ifaces ? {
+    undef => [$::facts['networking']['primary']],
+    default => $monit::system_ifaces,
+  }
+  $interfaces.each |$key| {
+    monit::check::network {"interface_${key}":
+      interface => $key,
+      bundle    => 'network',
+      tests     => [
+        {'type' => 'link'},
+# TODO: check monit version >= 5.28.0
+#        {'type' => 'link down'},
+#        {'type' => 'link up'},
+      ]
+    }
   }
 
   # Additional checks.

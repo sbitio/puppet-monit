@@ -98,6 +98,8 @@
 #   Number of cycles before alerting.
 # @param fs_banned_types
 #   List of filesystem types to ignore in generation of $monit::system_fs.
+# @param system_ifaces
+#   Network interfaces to check. If empty, will check $facts['networking']['primary'] network interface.
 # @param checks
 #   Hash of additional checks to create.
 # @param hiera_merge_strategy
@@ -167,6 +169,7 @@ class monit(
   String $system_fs_inode_usage             = '80%',
   Optional[Integer] $system_cycles          = undef,
   Array[String] $fs_banned_types            = ['devpts', 'devtmpfs', 'hugetlbfs', 'mqueue', 'nsfs', 'overlay', 'rpc_pipefs', 'tmpfs'],
+  Optional[Array[String]] $system_ifaces    = undef,
   # Additional checks.
   Hash[String, Hash] $checks                = {},
   Optional[Enum[
