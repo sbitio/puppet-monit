@@ -882,6 +882,25 @@ but the ones with a type in $monit::fs_banned_types.</p>
   
     <li>
       
+        <span class='name'>system_ifaces</span>
+      
+      
+        <span class='type'>(<tt>Optional[Array[String]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Network interfaces to check. If empty, will check $<a
+href="'networking'">facts</a>[&#39;primary&#39;] network interface.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>checks</span>
       
       
@@ -930,8 +949,6 @@ href="https://puppet.com/docs/puppet/latest/hiera_merging.html">lookup_options</
         <pre class="lines">
 
 
-106
-107
 108
 109
 110
@@ -1009,10 +1026,13 @@ href="https://puppet.com/docs/puppet/latest/hiera_merging.html">lookup_options</
 182
 183
 184
-185</pre>
+185
+186
+187
+188</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 106</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 108</span>
 
 class monit(
   Boolean $service_enable                   = true,
@@ -1078,6 +1098,7 @@ class monit(
   String $system_fs_inode_usage             = &#39;80%&#39;,
   Optional[Integer] $system_cycles          = undef,
   Array[String] $fs_banned_types            = [&#39;devpts&#39;, &#39;devtmpfs&#39;, &#39;hugetlbfs&#39;, &#39;mqueue&#39;, &#39;nsfs&#39;, &#39;overlay&#39;, &#39;rpc_pipefs&#39;, &#39;tmpfs&#39;],
+  Optional[Array[String]] $system_ifaces    = undef,
   # Additional checks.
   Hash[String, Hash] $checks                = {},
   Optional[Enum[

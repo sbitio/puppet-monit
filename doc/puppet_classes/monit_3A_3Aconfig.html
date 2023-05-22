@@ -162,7 +162,27 @@
 74
 75
 76
-77</pre>
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 6</span>
@@ -209,6 +229,8 @@ class monit::config {
       merge($test, $tolerance)
     }
   }.filter |$val| { $val =~ NotUndef }
+
+  # Filesystem checks
   monit::check::system {$::facts[&#39;networking&#39;][&#39;fqdn&#39;]:
     ensure   =&gt; $monit::system_check_ensure,
     priority =&gt; &#39;10&#39;,
@@ -228,6 +250,24 @@ class monit::config {
       {&#39;type&#39; =&gt; &#39;space&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_space_usage },
       {&#39;type&#39; =&gt; &#39;inode&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_inode_usage },
     ]
+  }
+
+  # Network checks
+  $interfaces = $monit::system_ifaces ? {
+    undef =&gt; [$::facts[&#39;networking&#39;][&#39;primary&#39;]],
+    default =&gt; $monit::system_ifaces,
+  }
+  $interfaces.each |$key| {
+    monit::check::network {&quot;interface_${key}&quot;:
+      interface =&gt; $key,
+      bundle    =&gt; &#39;network&#39;,
+      tests     =&gt; [
+        {&#39;type&#39; =&gt; &#39;link&#39;},
+# TODO: check monit version &gt;= 5.28.0
+#        {&#39;type&#39; =&gt; &#39;link down&#39;},
+#        {&#39;type&#39; =&gt; &#39;link up&#39;},
+      ]
+    }
   }
 
   # Additional checks.
