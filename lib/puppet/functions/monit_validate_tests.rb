@@ -41,7 +41,7 @@ Puppet::Functions.create_function('monit_validate_tests') do
     'FILESYSTEM'  => [
       'FSFLAGS', 'SPACE', 'INODE', 'PERM', 'PERMISSION'
     ],
-    'HOST'        => ['CONNECTION'],
+    'HOST'        => ['CONNECTION', 'PING', 'PING4', 'PING6'],
     'NETWORK'     => ['LINK', 'LINK DOWN', 'LINK UP'], # See https://mmonit.com/monit/changes/#5.28.0
     'PROCESS'     => RESOURCE_TESTS + ['CONNECTION', 'UPTIME'],
     'PROGRAM'     => ['STATUS'],
@@ -114,6 +114,26 @@ Puppet::Functions.create_function('monit_validate_tests') do
       # "<type>" CONDITION
       elsif ['EXIST', 'LINK UP', 'LINK DOWN'].include? test['type']
         test['condition'] = test['type']
+
+      # PING[4|6] CONDITION
+      elsif ['PING', 'PING4', 'PING6'].include? test['type']
+        condition = "#{test.fetch(:condition, 'FAILED').upcase} #{test['type']}"
+        if test.key? 'count'
+          condition += " COUNT #{test['count']}"
+        end
+        if test.key? 'size'
+          condition += " SIZE #{test['size']}"
+        end
+        if test.key? 'responsetime'
+          condition += " RESPONSETIME #{test['responsetime']}"
+        end
+        if test.key? 'timeout'
+          condition += " TIMEOUT #{test['timeout']} SECONDS"
+        end
+        if test.key? 'address'
+          condition += " ADDRESS #{test['address']}"
+        end
+        test['condition'] = condition
 
       # CONNECTION CONDITION
       elsif test['type'] == 'CONNECTION'
