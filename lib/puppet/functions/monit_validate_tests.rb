@@ -41,7 +41,7 @@ Puppet::Functions.create_function('monit_validate_tests') do
     'FILESYSTEM'  => [
       'FSFLAGS', 'SPACE', 'INODE', 'PERM', 'PERMISSION'
     ],
-    'HOST'        => ['CONNECTION'],
+    'HOST'        => ['CONNECTION', 'PING', 'PING4', 'PING6'],
     'NETWORK'     => ['LINK', 'LINK DOWN', 'LINK UP'], # See https://mmonit.com/monit/changes/#5.28.0
     'PROCESS'     => RESOURCE_TESTS + ['CONNECTION', 'UPTIME'],
     'PROGRAM'     => ['STATUS'],
@@ -90,7 +90,7 @@ Puppet::Functions.create_function('monit_validate_tests') do
         test['action'] = 'ALERT'
       end
 
-      # "<type> <operator> <value>" CONDITIONS
+      # "<type> <operator> <value>" CONDITION
       if (RESOURCE_TESTS.include? test['type']) || (['SPACE', 'INODE', 'STATUS', 'UPTIME'].include? test['type'])
         raise Puppet::ParseError, exception_prefix + "'operator' is mandatory" unless test.key? 'operator'
         raise Puppet::ParseError, exception_prefix + "invalid operator: #{test['operator']}" unless RESOURCE_TESTS_OPERATORS.include? test['operator']
@@ -98,24 +98,44 @@ Puppet::Functions.create_function('monit_validate_tests') do
         test['operator'] = test['operator'].upcase
         test['condition'] = "#{test['type']} #{test['operator']} #{test['value']}"
 
-      # "CHANGED <type>" CONDITIONS
+      # "CHANGED <type>" CONDITION
       elsif ['FSFLAGS'].include? test['type']
         test['condition'] = "CHANGED #{test['type']}"
 
-      # "FAILED <type> <value>" CONDITIONS
+      # "FAILED <type> <value>" CONDITION
       elsif ['PERM', 'PERMISSION', 'UID', 'GID'].include? test['type']
         raise Puppet::ParseError, exception_prefix + "'value' is mandatory" unless test.key? 'value'
         test['condition'] = "FAILED #{test['type']} #{test['value']}"
 
-      # "FAILED <type>" CONDITIONS
+      # "FAILED <type>" CONDITION
       elsif ['CHECKSUM', 'LINK'].include? test['type']
         test['condition'] = "FAILED #{test['type']}"
 
-      # "<type>" CONDITIONS
+      # "<type>" CONDITION
       elsif ['EXIST', 'LINK UP', 'LINK DOWN'].include? test['type']
         test['condition'] = test['type']
 
-      # CONNECTION TESTING
+      # PING[4|6] CONDITION
+      elsif ['PING', 'PING4', 'PING6'].include? test['type']
+        condition = "#{test.fetch(:condition, 'FAILED').upcase} #{test['type']}"
+        if test.key? 'count'
+          condition += " COUNT #{test['count']}"
+        end
+        if test.key? 'size'
+          condition += " SIZE #{test['size']}"
+        end
+        if test.key? 'responsetime'
+          condition += " RESPONSETIME #{test['responsetime']}"
+        end
+        if test.key? 'timeout'
+          condition += " TIMEOUT #{test['timeout']} SECONDS"
+        end
+        if test.key? 'address'
+          condition += " ADDRESS #{test['address']}"
+        end
+        test['condition'] = condition
+
+      # CONNECTION CONDITION
       elsif test['type'] == 'CONNECTION'
         raise Puppet::ParseError, exception_prefix + "'port' or 'unixsocket' is mandatory" unless (test.key? 'port') || (test.key? 'unixsocket')
         condition = 'FAILED'
