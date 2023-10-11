@@ -146,6 +146,24 @@ given the default values.</p>
   
     <li>
       
+        <span class='name'>every</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Service poll time.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>tests</span>
       
       
@@ -274,8 +292,6 @@ details.</p>
         <pre class="lines">
 
 
-27
-28
 29
 30
 31
@@ -311,10 +327,14 @@ details.</p>
 61
 62
 63
-64</pre>
+64
+65
+66
+67
+68</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check.pp', line 27</span>
+        <pre class="code"><span class="info file"># File 'manifests/check.pp', line 29</span>
 
 define monit::check(
   Enum[
@@ -335,6 +355,7 @@ define monit::check(
     Variant[Array, Hash, Integer, String]
     ] $config                  = {},
   String $group                = $name,
+  String $every                = &#39;&#39;,
   Monit::Check::Tests $tests   = [],
   String $priority             = &#39;20&#39;,
   String $template             = &quot;monit/check/${type}.erb&quot;,
@@ -346,6 +367,7 @@ define monit::check(
     &#39;name&#39;       =&gt; $name,
     &#39;ensure&#39;     =&gt; $ensure,
     &#39;group&#39;      =&gt; $group,
+    &#39;every&#39;      =&gt; $every,
     &#39;tests&#39;      =&gt; $tests,
     &#39;priority&#39;   =&gt; $priority,
     &#39;bundle&#39;     =&gt; $bundle,

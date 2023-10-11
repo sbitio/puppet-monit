@@ -30,7 +30,7 @@
 # @param group
 #   Monit group.
 # @param every
-#   Service poll time
+#   Service poll time.
 # @param alerts
 #   Alert recipients (with event filters) to set.
 # @param noalerts
