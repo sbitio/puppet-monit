@@ -319,10 +319,10 @@ See Puppet Strings doc at [doc/index.html](https://github.com/sbitio/puppet-moni
 
 ## Limitations
 
-This module requires Puppet 4.x, and is compatible with the following OSes/versions:
+This module requires Puppet 4.x or above, and is compatible with the following OSes/versions:
 
  * FreeBSD
- * Debian 7, 8, 9
+ * Debian 7, 8, 9, 10, 11
  * RedHat/CentOS 7, 8
  * Ubuntu 12.04, 14.04, 16.04
 
