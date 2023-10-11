@@ -10,8 +10,6 @@
 #   Parameters for `monit::check::${type}`. Empty parameters will be given the default values.
 # @param group
 #   Monit group.
-# @param every
-#   Service poll time.
 # @param tests
 #   Monit tests.
 # @param priority
@@ -45,7 +43,6 @@ define monit::check(
     Variant[Array, Hash, Integer, String]
     ] $config                  = {},
   String $group                = $name,
-  String $every                = '',
   Monit::Check::Tests $tests   = [],
   String $priority             = '20',
   String $template             = "monit/check/${type}.erb",
@@ -57,7 +54,6 @@ define monit::check(
     'name'       => $name,
     'ensure'     => $ensure,
     'group'      => $group,
-    'every'      => $every,
     'tests'      => $tests,
     'priority'   => $priority,
     'bundle'     => $bundle,
