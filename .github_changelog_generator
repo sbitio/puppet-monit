@@ -1,3 +1,4 @@
 issues=yes
 unreleased=yes
-future-release=2.1.0
+user=sbitio
+project=puppet-monit
