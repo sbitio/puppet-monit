@@ -160,10 +160,10 @@
         <span class='name'>every</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
@@ -343,13 +343,12 @@ added to the same filename.</p>
 61
 62
 63
-64
-65</pre>
+64</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check/program.pp', line 32</span>
 
-define monit::check::program(
+define monit::check::program (
   # Check type specific.
   Stdlib::Absolutepath $path,
   String $template             = &#39;monit/check/program.erb&#39;,
@@ -357,7 +356,7 @@ define monit::check::program(
   # Common parameters.
   Monit::Check::Ensure $ensure = &#39;present&#39;,
   String $group                = $name,
-  String $every                = &#39;&#39;,
+  Optional[String] $every      = undef,
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
   Monit::Check::Tests $tests   = [],
@@ -366,7 +365,6 @@ define monit::check::program(
   String $bundle               = $name,
   Integer $order               = 0,
 ) {
-
   monit::check::instance { &quot;${name}_instance&quot;:
     ensure   =&gt; $ensure,
     name     =&gt; $name,

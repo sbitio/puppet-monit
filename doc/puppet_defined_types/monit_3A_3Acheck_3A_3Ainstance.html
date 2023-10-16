@@ -353,7 +353,7 @@ added to the same filename.</p>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check/instance.pp', line 36</span>
 
-define monit::check::instance(
+define monit::check::instance (
   Monit::Check::Ensure $ensure,
   String $type,
   String $header,
@@ -379,7 +379,7 @@ define monit::check::instance(
       /(false|&#39;false&#39;)/ =&gt; &#39;absent&#39;,
       default =&gt; $ensure,
     }
-    concat{ $file:
+    concat { $file:
       ensure         =&gt; $concat_ensure,
       warn           =&gt; true,
       ensure_newline =&gt; true,

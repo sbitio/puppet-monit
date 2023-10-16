@@ -112,7 +112,7 @@ See main class for reference.</p>
         <span class='type'>(<tt>Hash[
     String,
     Variant[Array, Hash, Integer, String]
-    ]</tt>)</span>
+  ]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>{}</tt>)</em>
@@ -140,24 +140,6 @@ given the default values.</p>
         &mdash;
         <div class='inline'>
 <p>Monit group.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>every</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Service poll time.</p>
 </div>
       
     </li>
@@ -270,7 +252,7 @@ added to the same filename.</p>
     '<span class='object_link'><a href="monit_3A_3Acheck_3A_3Aprogram.html" title="puppet_defined_types::monit::check::program (puppet_defined_type)">program</a></span>',
     '<span class='object_link'><a href="monit_3A_3Acheck_3A_3Aservice.html" title="puppet_defined_types::monit::check::service (puppet_defined_type)">service</a></span>',
     '<span class='object_link'><a href="monit_3A_3Acheck_3A_3Asystem.html" title="puppet_defined_types::monit::check::system (puppet_defined_type)">system</a></span>'
-    ]</tt>)</span>
+  ]</tt>)</span>
       
       
       
@@ -292,6 +274,8 @@ details.</p>
         <pre class="lines">
 
 
+27
+28
 29
 30
 31
@@ -326,17 +310,12 @@ details.</p>
 60
 61
 62
-63
-64
-65
-66
-67
-68</pre>
+63</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check.pp', line 29</span>
+        <pre class="code"><span class="info file"># File 'manifests/check.pp', line 27</span>
 
-define monit::check(
+define monit::check (
   Enum[
     &#39;directory&#39;,
     &#39;fifo&#39;,
@@ -348,30 +327,27 @@ define monit::check(
     &#39;program&#39;,
     &#39;service&#39;,
     &#39;system&#39;
-    ] $type,
+  ] $type,
   Monit::Check::Ensure $ensure = &#39;present&#39;,
   Hash[
     String,
     Variant[Array, Hash, Integer, String]
-    ] $config                  = {},
+  ] $config                    = {},
   String $group                = $name,
-  String $every                = &#39;&#39;,
   Monit::Check::Tests $tests   = [],
   String $priority             = &#39;20&#39;,
   String $template             = &quot;monit/check/${type}.erb&quot;,
   String $bundle               = $name,
   Integer $order               = 0,
 ) {
-
   $defaults = {
-    &#39;name&#39;       =&gt; $name,
-    &#39;ensure&#39;     =&gt; $ensure,
-    &#39;group&#39;      =&gt; $group,
-    &#39;every&#39;      =&gt; $every,
-    &#39;tests&#39;      =&gt; $tests,
-    &#39;priority&#39;   =&gt; $priority,
-    &#39;bundle&#39;     =&gt; $bundle,
-    &#39;order&#39;      =&gt; $order,
+    &#39;name&#39;     =&gt; $name,
+    &#39;ensure&#39;   =&gt; $ensure,
+    &#39;group&#39;    =&gt; $group,
+    &#39;tests&#39;    =&gt; $tests,
+    &#39;priority&#39; =&gt; $priority,
+    &#39;bundle&#39;   =&gt; $bundle,
+    &#39;order&#39;    =&gt; $order,
   }
   $params = merge($config, $defaults)
   ensure_resource(&quot;monit::check::${type}&quot;, &quot;${name}_${type}&quot;, $params)

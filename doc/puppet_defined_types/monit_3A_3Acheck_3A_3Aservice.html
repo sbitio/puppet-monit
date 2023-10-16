@@ -132,7 +132,7 @@ See <code>monit::check</code> for details.</p>
     'sysv',
     'systemd',
     'upstart'
-    ]</tt>)</span>
+  ]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>$monit::init_system</tt>)</em>
@@ -426,10 +426,10 @@ specified.</p>
         <span class='name'>every</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
@@ -676,13 +676,12 @@ added to the same filename.</p>
 157
 158
 159
-160
-161</pre>
+160</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check/service.pp', line 61</span>
 
-define monit::check::service(
+define monit::check::service (
   # Check type specific.
   Undef $template                              = undef,
   Stdlib::Absolutepath $binary                 = &quot;/usr/sbin/${name}&quot;,
@@ -690,7 +689,7 @@ define monit::check::service(
     &#39;sysv&#39;,
     &#39;systemd&#39;,
     &#39;upstart&#39;
-    ] $init_system                             = $monit::init_system,
+  ] $init_system                               = $monit::init_system,
   Stdlib::Absolutepath $sysv_file              = &quot;/etc/init.d/${name}&quot;,
   Stdlib::Absolutepath $upstart_file           = &quot;/etc/init/${name}.conf&quot;,
   Stdlib::Absolutepath $systemd_file           = &quot;${monit::params::systemd_unitdir}/${name}.service&quot;,
@@ -709,7 +708,7 @@ define monit::check::service(
   # Common parameters.
   Monit::Check::Ensure $ensure                 = &#39;present&#39;,
   String $group                                = $name,
-  String $every                                = &#39;&#39;,
+  Optional[String] $every                      = undef,
   Array[String] $alerts                        = [],
   Array[String] $noalerts                      = [],
   Monit::Check::Tests $tests                   = [],
@@ -719,7 +718,6 @@ define monit::check::service(
   Integer $order                               = 0,
   Optional[Monit::RestartLimit] $restart_limit = undef,
 ) {
-
   case $init_system {
     &#39;sysv&#39;: {
       $service_file = $sysv_file

@@ -109,8 +109,8 @@
       
       
         <span class='type'>(<tt>Optional[Variant[
-    Stdlib::Absolutepath,
-    Pattern['^/']
+      Stdlib::Absolutepath,
+      Pattern['^/']
   ]]</tt>)</span>
       
       
@@ -132,7 +132,7 @@
         <span class='type'>(<tt>Variant[
     Array[Stdlib::Absolutepath],
     Array[Pattern['^/']]
-    ]</tt>)</span>
+  ]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
@@ -187,10 +187,10 @@ filesystems, but the ones with a type in $monit::fs_banned_types.</p>
         <span class='name'>every</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
@@ -393,28 +393,27 @@ added to the same filename.</p>
 87
 88
 89
-90
-91</pre>
+90</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check/filesystem.pp', line 35</span>
 
-define monit::check::filesystem(
+define monit::check::filesystem (
   # Check type specific.
   String $template             = &#39;monit/check/filesystem.erb&#39;,
   Optional[Variant[
-    Stdlib::Absolutepath,
-    Pattern[&#39;^/&#39;]
+      Stdlib::Absolutepath,
+      Pattern[&#39;^/&#39;]
   ]] $path                     = undef,
   Variant[
     Array[Stdlib::Absolutepath],
     Array[Pattern[&#39;^/&#39;]]
-    ] $paths                   = [],
+  ] $paths                     = [],
 
   # Common parameters.
   Monit::Check::Ensure $ensure = &#39;present&#39;,
   String $group                = $name,
-  String $every                = &#39;&#39;,
+  Optional[String] $every      = undef,
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
   Monit::Check::Tests $tests   = [],
@@ -423,7 +422,6 @@ define monit::check::filesystem(
   String $bundle               = $name,
   Integer $order               = 0,
 ) {
-
   if !empty($path) {
     warning(&#39;\$path parameter is deprecated and will be removed in future versions! Please use \$paths instead&#39;)
     $_paths = $paths + $path

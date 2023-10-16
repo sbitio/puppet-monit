@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Defined Type: monit::check::host
+  Defined Type: monit::check::network
   
     &mdash; Documentation by YARD 0.9.20
   
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  pathId = "puppet_defined_types::monit::check::host";
+  pathId = "puppet_defined_types::monit::check::network";
   relpath = '../';
 </script>
 
@@ -39,7 +39,7 @@
     <a href="../_index.html">Index (m)</a> &raquo;
     <span class='title'><span class='object_link'>Defined Types</span></span>
      &raquo; 
-    <span class="title">monit::check::host</span>
+    <span class="title">monit::check::network</span>
   
 </div>
 
@@ -59,12 +59,12 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><h1>Defined Type: monit::check::host</h1>
+      <div id="content"><h1>Defined Type: monit::check::network</h1>
 <div class="box_info">
   <dl>
     <dt>Defined in:</dt>
     <dd>
-      manifests/check/host.pp
+      manifests/check/network.pp
     </dd>
   </dl>
 </div>
@@ -73,9 +73,9 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>monit::check::host</p>
+<p>monit::check::network</p>
 
-<p>Implement Monit&#39;s CHECK HOST</p>
+<p>Implement Monit&#39;s CHECK NETWORK</p>
 
   </div>
 </div>
@@ -87,7 +87,7 @@
   
     <li>
       
-        <span class='name'>address</span>
+        <span class='name'>interface</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -96,7 +96,7 @@
       
         &mdash;
         <div class='inline'>
-<p>Hostname or ip address of the host to check.</p>
+<p>Network interface to check.</p>
 </div>
       
     </li>
@@ -109,7 +109,7 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;monit/check/host.erb&#39;</tt>)</em>
+        <em class="default">(defaults to: <tt>&#39;monit/check/network.erb&#39;</tt>)</em>
       
       
         &mdash;
@@ -343,22 +343,15 @@ added to the same filename.</p>
 61
 62
 63
-64
-65
-66
-67
-68
-69
-70
-71</pre>
+64</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/check/host.pp', line 32</span>
+        <pre class="code"><span class="info file"># File 'manifests/check/network.pp', line 32</span>
 
-define monit::check::host (
+define monit::check::network (
   # Check type specific.
-  String $address,
-  String $template             = &#39;monit/check/host.erb&#39;,
+  String $interface,
+  String $template             = &#39;monit/check/network.erb&#39;,
 
   # Common parameters.
   Monit::Check::Ensure $ensure = &#39;present&#39;,
@@ -372,17 +365,10 @@ define monit::check::host (
   String $bundle               = $name,
   Integer $order               = 0,
 ) {
-  #@todo@ match regex for hostname and ip address
-  #Could leverage thrnio/puppet-ip
-  # Any solution is overkill as of today.
-  #if !is_domain_name($address) and !is_ip_address($address) {
-  # fail(&quot;Invalid domain name or ip address &#39;${address}&#39;.&quot;)
-  #}
-
   monit::check::instance { &quot;${name}_instance&quot;:
     ensure   =&gt; $ensure,
     name     =&gt; $name,
-    type     =&gt; &#39;host&#39;,
+    type     =&gt; &#39;network&#39;,
     header   =&gt; template($template),
     group    =&gt; $group,
     every    =&gt; $every,

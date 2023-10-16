@@ -174,14 +174,12 @@
 77
 78
 79
-80
-81</pre>
+80</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/params.pp', line 6</span>
 
 class monit::params {
-
   # $caller_module_name is empty when inherited?
   #iif $caller_module_name != $module_name {
   #  warning(&quot;${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.&quot;)
@@ -193,7 +191,7 @@ class monit::params {
   $check_interval    = 120
   $check_start_delay = 240
 
-  case $::facts[&#39;os&#39;][&#39;family&#39;] {
+  case $facts[&#39;os&#39;][&#39;family&#39;] {
     &#39;Debian&#39;: {
       $conf_file  = &#39;/etc/monit/monitrc&#39;
       $conf_dir   = &#39;/etc/monit/conf.d&#39;
@@ -203,9 +201,9 @@ class monit::params {
       $eventqueue = true
 
       $service_program = &#39;/usr/sbin/service&#39;
-      case $::facts[&#39;os&#39;][&#39;name&#39;] {
+      case $facts[&#39;os&#39;][&#39;name&#39;] {
         &#39;Debian&#39;: {
-          if versioncmp($::facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;8&#39;) &lt; 0 {
+          if versioncmp($facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;8&#39;) &lt; 0 {
             $init_system = &#39;sysv&#39;
           }
           else {
@@ -217,8 +215,8 @@ class monit::params {
           $init_system = &#39;upstart&#39;
         }
         default: {
-          fail(&quot;Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
-          module ${module_name} only support operatingsystem Debian and Ubuntu on osfamily Debian&quot;)
+          fail(&quot;Unsupported os family: ${facts[&#39;os&#39;][&#39;family&#39;]} operatingsystem: ${facts[&#39;os&#39;][&#39;name&#39;]}, \
+          module ${module_name} only support operatingsystem Debian and Ubuntu on os family Debian&quot;)
         }
       }
     }
@@ -242,7 +240,7 @@ class monit::params {
       $eventqueue = false
 
       $service_program = &#39;/sbin/service&#39;
-      if versioncmp($::facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;7&#39;) &lt; 0 {
+      if versioncmp($facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;7&#39;) &lt; 0 {
         $init_system = &#39;sysv&#39;
       }
       else {
@@ -251,8 +249,8 @@ class monit::params {
       }
     }
     default: {
-      fail(&quot;Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
-      module ${module_name} only support osfamily Debian and RedHat&quot;)
+      fail(&quot;Unsupported os family: ${facts[&#39;os&#39;][&#39;family&#39;]} operatingsystem: ${facts[&#39;os&#39;][&#39;name&#39;]}, \
+      module ${module_name} only support os family Debian and RedHat&quot;)
     }
   }
 }</pre>

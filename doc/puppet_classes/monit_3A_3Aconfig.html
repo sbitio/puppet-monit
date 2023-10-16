@@ -182,20 +182,22 @@
 94
 95
 96
-97</pre>
+97
+98
+99
+100</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 6</span>
 
 class monit::config {
-
   if $caller_module_name != $module_name {
     warning(&quot;${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.&quot;)
   }
 
   # Monit conf file and directory.
   file { $monit::conf_file:
-    ensure  =&gt; present,
+    ensure  =&gt; file,
     mode    =&gt; &#39;0600&#39;,
     content =&gt; template(&#39;monit/conf_file.erb&#39;),
   }
@@ -206,14 +208,18 @@ class monit::config {
   }
 
   file { &quot;${monit::conf_dir}/00_monit_config&quot;:
-    ensure  =&gt; present,
+    ensure  =&gt; file,
     content =&gt; template(&#39;monit/conf_file_overrides.erb&#39;),
   }
 
   # System check
   $tolerance =  $monit::system_cycles ? {
     undef =&gt; undef,
-    default =&gt; {&#39;tolerance&#39; =&gt; {&#39;cycles&#39; =&gt; &quot;${monit::system_cycles}&quot;}},
+    default =&gt; {
+      tolerance =&gt; {
+        cycles =&gt; $monit::system_cycles,
+      },
+    },
   }
   $system_tests_available = [&#39;loadavg(1min)&#39;, &#39;loadavg(5min)&#39;, &#39;loadavg(15min)&#39;, &#39;cpu(user)&#39;, &#39;cpu(system)&#39;, &#39;cpu(wait)&#39;, &#39;memory&#39;, &#39;swap&#39;]
   $system_tests = $system_tests_available.map |$test_type| {
@@ -224,14 +230,14 @@ class monit::config {
       $test = {
         &#39;type&#39; =&gt; $test_type,
         &#39;operator&#39; =&gt; &#39;&gt;&#39;,
-        &#39;value&#39; =&gt; &quot;${value}&quot;,
+        &#39;value&#39; =&gt; $value,
       }
       merge($test, $tolerance)
     }
   }.filter |$val| { $val =~ NotUndef }
 
   # Filesystem checks
-  monit::check::system {$::facts[&#39;networking&#39;][&#39;fqdn&#39;]:
+  monit::check::system { $::facts[&#39;networking&#39;][&#39;fqdn&#39;]:
     ensure   =&gt; $monit::system_check_ensure,
     priority =&gt; &#39;10&#39;,
     group    =&gt; &#39;system&#39;,
@@ -246,10 +252,10 @@ class monit::config {
     order    =&gt; 1,
     paths    =&gt; $monit::system_fs,
     tests    =&gt; [
-      {&#39;type&#39; =&gt; &#39;fsflags&#39;},
-      {&#39;type&#39; =&gt; &#39;space&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_space_usage },
-      {&#39;type&#39; =&gt; &#39;inode&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_inode_usage },
-    ]
+      { &#39;type&#39; =&gt; &#39;fsflags&#39; },
+      { &#39;type&#39; =&gt; &#39;space&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_space_usage },
+      { &#39;type&#39; =&gt; &#39;inode&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_inode_usage },
+    ],
   }
 
   # Network checks
@@ -258,15 +264,15 @@ class monit::config {
     default =&gt; $monit::system_ifaces,
   }
   $interfaces.each |$key| {
-    monit::check::network {&quot;interface_${key}&quot;:
+    monit::check::network { &quot;interface_${key}&quot;:
       interface =&gt; $key,
       bundle    =&gt; &#39;network&#39;,
       tests     =&gt; [
-        {&#39;type&#39; =&gt; &#39;link&#39;},
+        { &#39;type&#39; =&gt; &#39;link&#39; },
 # TODO: check monit version &gt;= 5.28.0
-#        {&#39;type&#39; =&gt; &#39;link down&#39;},
-#        {&#39;type&#39; =&gt; &#39;link up&#39;},
-      ]
+#        { &#39;type&#39; =&gt; &#39;link down&#39; },
+#        { &#39;type&#39; =&gt; &#39;link up&#39; },
+      ],
     }
   }
 

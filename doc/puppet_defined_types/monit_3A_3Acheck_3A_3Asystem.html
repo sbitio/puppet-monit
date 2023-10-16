@@ -144,10 +144,10 @@
         <span class='name'>every</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
@@ -326,20 +326,19 @@ added to the same filename.</p>
 58
 59
 60
-61
-62</pre>
+61</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check/system.pp', line 30</span>
 
-define monit::check::system(
+define monit::check::system (
   # Check type specific.
   String $template  = &#39;monit/check/system.erb&#39;,
 
   # Common parameters.
   Monit::Check::Ensure $ensure = &#39;present&#39;,
   String $group                = $name,
-  String $every                = &#39;&#39;,
+  Optional[String] $every      = undef,
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
   Monit::Check::Tests $tests   = [],
@@ -348,7 +347,6 @@ define monit::check::system(
   String $bundle               = $name,
   Integer $order               = 0,
 ) {
-
   monit::check::instance { &quot;${name}_instance&quot;:
     ensure   =&gt; $ensure,
     name     =&gt; $name,

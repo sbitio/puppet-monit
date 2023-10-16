@@ -327,10 +327,10 @@ specified.</p>
         <span class='name'>every</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
@@ -534,13 +534,12 @@ added to the same filename.</p>
 103
 104
 105
-106
-107</pre>
+106</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/check/process.pp', line 50</span>
 
-define monit::check::process(
+define monit::check::process (
   # Check type specific.
   Optional[String] $program_start         = undef,
   Optional[String] $program_stop          = undef,
@@ -556,7 +555,7 @@ define monit::check::process(
   # Common parameters.
   Monit::Check::Ensure $ensure            = &#39;present&#39;,
   String $group                           = $name,
-  String $every                           = &#39;&#39;,
+  Optional[String] $every                 = undef,
   Array[String] $alerts                   = [],
   Array[String] $noalerts                 = [],
   Monit::Check::Tests $tests              = [],
@@ -566,7 +565,6 @@ define monit::check::process(
   Integer $order                          = 0,
   Optional[Hash] $restart_limit           = undef,
 ) {
-
   if $pidfile {
     if $matching {
       warning(&quot;monit::check::process: both &#39;pidfile&#39; and &#39;matching&#39; provided. Ignoring &#39;matching&#39;.&quot;)
@@ -582,20 +580,20 @@ define monit::check::process(
   }
 
   monit::check::instance { &quot;${name}_instance&quot;:
-    ensure            =&gt; $ensure,
-    name              =&gt; $name,
-    type              =&gt; &#39;process&#39;,
-    header            =&gt; template($template),
-    group             =&gt; $group,
-    every             =&gt; $every,
-    alerts            =&gt; $alerts,
-    noalerts          =&gt; $noalerts,
-    tests             =&gt; $tests,
-    depends           =&gt; $depends,
-    priority          =&gt; $priority,
-    bundle            =&gt; $bundle,
-    order             =&gt; $order,
-    restart_limit     =&gt; $restart_limit,
+    ensure        =&gt; $ensure,
+    name          =&gt; $name,
+    type          =&gt; &#39;process&#39;,
+    header        =&gt; template($template),
+    group         =&gt; $group,
+    every         =&gt; $every,
+    alerts        =&gt; $alerts,
+    noalerts      =&gt; $noalerts,
+    tests         =&gt; $tests,
+    depends       =&gt; $depends,
+    priority      =&gt; $priority,
+    bundle        =&gt; $bundle,
+    order         =&gt; $order,
+    restart_limit =&gt; $restart_limit,
   }
 }</pre>
       </td>

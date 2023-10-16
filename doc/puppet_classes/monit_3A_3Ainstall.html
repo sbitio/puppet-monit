@@ -99,14 +99,12 @@
 11
 12
 13
-14
-15</pre>
+14</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/install.pp', line 6</span>
 
 class monit::install {
-
   if $caller_module_name != $module_name {
     warning(&quot;${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.&quot;)
   }

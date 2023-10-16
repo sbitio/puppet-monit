@@ -133,7 +133,7 @@ parameters starting with <code>system_</code>.</p>
         <span class='type'>(<tt>Enum[
     'running',
     'stopped'
-    ]</tt>)</span>
+  ]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;running&#39;</tt>)</em>
@@ -244,7 +244,7 @@ parameters starting with <code>system_</code>.</p>
         <span class='type'>(<tt>Variant[
     Stdlib::Absolutepath,
     Pattern['^syslog( facility [_a-zA-Z0-9]+)?$']
-    ]</tt>)</span>
+  ]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>$monit::params::logfile</tt>)</em>
@@ -391,7 +391,7 @@ parameters starting with <code>system_</code>.</p>
         <span class='type'>(<tt>String</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&quot;monit@${::fqdn}&quot;</tt>)</em>
+        <em class="default">(defaults to: <tt>&quot;monit@${facts[&#39;networking&#39;][&#39;fqdn&#39;]}&quot;</tt>)</em>
       
       
         &mdash;
@@ -553,7 +553,7 @@ since Monit 5.</p>
       
         <span class='type'>(<tt>Optional[
     Stdlib::Absolutepath
-    ]</tt>)</span>
+  ]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>undef</tt>)</em>
@@ -574,7 +574,7 @@ since Monit 5.</p>
         <span class='type'>(<tt>Array[String]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>[ &#39;localhost&#39; ]</tt>)</em>
+        <em class="default">(defaults to: <tt>[&#39;localhost&#39;]</tt>)</em>
       
       
         &mdash;
@@ -593,7 +593,7 @@ since Monit 5.</p>
     'sysv',
     'systemd',
     'upstart'
-    ]</tt>)</span>
+  ]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>$monit::params::init_system</tt>)</em>
@@ -794,7 +794,7 @@ since Monit 5.</p>
         <span class='type'>(<tt>Variant[
     Array[Stdlib::Absolutepath],
     Array[Pattern['^/']]
-    ]</tt>)</span>
+  ]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
@@ -923,8 +923,8 @@ href="'networking'">facts</a>[&#39;primary&#39;] network interface.</p>
       
       
         <span class='type'>(<tt>Optional[Enum[
-    'hiera_hash'
-    ]]</tt>)</span>
+      'hiera_hash',
+  ]]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>undef</tt>)</em>
@@ -1027,19 +1027,17 @@ href="https://puppet.com/docs/puppet/latest/hiera_merging.html">lookup_options</
 183
 184
 185
-186
-187
-188</pre>
+186</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/init.pp', line 108</span>
 
-class monit(
+class monit (
   Boolean $service_enable                   = true,
   Enum[
     &#39;running&#39;,
     &#39;stopped&#39;
-    ] $service_ensure                       = &#39;running&#39;,
+  ] $service_ensure                         = &#39;running&#39;,
   Stdlib::Absolutepath $conf_file           = $monit::params::conf_file,
   Stdlib::Absolutepath $conf_dir            = $monit::params::conf_dir,
   Boolean $conf_purge                       = true,
@@ -1050,7 +1048,7 @@ class monit(
   Variant[
     Stdlib::Absolutepath,
     Pattern[&#39;^syslog( facility [_a-zA-Z0-9]+)?$&#39;]
-    ] $logfile                              = $monit::params::logfile,
+  ] $logfile                                = $monit::params::logfile,
   Optional[Stdlib::Absolutepath] $idfile    = $monit::params::idfile,
   Optional[Stdlib::Absolutepath] $statefile = $monit::params::statefile,
   Boolean $eventqueue                       = $monit::params::eventqueue,
@@ -1058,7 +1056,7 @@ class monit(
   Integer $eventqueue_slots                 = 100,
   Optional[Stdlib::Httpurl] $mmonit_url     = undef,
   Optional[String] $mailserver              = undef,
-  String $mailformat_from                   = &quot;monit@${::fqdn}&quot;,
+  String $mailformat_from                   = &quot;monit@${facts[&#39;networking&#39;][&#39;fqdn&#39;]}&quot;,
   # NOTE: reply-to available since monit 5.2
   Optional[String] $mailformat_replyto      = undef,
   Optional[String] $mailformat_subject      = undef,
@@ -1070,14 +1068,14 @@ class monit(
   Boolean $httpserver_ssl                   = false,
   Optional[
     Stdlib::Absolutepath
-    ] $httpserver_pemfile                   = undef,
-  Array[String] $httpserver_allow           = [ &#39;localhost&#39; ],
+  ] $httpserver_pemfile                     = undef,
+  Array[String] $httpserver_allow           = [&#39;localhost&#39;],
   # Init system defaults.
   Enum[
     &#39;sysv&#39;,
     &#39;systemd&#39;,
     &#39;upstart&#39;
-    ] $init_system                         = $monit::params::init_system,
+  ] $init_system                           = $monit::params::init_system,
   Stdlib::Absolutepath $service_program    = $monit::params::service_program,
   # System resources check.
   Monit::Check::Ensure $system_check_ensure = &#39;present&#39;,
@@ -1093,7 +1091,7 @@ class monit(
   Variant[
     Array[Stdlib::Absolutepath],
     Array[Pattern[&#39;^/&#39;]]
-    ] $system_fs                            = [],
+  ] $system_fs                              = [],
   String $system_fs_space_usage             = &#39;80%&#39;,
   String $system_fs_inode_usage             = &#39;80%&#39;,
   Optional[Integer] $system_cycles          = undef,
@@ -1102,18 +1100,16 @@ class monit(
   # Additional checks.
   Hash[String, Hash] $checks                = {},
   Optional[Enum[
-    &#39;hiera_hash&#39;
-    ]] $hiera_merge_strategy                = undef,
+      &#39;hiera_hash&#39;,
+  ]] $hiera_merge_strategy                  = undef,
 ) inherits monit::params {
-
   if !empty($hiera_merge_strategy) {
     warning(&#39;\$hiera_merge_strategy parameter is deprecated and will be removed in future versions! Please use Hiera 5 `lookup_options` instead. See https://puppet.com/docs/puppet/latest/hiera_merging.html&#39;)
   }
-  class{&#39;monit::install&#39;: }
-  -&gt; class{&#39;monit::config&#39;: }
-  ~&gt; class{&#39;monit::service&#39;: }
+  class { &#39;monit::install&#39;: }
+  -&gt; class { &#39;monit::config&#39;: }
+  ~&gt; class { &#39;monit::service&#39;: }
   -&gt; Class[&#39;monit&#39;]
-
 }</pre>
       </td>
     </tr>
