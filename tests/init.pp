@@ -1,1 +1,1 @@
-include '::monit'
+include 'monit'

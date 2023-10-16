@@ -1,4 +1,4 @@
-class { '::monit':
+class { 'monit':
   system_cpu_wait       => '40%',
   system_memory         => '84%',
   system_loadavg_1min   => 14,

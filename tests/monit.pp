@@ -1,4 +1,4 @@
-class { '::monit':
+class { 'monit':
   check_interval    => 60,
   check_start_delay => 120,
   mailserver        => 'localhost',

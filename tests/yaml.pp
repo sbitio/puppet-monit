@@ -123,7 +123,6 @@ $yaml = @("YAML")
 
 $checks = parseyaml($yaml)
 
-class { '::monit':
+class { 'monit':
   checks => $checks,
 }
-

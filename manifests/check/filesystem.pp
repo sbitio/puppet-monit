@@ -32,22 +32,22 @@
 # @param order
 #   Order of the check within the bundle filename.
 #
-define monit::check::filesystem(
+define monit::check::filesystem (
   # Check type specific.
   String $template             = 'monit/check/filesystem.erb',
   Optional[Variant[
-    Stdlib::Absolutepath,
-    Pattern['^/']
+      Stdlib::Absolutepath,
+      Pattern['^/']
   ]] $path                     = undef,
   Variant[
     Array[Stdlib::Absolutepath],
     Array[Pattern['^/']]
-    ] $paths                   = [],
+  ] $paths                     = [],
 
   # Common parameters.
   Monit::Check::Ensure $ensure = 'present',
   String $group                = $name,
-  String $every                = '',
+  Optional[String] $every      = undef,
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
   Monit::Check::Tests $tests   = [],
@@ -56,7 +56,6 @@ define monit::check::filesystem(
   String $bundle               = $name,
   Integer $order               = 0,
 ) {
-
   if !empty($path) {
     warning('\$path parameter is deprecated and will be removed in future versions! Please use \$paths instead')
     $_paths = $paths + $path

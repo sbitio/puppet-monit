@@ -1,4 +1,4 @@
-class { '::monit':
+class { 'monit':
   checks => {
     'sshd' => {
       'type'   => 'service',
@@ -17,5 +17,5 @@ class { '::monit':
         },
       ],
     },
-  }
+  },
 }

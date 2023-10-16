@@ -29,7 +29,7 @@
 # @param order
 #   Order of the check within the bundle filename.
 #
-define monit::check::host(
+define monit::check::host (
   # Check type specific.
   String $address,
   String $template             = 'monit/check/host.erb',
@@ -37,7 +37,7 @@ define monit::check::host(
   # Common parameters.
   Monit::Check::Ensure $ensure = 'present',
   String $group                = $name,
-  String $every                = '',
+  Optional[String] $every      = undef,
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
   Monit::Check::Tests $tests   = [],
@@ -46,7 +46,6 @@ define monit::check::host(
   String $bundle               = $name,
   Integer $order               = 0,
 ) {
-
   #@todo@ match regex for hostname and ip address
   #Could leverage thrnio/puppet-ip
   # Any solution is overkill as of today.

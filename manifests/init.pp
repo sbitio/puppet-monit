@@ -105,12 +105,12 @@
 # @param hiera_merge_strategy
 #   Merge strategy when obtaining checks from Hiera. **Deprecated** use instead hiera 5 [`lookup_options`](https://puppet.com/docs/puppet/latest/hiera_merging.html).
 #
-class monit(
+class monit (
   Boolean $service_enable                   = true,
   Enum[
     'running',
     'stopped'
-    ] $service_ensure                       = 'running',
+  ] $service_ensure                         = 'running',
   Stdlib::Absolutepath $conf_file           = $monit::params::conf_file,
   Stdlib::Absolutepath $conf_dir            = $monit::params::conf_dir,
   Boolean $conf_purge                       = true,
@@ -121,7 +121,7 @@ class monit(
   Variant[
     Stdlib::Absolutepath,
     Pattern['^syslog( facility [_a-zA-Z0-9]+)?$']
-    ] $logfile                              = $monit::params::logfile,
+  ] $logfile                                = $monit::params::logfile,
   Optional[Stdlib::Absolutepath] $idfile    = $monit::params::idfile,
   Optional[Stdlib::Absolutepath] $statefile = $monit::params::statefile,
   Boolean $eventqueue                       = $monit::params::eventqueue,
@@ -129,7 +129,7 @@ class monit(
   Integer $eventqueue_slots                 = 100,
   Optional[Stdlib::Httpurl] $mmonit_url     = undef,
   Optional[String] $mailserver              = undef,
-  String $mailformat_from                   = "monit@${::fqdn}",
+  String $mailformat_from                   = "monit@${facts['networking']['fqdn']}",
   # NOTE: reply-to available since monit 5.2
   Optional[String] $mailformat_replyto      = undef,
   Optional[String] $mailformat_subject      = undef,
@@ -141,14 +141,14 @@ class monit(
   Boolean $httpserver_ssl                   = false,
   Optional[
     Stdlib::Absolutepath
-    ] $httpserver_pemfile                   = undef,
-  Array[String] $httpserver_allow           = [ 'localhost' ],
+  ] $httpserver_pemfile                     = undef,
+  Array[String] $httpserver_allow           = ['localhost'],
   # Init system defaults.
   Enum[
     'sysv',
     'systemd',
     'upstart'
-    ] $init_system                         = $monit::params::init_system,
+  ] $init_system                           = $monit::params::init_system,
   Stdlib::Absolutepath $service_program    = $monit::params::service_program,
   # System resources check.
   Monit::Check::Ensure $system_check_ensure = 'present',
@@ -164,7 +164,7 @@ class monit(
   Variant[
     Array[Stdlib::Absolutepath],
     Array[Pattern['^/']]
-    ] $system_fs                            = [],
+  ] $system_fs                              = [],
   String $system_fs_space_usage             = '80%',
   String $system_fs_inode_usage             = '80%',
   Optional[Integer] $system_cycles          = undef,
@@ -173,16 +173,14 @@ class monit(
   # Additional checks.
   Hash[String, Hash] $checks                = {},
   Optional[Enum[
-    'hiera_hash'
-    ]] $hiera_merge_strategy                = undef,
+      'hiera_hash',
+  ]] $hiera_merge_strategy                  = undef,
 ) inherits monit::params {
-
   if !empty($hiera_merge_strategy) {
     warning('\$hiera_merge_strategy parameter is deprecated and will be removed in future versions! Please use Hiera 5 `lookup_options` instead. See https://puppet.com/docs/puppet/latest/hiera_merging.html')
   }
-  class{'monit::install': }
-  -> class{'monit::config': }
-  ~> class{'monit::service': }
+  class { 'monit::install': }
+  -> class { 'monit::config': }
+  ~> class { 'monit::service': }
   -> Class['monit']
-
 }

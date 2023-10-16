@@ -29,7 +29,7 @@
 # @param order
 #   Order of the check within the bundle filename.
 #
-define monit::check::directory(
+define monit::check::directory (
   # Check type specific.
   Stdlib::Absolutepath $path,
   String $template             = 'monit/check/directory.erb',
@@ -37,7 +37,7 @@ define monit::check::directory(
   # Common parameters.
   Monit::Check::Ensure $ensure = 'present',
   String $group                = $name,
-  String $every                = '',
+  Optional[String] $every      = undef,
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
   Monit::Check::Tests $tests   = [],
@@ -46,7 +46,6 @@ define monit::check::directory(
   String $bundle               = $name,
   Integer $order               = 0,
 ) {
-
   monit::check::instance { "${name}_instance":
     ensure   => $ensure,
     name     => $name,

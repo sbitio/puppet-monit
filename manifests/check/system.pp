@@ -27,14 +27,14 @@
 # @param order
 #   Order of the check within the bundle filename.
 #
-define monit::check::system(
+define monit::check::system (
   # Check type specific.
   String $template  = 'monit/check/system.erb',
 
   # Common parameters.
   Monit::Check::Ensure $ensure = 'present',
   String $group                = $name,
-  String $every                = '',
+  Optional[String] $every      = undef,
   Array[String] $alerts        = [],
   Array[String] $noalerts      = [],
   Monit::Check::Tests $tests   = [],
@@ -43,7 +43,6 @@ define monit::check::system(
   String $bundle               = $name,
   Integer $order               = 0,
 ) {
-
   monit::check::instance { "${name}_instance":
     ensure   => $ensure,
     name     => $name,

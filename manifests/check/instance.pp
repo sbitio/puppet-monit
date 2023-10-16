@@ -33,7 +33,7 @@
 # @param restart_limit
 #   Used to define limits on restarts.
 #
-define monit::check::instance(
+define monit::check::instance (
   Monit::Check::Ensure $ensure,
   String $type,
   String $header,
@@ -59,7 +59,7 @@ define monit::check::instance(
       /(false|'false')/ => 'absent',
       default => $ensure,
     }
-    concat{ $file:
+    concat { $file:
       ensure         => $concat_ensure,
       warn           => true,
       ensure_newline => true,

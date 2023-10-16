@@ -1,4 +1,4 @@
-include '::monit'
+include 'monit'
 
 monit::check { 'check':
   type => 'system',
@@ -29,10 +29,10 @@ monit::check::file { 'file':
 monit::check::filesystem { '/':
   path  => '/',
   tests => [
-    {'type' => 'fsflags'},
-    {'type' => 'permission', 'value' => '0755'},
-    {'type' => 'space', 'operator' => '>', 'value' => '80%'},
-  ]
+    { 'type' => 'fsflags' },
+    { 'type' => 'permission', 'value' => '0755' },
+    { 'type' => 'space', 'operator' => '>', 'value' => '80%' },
+  ],
 }
 monit::check::host { 'localhost':
   address => '127.0.0.1',

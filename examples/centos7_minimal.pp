@@ -11,13 +11,11 @@
 # Anything else should be defined with hiera.
 
 node default {
-
   # Provided by stahnma-epel
-  include ::epel
+  include epel
 
-  include ::monit
+  include monit
   # Set precedence. Cannot do just Class['monit']
   # because the way module is constructed.
   Class['epel'] -> Class['monit::install']
-
 }

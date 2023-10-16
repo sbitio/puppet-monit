@@ -47,7 +47,7 @@
 # @param order
 #   Order of the check within the bundle filename.
 #
-define monit::check::process(
+define monit::check::process (
   # Check type specific.
   Optional[String] $program_start         = undef,
   Optional[String] $program_stop          = undef,
@@ -63,7 +63,7 @@ define monit::check::process(
   # Common parameters.
   Monit::Check::Ensure $ensure            = 'present',
   String $group                           = $name,
-  String $every                           = '',
+  Optional[String] $every                 = undef,
   Array[String] $alerts                   = [],
   Array[String] $noalerts                 = [],
   Monit::Check::Tests $tests              = [],
@@ -73,7 +73,6 @@ define monit::check::process(
   Integer $order                          = 0,
   Optional[Hash] $restart_limit           = undef,
 ) {
-
   if $pidfile {
     if $matching {
       warning("monit::check::process: both 'pidfile' and 'matching' provided. Ignoring 'matching'.")
@@ -89,19 +88,19 @@ define monit::check::process(
   }
 
   monit::check::instance { "${name}_instance":
-    ensure            => $ensure,
-    name              => $name,
-    type              => 'process',
-    header            => template($template),
-    group             => $group,
-    every             => $every,
-    alerts            => $alerts,
-    noalerts          => $noalerts,
-    tests             => $tests,
-    depends           => $depends,
-    priority          => $priority,
-    bundle            => $bundle,
-    order             => $order,
-    restart_limit     => $restart_limit,
+    ensure        => $ensure,
+    name          => $name,
+    type          => 'process',
+    header        => template($template),
+    group         => $group,
+    every         => $every,
+    alerts        => $alerts,
+    noalerts      => $noalerts,
+    tests         => $tests,
+    depends       => $depends,
+    priority      => $priority,
+    bundle        => $bundle,
+    order         => $order,
+    restart_limit => $restart_limit,
   }
 }

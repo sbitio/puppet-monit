@@ -4,7 +4,6 @@
 # This class handles the module data.
 #
 class monit::params {
-
   # $caller_module_name is empty when inherited?
   #iif $caller_module_name != $module_name {
   #  warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
@@ -16,7 +15,7 @@ class monit::params {
   $check_interval    = 120
   $check_start_delay = 240
 
-  case $::facts['os']['family'] {
+  case $facts['os']['family'] {
     'Debian': {
       $conf_file  = '/etc/monit/monitrc'
       $conf_dir   = '/etc/monit/conf.d'
@@ -26,9 +25,9 @@ class monit::params {
       $eventqueue = true
 
       $service_program = '/usr/sbin/service'
-      case $::facts['os']['name'] {
+      case $facts['os']['name'] {
         'Debian': {
-          if versioncmp($::facts['os']['release']['major'], '8') < 0 {
+          if versioncmp($facts['os']['release']['major'], '8') < 0 {
             $init_system = 'sysv'
           }
           else {
@@ -40,8 +39,8 @@ class monit::params {
           $init_system = 'upstart'
         }
         default: {
-          fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
-          module ${module_name} only support operatingsystem Debian and Ubuntu on osfamily Debian")
+          fail("Unsupported os family: ${facts['os']['family']} operatingsystem: ${facts['os']['name']}, \
+          module ${module_name} only support operatingsystem Debian and Ubuntu on os family Debian")
         }
       }
     }
@@ -65,7 +64,7 @@ class monit::params {
       $eventqueue = false
 
       $service_program = '/sbin/service'
-      if versioncmp($::facts['os']['release']['major'], '7') < 0 {
+      if versioncmp($facts['os']['release']['major'], '7') < 0 {
         $init_system = 'sysv'
       }
       else {
@@ -74,8 +73,8 @@ class monit::params {
       }
     }
     default: {
-      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
-      module ${module_name} only support osfamily Debian and RedHat")
+      fail("Unsupported os family: ${facts['os']['family']} operatingsystem: ${facts['os']['name']}, \
+      module ${module_name} only support os family Debian and RedHat")
     }
   }
 }

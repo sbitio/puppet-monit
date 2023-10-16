@@ -58,7 +58,7 @@
 # @param order
 #   Order of the check within the bundle filename.
 #
-define monit::check::service(
+define monit::check::service (
   # Check type specific.
   Undef $template                              = undef,
   Stdlib::Absolutepath $binary                 = "/usr/sbin/${name}",
@@ -66,7 +66,7 @@ define monit::check::service(
     'sysv',
     'systemd',
     'upstart'
-    ] $init_system                             = $monit::init_system,
+  ] $init_system                               = $monit::init_system,
   Stdlib::Absolutepath $sysv_file              = "/etc/init.d/${name}",
   Stdlib::Absolutepath $upstart_file           = "/etc/init/${name}.conf",
   Stdlib::Absolutepath $systemd_file           = "${monit::params::systemd_unitdir}/${name}.service",
@@ -85,7 +85,7 @@ define monit::check::service(
   # Common parameters.
   Monit::Check::Ensure $ensure                 = 'present',
   String $group                                = $name,
-  String $every                                = '',
+  Optional[String] $every                      = undef,
   Array[String] $alerts                        = [],
   Array[String] $noalerts                      = [],
   Monit::Check::Tests $tests                   = [],
@@ -95,7 +95,6 @@ define monit::check::service(
   Integer $order                               = 0,
   Optional[Monit::RestartLimit] $restart_limit = undef,
 ) {
-
   case $init_system {
     'sysv': {
       $service_file = $sysv_file

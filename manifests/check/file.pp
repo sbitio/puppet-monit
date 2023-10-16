@@ -31,7 +31,7 @@
 # @param restart_limit
 #   Used to define limits on restarts.
 #
-define monit::check::file(
+define monit::check::file (
   # Check type specific.
   Stdlib::Absolutepath $path,
   String $template                             = 'monit/check/file.erb',
@@ -39,7 +39,7 @@ define monit::check::file(
   # Common parameters.
   Monit::Check::Ensure $ensure                 = 'present',
   String $group                                = $name,
-  String $every                                = '',
+  Optional[String] $every                      = undef,
   Array[String] $alerts                        = [],
   Array[String] $noalerts                      = [],
   Monit::Check::Tests $tests                   = [],
@@ -49,21 +49,20 @@ define monit::check::file(
   Integer $order                               = 0,
   Optional[Monit::RestartLimit] $restart_limit = undef,
 ) {
-
   monit::check::instance { "${name}_instance":
-    ensure            => $ensure,
-    name              => $name,
-    type              => 'file',
-    header            => template($template),
-    group             => $group,
-    every             => $every,
-    alerts            => $alerts,
-    noalerts          => $noalerts,
-    tests             => $tests,
-    depends           => $depends,
-    priority          => $priority,
-    bundle            => $bundle,
-    order             => $order,
-    restart_limit     => $restart_limit,
+    ensure        => $ensure,
+    name          => $name,
+    type          => 'file',
+    header        => template($template),
+    group         => $group,
+    every         => $every,
+    alerts        => $alerts,
+    noalerts      => $noalerts,
+    tests         => $tests,
+    depends       => $depends,
+    priority      => $priority,
+    bundle        => $bundle,
+    order         => $order,
+    restart_limit => $restart_limit,
   }
 }

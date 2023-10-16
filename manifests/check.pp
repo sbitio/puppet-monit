@@ -24,7 +24,7 @@
 # @param type
 #   Type of check to perform. See `manifests/check/*.pp` for details.
 #
-define monit::check(
+define monit::check (
   Enum[
     'directory',
     'fifo',
@@ -36,12 +36,12 @@ define monit::check(
     'program',
     'service',
     'system'
-    ] $type,
+  ] $type,
   Monit::Check::Ensure $ensure = 'present',
   Hash[
     String,
     Variant[Array, Hash, Integer, String]
-    ] $config                  = {},
+  ] $config                    = {},
   String $group                = $name,
   Monit::Check::Tests $tests   = [],
   String $priority             = '20',
@@ -49,17 +49,15 @@ define monit::check(
   String $bundle               = $name,
   Integer $order               = 0,
 ) {
-
   $defaults = {
-    'name'       => $name,
-    'ensure'     => $ensure,
-    'group'      => $group,
-    'tests'      => $tests,
-    'priority'   => $priority,
-    'bundle'     => $bundle,
-    'order'      => $order,
+    'name'     => $name,
+    'ensure'   => $ensure,
+    'group'    => $group,
+    'tests'    => $tests,
+    'priority' => $priority,
+    'bundle'   => $bundle,
+    'order'    => $order,
   }
   $params = merge($config, $defaults)
   ensure_resource("monit::check::${type}", "${name}_${type}", $params)
 }
-
