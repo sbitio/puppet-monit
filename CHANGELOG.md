@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.1](https://github.com/sbitio/puppet-monit/tree/2.2.1) (2023-10-16)
+
+[Full Changelog](https://github.com/sbitio/puppet-monit/compare/2.2.0...2.2.1)
+
+**Closed issues:**
+
+- Puppet 7 support [\#67](https://github.com/sbitio/puppet-monit/issues/67)
+
 ## [2.2.0](https://github.com/sbitio/puppet-monit/tree/2.2.0) (2023-10-11)
 
 [Full Changelog](https://github.com/sbitio/puppet-monit/compare/2.1.0...2.2.0)
