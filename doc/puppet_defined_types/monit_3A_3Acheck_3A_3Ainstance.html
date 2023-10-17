@@ -153,7 +153,7 @@ Monit check files by fragments.</p>
         <span class='name'>every</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
       
       
       
@@ -358,7 +358,7 @@ define monit::check::instance (
   String $type,
   String $header,
   String $group,
-  String $every,
+  Optional[String] $every,
   Array[String] $alerts,
   Array[String] $noalerts,
   Monit::Check::Tests $tests,
