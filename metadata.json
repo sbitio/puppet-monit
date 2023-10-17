@@ -1,6 +1,6 @@
 {
   "name": "sbitio-monit",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "author": "sbit.io Tomorrow Consulting, S.L.",
   "summary": "Performs installation and configuration of Monit service, along with fine grained definition of checks",
   "license": "MIT",
