@@ -5,7 +5,7 @@
 <%- unless @depends.empty? -%>
   DEPENDS <%= @depends.join(', ') %>
 <%- end -%>
-<%- unless @every.empty? -%>
+<%- unless @every -%>
   EVERY <%= @every %>
 <%- end -%>
 <%- unless @alerts.empty? -%>

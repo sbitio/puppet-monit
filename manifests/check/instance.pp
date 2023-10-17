@@ -38,7 +38,7 @@ define monit::check::instance (
   String $type,
   String $header,
   String $group,
-  String $every,
+  Optional[String] $every,
   Array[String] $alerts,
   Array[String] $noalerts,
   Monit::Check::Tests $tests,
