@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.2.2](https://github.com/sbitio/puppet-monit/tree/2.2.2) (2023-10-17)
+
+[Full Changelog](https://github.com/sbitio/puppet-monit/compare/2.2.1...2.2.2)
+
+**Fixed bugs:**
+
+- Regression: parameter 'every' expects a String value [\#69](https://github.com/sbitio/puppet-monit/issues/69)
+- Regression: parameter 'tests' index 1 entry 'value' expects a value of type Array, Hash, Integer, or String, got Float [\#68](https://github.com/sbitio/puppet-monit/issues/68)
+
 ## [2.2.1](https://github.com/sbitio/puppet-monit/tree/2.2.1) (2023-10-16)
 
 [Full Changelog](https://github.com/sbitio/puppet-monit/compare/2.2.0...2.2.1)
