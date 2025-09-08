@@ -45,7 +45,7 @@ class monit::config {
         'operator' => '>',
         'value' => $value,
       }
-      merge($test, $tolerance)
+      stdlib::merge($test, $tolerance)
     }
   }.filter |$val| { $val =~ NotUndef }
 

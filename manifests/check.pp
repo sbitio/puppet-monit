@@ -58,6 +58,6 @@ define monit::check (
     'bundle'   => $bundle,
     'order'    => $order,
   }
-  $params = merge($config, $defaults)
+  $params = stdlib::merge($config, $defaults)
   ensure_resource("monit::check::${type}", "${name}_${type}", $params)
 }
