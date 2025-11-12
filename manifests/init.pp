@@ -168,7 +168,7 @@ class monit (
   String $system_fs_space_usage             = '80%',
   String $system_fs_inode_usage             = '80%',
   Optional[Integer] $system_cycles          = undef,
-  Array[String] $fs_banned_types            = ['devpts', 'devtmpfs', 'hugetlbfs', 'mqueue', 'nsfs', 'overlay', 'rpc_pipefs', 'tmpfs'],
+  Array[String] $fs_banned_types            = ['devpts', 'devtmpfs', 'hugetlbfs', 'mqueue', 'nsfs', 'overlay', 'ramfs', 'rpc_pipefs', 'tmpfs'],
   Optional[Array[String]] $system_ifaces    = undef,
   # Additional checks.
   Hash[String, Hash] $checks                = {},
