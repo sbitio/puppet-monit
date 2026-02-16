@@ -36,7 +36,13 @@ class monit::params {
           }
         }
         'Ubuntu': {
-          $init_system = 'upstart'
+          if versioncmp($facts['os']['release']['major'], '15') < 0 {
+            $init_system = 'upstart'
+          }
+          else {
+            $init_system     = 'systemd'
+            $systemd_unitdir = '/lib/systemd/system'
+          }
         }
         default: {
           fail("Unsupported os family: ${facts['os']['family']} operatingsystem: ${facts['os']['name']}, \
