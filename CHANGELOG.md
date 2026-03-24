@@ -1,5 +1,27 @@
 # Changelog
 
+## [2.2.4](https://github.com/sbitio/puppet-monit/tree/2.2.4) (2026-03-24)
+
+[Full Changelog](https://github.com/sbitio/puppet-monit/compare/2.2.3...2.2.4)
+
+**Closed issues:**
+
+- Set idfile and statefile [\#78](https://github.com/sbitio/puppet-monit/issues/78)
+- Update supported debian and ubuntu versions [\#77](https://github.com/sbitio/puppet-monit/issues/77)
+- Exclude ramfs from fs checks [\#76](https://github.com/sbitio/puppet-monit/issues/76)
+- /etc/monit/conf.d/20\_network:4: invalid every format 'I' [\#70](https://github.com/sbitio/puppet-monit/issues/70)
+
+**Merged pull requests:**
+
+- Allow stdlib v9, concat v9, Ubuntu up to 24.04 and Puppet 8 to be used [\#75](https://github.com/sbitio/puppet-monit/pull/75) ([mpdude](https://github.com/mpdude))
+- Update template to fix \#70 [\#74](https://github.com/sbitio/puppet-monit/pull/74) ([mpdude](https://github.com/mpdude))
+- Allow stdlib 9.x to be used [\#73](https://github.com/sbitio/puppet-monit/pull/73) ([mpdude](https://github.com/mpdude))
+- Fix YAML error reported by the server for common.yaml [\#72](https://github.com/sbitio/puppet-monit/pull/72) ([mpdude](https://github.com/mpdude))
+
+## [2.2.3](https://github.com/sbitio/puppet-monit/tree/2.2.3) (2023-10-17)
+
+[Full Changelog](https://github.com/sbitio/puppet-monit/compare/2.2.2...2.2.3)
+
 ## [2.2.2](https://github.com/sbitio/puppet-monit/tree/2.2.2) (2023-10-17)
 
 [Full Changelog](https://github.com/sbitio/puppet-monit/compare/2.2.1...2.2.2)
