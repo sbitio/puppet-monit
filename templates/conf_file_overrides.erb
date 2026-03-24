@@ -4,6 +4,8 @@ set daemon <%= scope['monit::check_interval'] %>
     with start delay <%= scope['monit::check_start_delay'] %>
 
 set logfile <%= scope['monit::logfile'] %>
+set idfile <%= scope['monit::idfile'] %>
+set statefile <%= scope['monit::statefile'] %>
 <% if scope['monit::mailserver'] %>
 set mailserver <%= scope['monit::mailserver'] %>
 <% end -%>
