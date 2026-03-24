@@ -763,7 +763,7 @@ define monit::check::service (
     &#39;timeout_start&#39; =&gt; $timeout_start,
     &#39;timeout_stop&#39;  =&gt; $timeout_stop,
   }
-  ensure_resource(&#39;monit::check::process&#39;, &quot;${name}_process&quot;, merge($defaults, $params_process))
+  ensure_resource(&#39;monit::check::process&#39;, &quot;${name}_process&quot;, stdlib::merge($defaults, $params_process))
 
   # Check service file.
   $params_service_file = {
@@ -771,7 +771,7 @@ define monit::check::service (
     &#39;bundle&#39; =&gt; $bundle,
     &#39;order&#39;  =&gt; Integer(inline_template(&#39;&lt;%= @order.to_i + 1 %&gt;&#39;)),
   }
-  ensure_resource(&#39;monit::check::file&#39;, &quot;${name}_service_file&quot;, merge($defaults, $params_service_file))
+  ensure_resource(&#39;monit::check::file&#39;, &quot;${name}_service_file&quot;, stdlib::merge($defaults, $params_service_file))
 
   # Check service binary.
   $params_binary = {
@@ -779,7 +779,7 @@ define monit::check::service (
     &#39;bundle&#39; =&gt; $bundle,
     &#39;order&#39;  =&gt; Integer(inline_template(&#39;&lt;%= @order.to_i + 2 %&gt;&#39;)),
   }
-  ensure_resource(&#39;monit::check::file&#39;, &quot;${name}_binary&quot;, merge($defaults, $params_binary))
+  ensure_resource(&#39;monit::check::file&#39;, &quot;${name}_binary&quot;, stdlib::merge($defaults, $params_binary))
 }</pre>
       </td>
     </tr>

@@ -232,7 +232,7 @@ class monit::config {
         &#39;operator&#39; =&gt; &#39;&gt;&#39;,
         &#39;value&#39; =&gt; $value,
       }
-      merge($test, $tolerance)
+      stdlib::merge($test, $tolerance)
     }
   }.filter |$val| { $val =~ NotUndef }
 

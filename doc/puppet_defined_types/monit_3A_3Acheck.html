@@ -349,7 +349,7 @@ define monit::check (
     &#39;bundle&#39;   =&gt; $bundle,
     &#39;order&#39;    =&gt; $order,
   }
-  $params = merge($config, $defaults)
+  $params = stdlib::merge($config, $defaults)
   ensure_resource(&quot;monit::check::${type}&quot;, &quot;${name}_${type}&quot;, $params)
 }</pre>
       </td>

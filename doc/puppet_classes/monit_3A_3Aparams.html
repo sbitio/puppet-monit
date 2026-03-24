@@ -174,7 +174,13 @@
 77
 78
 79
-80</pre>
+80
+81
+82
+83
+84
+85
+86</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/params.pp', line 6</span>
@@ -212,7 +218,13 @@ class monit::params {
           }
         }
         &#39;Ubuntu&#39;: {
-          $init_system = &#39;upstart&#39;
+          if versioncmp($facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;15&#39;) &lt; 0 {
+            $init_system = &#39;upstart&#39;
+          }
+          else {
+            $init_system     = &#39;systemd&#39;
+            $systemd_unitdir = &#39;/lib/systemd/system&#39;
+          }
         }
         default: {
           fail(&quot;Unsupported os family: ${facts[&#39;os&#39;][&#39;family&#39;]} operatingsystem: ${facts[&#39;os&#39;][&#39;name&#39;]}, \
