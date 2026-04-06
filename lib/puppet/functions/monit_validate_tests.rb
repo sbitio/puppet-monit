@@ -47,7 +47,7 @@ Puppet::Functions.create_function('monit_validate_tests') do
     'PROGRAM'     => ['STATUS'],
     'SYSTEM'      => RESOURCE_TESTS + ['UPTIME'],
   }.freeze
-  TEST_ACTIONS = ['ALERT', 'RESTART', 'START', 'STOP', 'EXEC', 'UNMONITOR'].freeze
+  TEST_ACTIONS = ['ALERT', 'EXEC', 'IGNORE', 'RESTART', 'START', 'STOP', 'UNMONITOR'].freeze
 
   def validate(check_type, tests)
     check_type = check_type.upcase
