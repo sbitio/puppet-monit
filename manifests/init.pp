@@ -72,6 +72,8 @@
 #   Path to the default init system program.
 # @param system_check_ensure
 #   Whether to create the system check.
+# @param system_check_action
+#   Action for system checks.
 # @param system_loadavg_1min
 #   1 minute load average threshold.
 # @param system_loadavg_5min
@@ -152,6 +154,7 @@ class monit (
   Stdlib::Absolutepath $service_program    = $monit::params::service_program,
   # System resources check.
   Monit::Check::Ensure $system_check_ensure = 'present',
+  String $system_check_action               = 'alert',
   Numeric $system_loadavg_1min              = (3 * $::facts['processors']['count']),
   Numeric $system_loadavg_5min              = (1.5 * $::facts['processors']['count']),
   Numeric $system_loadavg_15min             = (1.5 * $::facts['processors']['count']),

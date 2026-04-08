@@ -185,7 +185,8 @@
 97
 98
 99
-100</pre>
+100
+101</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 6</span>
@@ -212,7 +213,7 @@ class monit::config {
     content =&gt; template(&#39;monit/conf_file_overrides.erb&#39;),
   }
 
-  # System check
+  # System checks.
   $tolerance =  $monit::system_cycles ? {
     undef =&gt; undef,
     default =&gt; {
@@ -231,12 +232,12 @@ class monit::config {
         &#39;type&#39; =&gt; $test_type,
         &#39;operator&#39; =&gt; &#39;&gt;&#39;,
         &#39;value&#39; =&gt; $value,
+        &#39;action&#39; =&gt; $monit::system_check_action,
       }
       stdlib::merge($test, $tolerance)
     }
   }.filter |$val| { $val =~ NotUndef }
 
-  # Filesystem checks
   monit::check::system { $::facts[&#39;networking&#39;][&#39;fqdn&#39;]:
     ensure   =&gt; $monit::system_check_ensure,
     priority =&gt; &#39;10&#39;,
@@ -244,6 +245,7 @@ class monit::config {
     order    =&gt; 0,
     tests    =&gt; $system_tests,
   }
+  # Filesystem checks.
   monit::check::filesystem { &#39;fs&#39;:
     ensure   =&gt; $monit::system_check_ensure,
     priority =&gt; &#39;10&#39;,
@@ -252,9 +254,9 @@ class monit::config {
     order    =&gt; 1,
     paths    =&gt; $monit::system_fs,
     tests    =&gt; [
-      { &#39;type&#39; =&gt; &#39;fsflags&#39; },
-      { &#39;type&#39; =&gt; &#39;space&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_space_usage },
-      { &#39;type&#39; =&gt; &#39;inode&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_inode_usage },
+      { &#39;type&#39; =&gt; &#39;fsflags&#39;, &#39;action&#39; =&gt; $monit::system_check_action },
+      { &#39;type&#39; =&gt; &#39;space&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_space_usage, &#39;action&#39; =&gt; $monit::system_check_action},
+      { &#39;type&#39; =&gt; &#39;inode&#39;, &#39;operator&#39; =&gt; &#39;&gt;&#39;, &#39;value&#39; =&gt; $monit::system_fs_inode_usage, &#39;action&#39; =&gt; $monit::system_check_action},
     ],
   }
 

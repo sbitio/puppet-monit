@@ -25,7 +25,7 @@ class monit::config {
     content => template('monit/conf_file_overrides.erb'),
   }
 
-  # System check
+  # System checks.
   $tolerance =  $monit::system_cycles ? {
     undef => undef,
     default => {
@@ -44,12 +44,12 @@ class monit::config {
         'type' => $test_type,
         'operator' => '>',
         'value' => $value,
+        'action' => $monit::system_check_action,
       }
       stdlib::merge($test, $tolerance)
     }
   }.filter |$val| { $val =~ NotUndef }
 
-  # Filesystem checks
   monit::check::system { $::facts['networking']['fqdn']:
     ensure   => $monit::system_check_ensure,
     priority => '10',
@@ -57,6 +57,7 @@ class monit::config {
     order    => 0,
     tests    => $system_tests,
   }
+  # Filesystem checks.
   monit::check::filesystem { 'fs':
     ensure   => $monit::system_check_ensure,
     priority => '10',
@@ -65,9 +66,9 @@ class monit::config {
     order    => 1,
     paths    => $monit::system_fs,
     tests    => [
-      { 'type' => 'fsflags' },
-      { 'type' => 'space', 'operator' => '>', 'value' => $monit::system_fs_space_usage },
-      { 'type' => 'inode', 'operator' => '>', 'value' => $monit::system_fs_inode_usage },
+      { 'type' => 'fsflags', 'action' => $monit::system_check_action },
+      { 'type' => 'space', 'operator' => '>', 'value' => $monit::system_fs_space_usage, 'action' => $monit::system_check_action},
+      { 'type' => 'inode', 'operator' => '>', 'value' => $monit::system_fs_inode_usage, 'action' => $monit::system_check_action},
     ],
   }
 

@@ -644,6 +644,24 @@ since Monit 5.</p>
   
     <li>
       
+        <span class='name'>system_check_action</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;alert&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Action for system checks.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>system_loadavg_1min</span>
       
       
@@ -949,8 +967,6 @@ href="https://puppet.com/docs/puppet/latest/hiera_merging.html">lookup_options</
         <pre class="lines">
 
 
-108
-109
 110
 111
 112
@@ -1027,10 +1043,13 @@ href="https://puppet.com/docs/puppet/latest/hiera_merging.html">lookup_options</
 183
 184
 185
-186</pre>
+186
+187
+188
+189</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 108</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 110</span>
 
 class monit (
   Boolean $service_enable                   = true,
@@ -1079,6 +1098,7 @@ class monit (
   Stdlib::Absolutepath $service_program    = $monit::params::service_program,
   # System resources check.
   Monit::Check::Ensure $system_check_ensure = &#39;present&#39;,
+  String $system_check_action               = &#39;alert&#39;,
   Numeric $system_loadavg_1min              = (3 * $::facts[&#39;processors&#39;][&#39;count&#39;]),
   Numeric $system_loadavg_5min              = (1.5 * $::facts[&#39;processors&#39;][&#39;count&#39;]),
   Numeric $system_loadavg_15min             = (1.5 * $::facts[&#39;processors&#39;][&#39;count&#39;]),
